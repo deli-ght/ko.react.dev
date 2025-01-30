@@ -123,11 +123,11 @@ const people = [{
 }];
 ```
 
-직업이 `'chemist'`인 사람들만 표시하고 싶다고 가정해 봅시다. JavaScript의 `filter()` 메서드를 사용하여 해당하는 사람만 반환할 수 있습니다. 이 메서드는 항목 배열을 받아 “test”(`true` 혹은 `false`를 반환하는 함수)를 통과한 후 테스트에 통과된 항목(`true`가 반환된 항목)만 있는 새로운 배열을 반환합니다.
+직업이 `'chemist'`인 사람들만 표시하고 싶다고 가정해 봅시다. JavaScript의 `filter()` 메서드를 사용하여 해당하는 사람만 반환할 수 있습니다. 이 메서드는 항목 배열을 받아 "test"(`true` 혹은 `false`를 반환하는 함수)를 통과한 후 테스트에 통과된 항목(`true`가 반환된 항목)만 있는 새로운 배열을 반환합니다.
 
-`직업`이 `'chemist'`인 항목만 필요합니다. 이를 위한 “test” 함수는 `(person) => person.profession === 'chemist'`와 같습니다. 이를 적용하는 과정은 다음과 같습니다.
+`직업`이 `'chemist'`인 항목만 필요합니다. 이를 위한 "test" 함수는 `(person) => person.profession === 'chemist'`와 같습니다. 이를 적용하는 과정은 다음과 같습니다.
 
-1. `people`에서 `filter()`를 호출해 `person.profession === 'chemist'`로 필터링해서 “chemist”로만 구성된 새로운 배열 `chemists`를 **생성**합니다.
+1. `people`에서 `filter()`를 호출해 `person.profession === 'chemist'`로 필터링해서 "chemist"로만 구성된 새로운 배열 `chemists`를 **생성**합니다.
 
 ```js
 const chemists = people.filter(person =>
@@ -262,13 +262,13 @@ const listItems = chemists.map(person => { // 중괄호
 });
 ```
 
-`=> {` 를 표현하는 화살표 함수를 [“block body”](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#function_body)를 가지고 있다고 말합니다. 이 함수를 사용하면 한 줄 이상의 코드를 작성할 수 있지만 `return` 문을 *반드시* 작성해야 합니다. 그렇지 않으면 아무것도 반환되지 않습니다!
+`=> {` 를 표현하는 화살표 함수를 ["block body"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#function_body)를 가지고 있다고 말합니다. 이 함수를 사용하면 한 줄 이상의 코드를 작성할 수 있지만 `return` 문을 *반드시* 작성해야 합니다. 그렇지 않으면 아무것도 반환되지 않습니다!
 
 </Pitfall>
 
 ## `key`를 사용해서 리스트 항목을 순서대로 유지하기 {/*keeping-list-items-in-order-with-key*/}
 
-위의 모든 샌드박스에 콘솔에 에러가 표시되는 것을 확인할 수 있습니다.
+위의 모든 샌드박스의 콘솔에 에러가 표시되는 것을 확인할 수 있습니다.
 
 <ConsoleBlock level="error">
 
@@ -403,19 +403,19 @@ Fragment는 DOM에서 사라지므로 `<h1>`, `<p>`, `<h1>`, `<p>` 등의 평평
 
 데이터 소스마다 다른 key 소스를 제공합니다
 
-* **데이터베이스의 데이터:** : 데이터베이스에서 데이터를 가져오는 경우 본질적으로 고유한 데이터베이스 key/ID를 사용할 수 있습니다.
+* **데이터베이스의 데이터:** 데이터베이스에서 데이터를 가져오는 경우 본질적으로 고유한 데이터베이스 key/ID를 사용할 수 있습니다.
 * **로컬에서 생성된 데이터:** 데이터가 로컬에서 생성되고 유지되는 경우(예: 메모 작성 앱의 노트), 항목을 만들 때 증분 일련번호나 [`crypto.randomUUID()`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID) 또는 [`uuid`](https://www.npmjs.com/package/uuid) 같은 패키지를 사용하세요.
 
 ### key 규칙 {/*rules-of-keys*/}
 
-* **key는 형제 간에 고유해야 합니다.** 하지만 같은 key를 _다른_ 배열의 JSX 노드에 동일한 key를 사용해도 괜찮습니다.
+* **key는 형제 간에 고유해야 합니다.** 하지만 같은 key를 _다른_ 배열의 JSX 노드에 동일한 key로 사용해도 괜찮습니다.
 * **key는 변경되어서는 안 되며** 그렇게 되면 key는 목적에 어긋납니다! 렌더링 중에는 key를 생성하지 마세요.
 
 ### React에 key가 필요한 이유는 무엇인가요? {/*why-does-react-need-keys*/}
 
 데스크탑의 파일에 이름이 없다고 상상해 보세요. 대신 첫 번째 파일, 두 번째 파일 등 순서대로 파일을 참조할 것입니다. 익숙해질 수도 있지만, 파일을 삭제한다면 혼란스러워질 수도 있습니다. 두 번째 파일이 첫 번째 파일이 되고 세 번째 파일이 두 번째 파일이 되는 식으로 말이죠.
 
-폴더의 파일 이름과 배열의 JSX key는 비슷한 용도로 사용됩니다. 이를 통해 형제 항목 간에 항목을 고유하게 식별할 수 있습니다. 잘 선택된 key는 배열 내 위치보다 더 많은 정보를 제공합니다. 재정렬로 인해 _위치_가 변경되더라도 `key`는 React가 생명주기 내내 해당 항목을 식별할 수 있게 해줍니다.
+폴더의 파일 이름과 배열의 JSX key는 비슷한 용도로 사용됩니다. 이를 통해 형제 항목 간에 항목을 고유하게 식별할 수 있습니다. 잘 선택된 key는 배열 내 위치보다 더 많은 정보를 제공합니다. 재정렬로 인해 *위치*가 변경되더라도 `key`는 React가 생명주기 내내 해당 항목을 식별할 수 있게 해줍니다.
 
 <Pitfall>
 
@@ -764,7 +764,7 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 </Sandpack>
 
-세심한 독자라면 두 번의 `filter` 호출을 통해 각 사람의 직업을 두 번 확인하고 있다는 것을 알아차릴 수 있습니다. 속성을 확인하는 속도가 매우 빠르기 때문에 이 예제에서는 문제가 없습니다. 하지만 로직이 더 복잡하다면 `filter` 호출을 수동으로 배열을 구성하고 각 사람을 한 번씩 확인하는 반복문으로 대체할 수 있습니다.
+세심한 독자라면 두 번의 `filter` 호출을 통해 각 사람의 직업을 두 번 확인하고 있다는 것을 알아차릴 수 있습니다. 속성을 확인하는 속도가 매우 빠르기 때문에 이 예시에서는 문제가 없습니다. 하지만 로직이 더 복잡하다면 `filter` 호출을 수동으로 배열을 구성하고 각 사람을 한 번씩 확인하는 반복문으로 대체할 수 있습니다.
 
 실제로 `people`이 바뀌지 않는다면 이 코드를 컴포넌트 외부로 옮길 수도 있습니다. React의 관점에서 중요한 것은 결국 JSX 노드 배열을 제공한다는 것입니다. 그 배열을 생성하는 방법은 중요하지 않습니다.
 
@@ -1080,7 +1080,7 @@ export const recipes = [{
 
 </Sandpack>
 
-여기서 `<Recipe {...recipe} key={recipe.id} />`는 “`recipe` 객체의 모든 속성을 props로 `Recipe` 컴포넌트로 전달”하는 손쉬운 구문입니다. `<Recipe id={recipe.id} name={recipe.name} ingredients={recipe.ingredients} key={recipe.id} />` 처럼 각 prop을 명시적으로 작성할 수도 있습니다.
+여기서 `<Recipe {...recipe} key={recipe.id} />`는 "`recipe` 객체의 모든 속성을 props로 `Recipe` 컴포넌트로 전달"하는 손쉬운 구문입니다. `<Recipe id={recipe.id} name={recipe.name} ingredients={recipe.ingredients} key={recipe.id} />` 처럼 각 prop을 명시적으로 작성할 수도 있습니다.
 
 **`key`는 `Recipe`에서 반환된 루트 `<div>`가 아니라 `<Recipe>` 자체에 지정된다는 점에 유의하세요.** 이는 이 `key`가 주변 배열의 context 내에서 직접 필요하기 때문입니다. 이전에는 `<div>` 배열이 있었기 때문에 각 배열에 `key`가 필요했지만, 지금은 `<Recipe>` 배열이 있습니다. 즉, 컴포넌트를 추출할 때 복사하여 붙여넣은 JSX 외부에 `key`를 남겨두는 것을 잊지 마세요.
 
@@ -1088,7 +1088,7 @@ export const recipes = [{
 
 #### 구분 기호가 있는 리스트 {/*list-with-a-separator*/}
 
-이 예제는 Tachibana Hokushi 의 유명한 하이쿠(일본의 정형시)를 렌더링하며, 각 행은 `<p>` 태그로 래핑되어 있습니다. 여러분이 해야 할 일은 각 단락 사이에 `<hr />` 구분 기호를 삽입하는 것입니다. 결과 구조는 다음과 같아야 합니다.
+이 예시는 Tachibana Hokushi 의 유명한 하이쿠(일본의 정형시)를 렌더링하며, 각 행은 `<p>` 태그로 래핑되어 있습니다. 여러분이 해야 할 일은 각 단락 사이에 `<hr />` 구분 기호를 삽입하는 것입니다. 결과 구조는 다음과 같아야 합니다.
 
 ```js
 <article>

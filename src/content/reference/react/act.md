@@ -70,13 +70,13 @@ function Counter() {
   }
 
   useEffect(() => {
-    document.title = `You clicked ${this.state.count} times`;
+    document.title = `You clicked ${count} times`;
   }, [count]);
 
   return (
     <div>
-      <p>You clicked {this.state.count} times</p>
-      <button onClick={this.handleClick}>
+      <p>You clicked {count} times</p>
+      <button onClick={handleClick}>
         Click me
       </button>
     </div>
@@ -90,18 +90,18 @@ To test the render output of a component, wrap the render inside `act()`:
 
 ```js  {10,12}
 import {act} from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOMClient from 'react-dom/client';
 import Counter from './Counter';
 
 it('can render and update a counter', async () => {
   container = document.createElement('div');
   document.body.appendChild(container);
-  
+
   // ✅ Render the component inside act().
   await act(() => {
-    ReactDOM.createRoot(container).render(<Counter />);
+    ReactDOMClient.createRoot(container).render(<Counter />);
   });
-  
+
   const button = container.querySelector('button');
   const label = container.querySelector('p');
   expect(label.textContent).toBe('You clicked 0 times');
@@ -109,7 +109,7 @@ it('can render and update a counter', async () => {
 });
 ```
 
-Here, wwe create a container, append it to the document, and render the `Counter` component inside `act()`. This ensures that the component is rendered and its effects are applied before making assertions.
+Here, we create a container, append it to the document, and render the `Counter` component inside `act()`. This ensures that the component is rendered and its effects are applied before making assertions.
 
 Using `act` ensures that all updates have been applied before we make assertions.
 
@@ -119,17 +119,17 @@ To test events, wrap the event dispatch inside `act()`:
 
 ```js {14,16}
 import {act} from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOMClient from 'react-dom/client';
 import Counter from './Counter';
 
 it.only('can render and update a counter', async () => {
   const container = document.createElement('div');
   document.body.appendChild(container);
-  
+
   await act( async () => {
     ReactDOMClient.createRoot(container).render(<Counter />);
   });
-  
+
   // ✅ Dispatch the event inside act().
   await act(async () => {
     button.dispatchEvent(new MouseEvent('click', { bubbles: true }));

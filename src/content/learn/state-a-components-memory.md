@@ -40,14 +40,14 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
       <p>
@@ -64,7 +64,7 @@ export const sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -159,9 +159,9 @@ button {
 컴포넌트를 새로운 데이터로 업데이트하기 위해선 다음 두 가지가 필요합니다.
 
 1. 렌더링 사이에 데이터를 **유지**합니다.
-2. React가 새로운 데이터로 컴포넌트를 렌더링하도록 **유발**합니다. 
+2. React가 새로운 데이터로 컴포넌트를 렌더링하도록 **유발**합니다.
 
-[`useState`](/reference/react/useState) 훅은 이 두 가지를 제공합니다. 
+[`useState`](/reference/react/useState) 훅은 이 두 가지를 제공합니다.
 
 1. 렌더링 간에 데이터를 유지하기 위한 **state 변수**.
 2. 변수를 업데이트하고 React가 컴포넌트를 다시 렌더링하도록 유발하는 **state setter 함수**
@@ -174,7 +174,7 @@ state 변수를 추가하려면 파일 상단의 React에서 `useState`를 가�
 import { useState } from 'react';
 ```
 
-그런 다음 이 줄을 
+그런 다음 이 줄을
 
 ```js
 let index = 0;
@@ -198,7 +198,7 @@ function handleClick() {
 }
 ```
 
-이제 "Next" 버튼을 클릭하면 현재 조각상을 전환합니다. 
+이제 "Next" 버튼을 클릭하면 현재 조각상을 전환합니다.
 
 <Sandpack>
 
@@ -220,14 +220,14 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
       <p>
@@ -244,7 +244,7 @@ export const sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -361,7 +361,7 @@ const [index, setIndex] = useState(0);
 
 </Note>
 
-`useState`의 유일한 인수는 state 변수의 **초깃값**입니다. 이 예제에서 `index`의 초깃값은 `useState(0)`에 의해 `0`으로 설정됩니다.
+`useState`의 유일한 인수는 state 변수의 **초깃값**입니다. 이 예시에서 `index`의 초깃값은 `useState(0)`에 의해 `0`으로 설정됩니다.
 
 컴포넌트가 렌더링될 때마다, `useState`는 다음 두 개의 값을 포함하는 배열을 제공합니다.
 
@@ -408,18 +408,18 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
         {showMore ? 'Hide' : 'Show'} details
       </button>
       {showMore && <p>{sculpture.description}</p>}
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
     </>
@@ -433,7 +433,7 @@ export const sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -520,7 +520,7 @@ button {
 
 </Sandpack>
 
-이 예제에서 `index`와 `showMore`처럼 서로 연관이 없는 경우 여러 개의 state 변수를 가지는 것이 좋습니다. 하지만 두 state 변수를 자주 함께 변경하는 경우에는 두 변수를 하나로 합치는 것이 더 좋을 수 있습니다. 예를 들어, 필드가 많은 폼의 경우 필드별로 state 변수를 사용하는 것보다 하나의 객체 state 변수를 사용하는 것이 더 편리합니다. 더 많은 팁은 [state 구조 선택](/learn/choosing-the-state-structure)에서 확인할 수 있습니다.
+이 예시에서 `index`와 `showMore`처럼 서로 연관이 없는 경우 여러 개의 state 변수를 가지는 것이 좋습니다. 하지만 두 state 변수를 자주 함께 변경하는 경우에는 두 변수를 하나로 합치는 것이 더 좋을 수 있습니다. 예를 들어, 필드가 많은 폼의 경우 필드별로 state 변수를 사용하는 것보다 하나의 객체 state 변수를 사용하는 것이 더 편리합니다. 더 많은 팁은 [state 구조 선택](/learn/choosing-the-state-structure)에서 확인할 수 있습니다.
 
 <DeepDive>
 
@@ -530,9 +530,9 @@ button {
 
 대신 간결한 구문을 구현하기 위해 훅은 **동일한 컴포넌트의 모든 렌더링에서 안정적인 호출 순서에 의존합니다.** 위의 규칙("최상위 수준에서만 훅 호출")을 따르면, 훅은 항상 같은 순서로 호출되기 때문에 실제로 잘 작동합니다. 또한, [린터 플러그인](https://www.npmjs.com/package/eslint-plugin-react-hooks)은 대부분의 실수를 잡아줍니다.
 
-내부적으로 React는 모든 컴포넌트에 대해 한 쌍의 state 배열을 가집니다. 또한 렌더링 전에 `0`으로 설정된 현재 인덱스 쌍을 유지합니다. `useState`를 호출할 때마다, React는 다음 state 쌍을 제공하고 인덱스를 증가시킵니다. 이 메커니즘에 대한 자세한 내용은 [리액트 훅: 마법이 아닌 배열](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)에서 확인할 수 있습니다.
+내부적으로 React는 모든 컴포넌트에 대해 한 쌍의 state 배열을 가집니다. 또한 렌더링 전에 `0`으로 설정된 현재 인덱스 쌍을 유지합니다. `useState`를 호출할 때마다, React는 다음 state 쌍을 제공하고 인덱스를 증가시킵니다. 이 메커니즘에 대한 자세한 내용은 [React 훅: 마법이 아닌 배열](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)에서 확인할 수 있습니다.
 
-이 예제에서는 **React를 사용하지 않지만,** 내부적으로 `useState`가 어떻게 작동하는지에 대한 아이디어를 제공합니다.
+이 예시에서는 **React를 사용하지 않지만,** 내부적으로 `useState`가 어떻게 작동하는지에 대한 아이디어를 제공합니다.
 
 <Sandpack>
 
@@ -629,7 +629,7 @@ let sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -732,7 +732,7 @@ button { display: block; margin-bottom: 10px; }
 
 State는 화면에서 컴포넌트 인스턴스에 지역적입니다. 다시 말해, **동일한 컴포넌트를 두 번 렌더링한다면 각 복사본은 완전히 격리된 state를 가집니다!** 그중 하나를 변경해도 다른 하나에는 영향을 미치지 않습니다.
 
-이 예제에서 이전에 나왔던 `Gallery` 컴포넌트가 로직 변경 없이 두 번 렌더링되었습니다. 각각의 갤러리 내부 버튼을 클릭해 보세요. 그들의 state가 서로 독립적임을 주목하세요.
+이 예시에서 이전에 나왔던 `Gallery` 컴포넌트가 로직 변경 없이 두 번 렌더링되었습니다. 각각의 갤러리 내부 버튼을 클릭해 보세요. 그들의 state가 서로 독립적임을 주목하세요.
 <Sandpack>
 
 ```js
@@ -772,18 +772,18 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
         {showMore ? 'Hide' : 'Show'} details
       </button>
       {showMore && <p>{sculpture.description}</p>}
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
     </section>
@@ -797,7 +797,7 @@ export const sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -894,7 +894,7 @@ button {
 
 또한 `Page` 컴포넌트가 `Gallery`의 state에 대해 아무것도 "알지" 않는다는 점과 심지어 그것이 있는지도 모른다는 것에 주목하세요. Props와 달리, **state는 선언한 컴포넌트에 완전히 비공개입니다.** 부모 컴포넌트는 이를 변경할 수 없습니다. 이로써 다른 컴포넌트에 영향을 미치지 않고 어떤 컴포넌트에든 state를 추가하거나 제거할 수 있게 됩니다.
 
-만약 두 개의 갤러리가 state를 동기화하길 원한다면, React에서 올바른 방법은 자식 컴포넌트에서 state를 *제거*하고 가장 가까운 공유 부모 컴포넌트에 추가하는 것입니다. 다음 몇 페이지는 단일 컴포넌트의 state 구성에 중점을 두겠지만, 이 주제는 [컴포넌트 간 state 공유](/learn/sharing-state-between-components)에서 다시 다룰 것입니다.
+만약 두 개의 갤러리가 state를 동기화하길 원한다면, React에서 올바른 방법은 자식 컴포넌트에서 state를 *제거*하고 가장 가까운 공통 부모 컴포넌트에 추가하는 것입니다. 다음 몇 페이지는 단일 컴포넌트의 state 구성에 중점을 두겠지만, 이 주제는 [컴포넌트 간 state 공유](/learn/sharing-state-between-components)에서 다시 다룰 것입니다.
 
 <Recap>
 
@@ -943,18 +943,18 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
         {showMore ? 'Hide' : 'Show'} details
       </button>
       {showMore && <p>{sculpture.description}</p>}
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
     </>
@@ -968,7 +968,7 @@ export const sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -1105,18 +1105,18 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
         {showMore ? 'Hide' : 'Show'} details
       </button>
       {showMore && <p>{sculpture.description}</p>}
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
     </>
@@ -1130,7 +1130,7 @@ export const sculptureList = [{
   artist: 'Marta Colvin Andrade',
   description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
   url: 'https://i.imgur.com/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'  
+  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
@@ -1265,7 +1265,7 @@ export default function Form() {
 }
 ```
 
-```css 
+```css
 h1 { margin-top: 10px; }
 ```
 
@@ -1315,7 +1315,7 @@ export default function Form() {
 }
 ```
 
-```css 
+```css
 h1 { margin-top: 10px; }
 ```
 
@@ -1407,7 +1407,7 @@ export default function FeedbackForm() {
 
 훅은 무조건 항상 동일한 순서로 호출되어야 한다는 것을 기억하세요!
 
-또한 중첩을 줄이기 위해 불필요한 `else` 분기를 제거할 수도 있습니다. 그러나 여전히 모든 훅 호출이 첫 번째 `return ` *이전*에 발생하는 것이 중요합니다.
+또한 중첩을 줄이기 위해 불필요한 `else` 분기를 제거할 수도 있습니다. 그러나 여전히 모든 훅 호출이 첫 번째 `return` *이전*에 발생하는 것이 중요합니다.
 
 <Sandpack>
 
@@ -1450,7 +1450,7 @@ export default function FeedbackForm() {
 
 #### 불필요한 state 제거하기 {/*remove-unnecessary-state*/}
 
-이 예제에서 버튼이 클릭 되면 사용자의 이름을 요청하고 그런 다음 환영 메시지를 표시해야 합니다. 이름을 유지하기 위해 state를 사용하려고 했지만, 어떤 이유로 항상 "Hello, !"라고 표시됩니다.
+이 예시에서 버튼이 클릭 되면 사용자의 이름을 요청하고 그런 다음 환영 메시지를 표시해야 합니다. 이름을 유지하기 위해 state를 사용하려고 했지만, 어떤 이유로 항상 "Hello, !"라고 표시됩니다.
 
 이 코드를 수정하려면 불필요한 state 변수를 제거하세요. ([왜 이것이 작동하지 않는지](/learn/state-as-a-snapshot)에 대해서는 나중에 설명하겠습니다.)
 

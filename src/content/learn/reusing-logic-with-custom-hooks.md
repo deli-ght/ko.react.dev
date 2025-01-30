@@ -19,7 +19,7 @@ React는 `useState`, `useContext`, 그리고 `useEffect`같이 몇몇 내재하�
 
 ## 커스텀 Hook: 컴포넌트간 로직 공유하기 {/*custom-hooks-sharing-logic-between-components*/}
 
-네트워크에 크게 의존하는 앱 (대부분의 앱이 그렇듯)을 개발 중이라고 생각해 보세요. 유저가 앱을 사용하는 동안 네트워크가 갑자기 사라진다면, 유저에게 경고하고 싶을 겁니다. 이런 경우 어떻게 하실 건가요? 컴포넌트에는 다음 두 가지가 필요할 것입니다.
+네트워크에 크게 의존하는 앱 (대부분의 앱이 그렇듯)을 개발 중이라고 생각해 보세요. 사용자가 앱을 사용하는 동안 네트워크가 갑자기 사라진다면, 사용자에게 경고하고 싶을 겁니다. 이런 경우 어떻게 하실 건가요? 컴포넌트에는 다음 두 가지가 필요할 것입니다.
 
 1. 네트워크가 온라인 상태인지 아닌지 추적하는 하나의 state
 2. 전역 [`online (온라인)`](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event), [`offline (오프라인)`](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event) 이벤트를 구독하고, 이에 맞춰 state를 업데이트하는 Effect
@@ -238,7 +238,7 @@ linter가 [React에 맞춰있다면](/learn/editor-setup#linting), 작명 규칙
 
 아닙니다. Hook을 *호출*하지 않는 함수는 *Hook일* 필요가 없습니다.
 
-함수가 어떤 Hook도 호출하지 않는다면, `use`를 이름 앞에 작성하는 것을 피하세요. 대신, `use` 없이 일반적인 함수로 작성하세요. 예를 들어 `useSorted`가 Hook을 호출하지 않는다면 `getSorted`로 변경할 수 있습니다. 
+함수가 어떤 Hook도 호출하지 않는다면, `use`를 이름 앞에 작성하는 것을 피하세요. 대신, `use` 없이 일반적인 함수로 작성하세요. 예를 들어 `useSorted`가 Hook을 호출하지 않는다면 `getSorted`로 변경할 수 있습니다.
 
 ```js
 // 🔴 안 좋은 예시 : Hook을 사용하고 있지 않는 Hook.
@@ -258,7 +258,7 @@ function getSorted(items) {
 function List({ items, shouldSort }) {
   let displayedItems = items;
   if (shouldSort) {
-    // ✅ getSorted()가 Hook이 아니기 때문에 조건에 따라 호출할 수 있습니다. 
+    // ✅ getSorted()가 Hook이 아니기 때문에 조건에 따라 호출할 수 있습니다.
     displayedItems = getSorted(items);
   }
   // ...
@@ -372,7 +372,7 @@ input { margin-left: 10px; }
 
 1. state가 존재합니다. (`firstName`와 `lastName`)
 2. 변화를 다루는 함수가 존재합니다. (`handleFirstNameChange`와 `handleLastNameChange`).
-3. 해당 입력에 대한 `value`와 `onChange`의 속성을 지정하는 JSX가 존재합니다. 
+3. 해당 입력에 대한 `value`와 `onChange`의 속성을 지정하는 JSX가 존재합니다.
 
 `useFormInput` 커스텀 Hook을 통해 반복되는 로직을 추출할 수 있습니다.
 
@@ -598,7 +598,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-`serverUrl`나 `roomId`를 변경할 때, Effect는 [변화에 "반응"](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values)하며 재동기화합니다. Effect의 의존성이 변경될 때마다 채팅방을 재연결하는 콘솔 메시지를 보낼 수 있습니다. 
+`serverUrl`나 `roomId`를 변경할 때, Effect는 [변화에 "반응"](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values)하며 재동기화합니다. Effect의 의존성이 변경될 때마다 채팅방을 재연결하는 콘솔 메시지를 보낼 수 있습니다.
 
 이제 Effect 코드를 커스텀 Hook 안에 넣어봅시다.
 
@@ -1267,7 +1267,7 @@ function ChatRoom({ roomId }) {
 
 ### 커스텀 Hook은 더 나은 패턴으로 변경할 수 있도록 도와줍니다. {/*custom-hooks-help-you-migrate-to-better-patterns*/}
 
-Effect는 [도피구](/learn/escape-hatches) 입니다. "React에서 벗어나"는 것이 필요할 때나 사용 시에 괜찮은 내장된 해결 방법이 없는 경우, 사용합니다. React 팀의 목표는 더 구체적인 문제에 더 구체적인 해결 방법을 제공해 앱에 있는 Effect의 숫자를 점차 최소한으로 줄이는 것입니다. 커스텀 Hook으로 Effect를 감싸는 것은 이런 해결 방법들이 가능해질 때 코드를 쉽게 업그레이드할 수 있게 해줍니다.
+Effect는 [탈출구](/learn/escape-hatches) 입니다. "React에서 벗어나"는 것이 필요할 때나 사용 시에 괜찮은 내장된 해결 방법이 없는 경우, 사용합니다. React 팀의 목표는 더 구체적인 문제에 더 구체적인 해결 방법을 제공해 앱에 있는 Effect의 숫자를 점차 최소한으로 줄이는 것입니다. 커스텀 Hook으로 Effect를 감싸는 것은 이런 해결 방법들이 가능해질 때 코드를 쉽게 업그레이드할 수 있게 해줍니다.
 
 예시로 돌아가 봅시다.
 
@@ -1898,7 +1898,7 @@ export default function Counter() {
 }
 ```
 
-`useCounter.js` 에 커스텀 Hook을 작성하고 `Counter.js` 파일에 가져와야 합니다.
+`useCounter.js` 에 커스텀 Hook을 작성하고 `App.js` 파일에 가져와야 합니다.
 
 <Sandpack>
 

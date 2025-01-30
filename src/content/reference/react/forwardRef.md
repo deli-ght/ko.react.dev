@@ -2,9 +2,17 @@
 title: forwardRef
 ---
 
+<Deprecated>
+
+In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
+
+`forwardRef` will deprecated in a future release. Learn more [here](/blog/2024/04/25/react-19#ref-as-a-prop).
+
+</Deprecated>
+
 <Intro>
 
-`forwardRef` 를 사용하면 컴포넌트가 [ref.](/learn/manipulating-the-dom-with-refs)를 사용하여 부모 컴포넌트의 DOM 노드를 노출할 수 있습니다.
+`forwardRef`를 사용하면 컴포넌트가 [ref](/learn/manipulating-the-dom-with-refs)를 사용하여 부모 컴포넌트의 DOM 노드를 노출할 수 있습니다.
 
 ```js
 const SomeComponent = forwardRef(render)
@@ -40,7 +48,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 
 `forwardRef`는 JSX에서 렌더링할 수 있는 React 컴포넌트를 반환합니다. 일반 함수로 정의된 React 컴포넌트와 다르게, `forwardRef`가 반환하는 컴포넌트는 `ref` prop도 받을 수 있습니다.
 
-#### 주의 {/*caveats*/}
+#### 주의 사항 {/*caveats*/}
 
 * Strict Mode에서 React는 [실수로 발생한 결함을 찾기 위해](/reference/react/useState#my-initializer-or-updater-function-runs-twice) **렌더링 함수를 두 번 호출**합니다. 이는 개발 환경 전용 동작이며 프로덕션 환경에는 영향을 미치지 않습니다. 렌더링 함수가 순수함수인 경우(그래야만 합니다.) 컴포넌트 로직에 영향을 미치지 않습니다. 호출 결과 중 하나의 결과는 무시됩니다.
 
@@ -49,7 +57,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 
 ### `render` 함수 {/*render-function*/}
 
-`forwardRef`는 render 함수를 인수로 받습니다. React는 `props`와 `ref`와 함께 이 함수를 호출합니다.
+`forwardRef`는 `render` 함수를 인수로 받습니다. React는 `props`와 `ref`와 함께 이 함수를 호출합니다.
 
 ```js
 const MyInput = forwardRef(function MyInput(props, ref) {
@@ -328,7 +336,7 @@ const FormField = forwardRef(function FormField({ label, isRequired }, ref) {
         ref={ref}
         label={label}
         value={value}
-        onChange={e => setValue(e.target.value)} 
+        onChange={e => setValue(e.target.value)}
       />
       {(isRequired && value === '') &&
         <i>Required</i>
@@ -520,7 +528,7 @@ const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {
 });
 ```
 
-`showInput`이 `false`이면 ref가 어떤 노드로도 전달되지 않으며 `MyInput`의 ref는 비어 있게 됩니다. 이 예제의 `Panel`과 같이 조건이 다른 컴포넌트 안에 숨겨져 있는 경우 특히 이 점을 놓치기 쉽습니다.
+`showInput`이 `false`이면 ref가 어떤 노드로도 전달되지 않으며 `MyInput`의 ref는 비어 있게 됩니다. 이 예시의 `Panel`과 같이 조건이 다른 컴포넌트 안에 숨겨져 있는 경우 특히 이 점을 놓치기 쉽습니다.
 
 ```js {5,7}
 const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {

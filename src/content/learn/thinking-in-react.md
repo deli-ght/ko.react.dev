@@ -37,7 +37,7 @@ React로 UI를 구현하기 위해서 일반적으로 다섯 가지 단계를 �
 어떤 배경을 가지고 있냐에 따라, 디자인을 컴포넌트로 나누는 방법에 대한 관점이 달라질 수 있습니다.
 
 * **Programming**--새로운 함수나 객체를 만드는 방식과 같은 방법으로 해봅시다. 이 중 [단일책임 원칙](https://ko.wikipedia.org/wiki/%EB%8B%A8%EC%9D%BC_%EC%B1%85%EC%9E%84_%EC%9B%90%EC%B9%99)을 반영하고자 한다면 컴포넌트는 이상적으로는 한 번에 한 가지 일만 해야 합니다. 만약 컴포넌트가 점점 커진다면 작은 하위 컴포넌트로 쪼개져야 하겠죠.
-* **CSS**--class 선택자를 무엇으로 만들지 생각해 봅시다. (실제 컴포넌트들은 약간 좀 더 세분되어 있습니다.)
+* **CSS**--클래스 선택자를 무엇으로 만들지 생각해 봅시다. (실제 컴포넌트들은 약간 좀 더 세분되어 있습니다.)
 * **Design**--디자인 계층을 어떤 식으로 구성할 지 생각해 봅시다.
 
 JSON이 잘 구조화 되어있다면, 종종 이것이 UI의 컴포넌트 구조가 자연스럽게 데이터 모델에 대응된다는 것을 발견할 수 있습니다. 이는 UI와 데이터 모델은 보통 같은 정보 아키텍처, 즉 같은 구조를 가지기 때문입니다. UI를 컴포넌트로 분리하고, 각 컴포넌트가 데이터 모델에 매칭될 수 있도록 하세요.
@@ -60,7 +60,7 @@ JSON이 잘 구조화 되어있다면, 종종 이것이 UI의 컴포넌트 구�
 
 </FullWidth>
 
-`ProductTable`을 보면 “Name”과 “Price” 레이블을 포함한 테이블 헤더 기능만을 가진 컴포넌트는 없습니다. 독립된 컴포넌트를 따로 생성할 지 생성하지 않을지는 당신의 선택입니다. 이 예시에서는 `ProductTable`의 위의 단순한 헤더들이 `ProductTable`의 일부이기 때문에 위 레이블들을 컴포넌트로 만들지 않고 그냥 남겨두었습니다. 그러나 이 헤더가 복잡해지면 (즉 정렬을 위한 기능을 추가하는 등) `ProductTableHeader` 컴포넌트를 만드는 것이 더 합리적일 것입니다.
+`ProductTable`을 보면 "Name"과 "Price" 레이블을 포함한 테이블 헤더 기능만을 가진 컴포넌트는 없습니다. 독립된 컴포넌트를 따로 생성할 지 생성하지 않을지는 당신의 선택입니다. 이 예시에서는 `ProductTable`의 위의 단순한 헤더들이 `ProductTable`의 일부이기 때문에 위 레이블들을 컴포넌트로 만들지 않고 그냥 남겨두었습니다. 그러나 이 헤더가 복잡해지면 (즉 정렬을 위한 기능을 추가하는 등) `ProductTableHeader` 컴포넌트를 만드는 것이 더 합리적일 것입니다.
 
 이제 모의 시안 내의 컴포넌트들을 확인했으니, 이들을 계층 구조로 정리해 봅시다. 모의 시안에서 한 컴포넌트 내에 있는 다른 컴포넌트는 계층 구조에서 자식으로 표현됩니다.
 
@@ -260,7 +260,7 @@ props와 state는 다르지만, 함께 동작합니다. state는 보통 부모 �
    2. 혹은, 공통 부모 상위의 컴포넌트에 둬도 됩니다.
    3. state를 소유할 적절한 컴포넌트를 찾지 못하였다면, state를 소유하는 컴포넌트를 하나 만들어서 상위 계층에 추가하세요.
 
-이전 단계에서, 이 애플리케이션의 두 가지 state인 사용자의 검색어 입력과 체크박스의 값을 발견하였습니다. 이 예제에서 그들은 항상 함께 나타나기 때문에 같은 위치에 두는 것이 합리적입니다.
+이전 단계에서, 이 애플리케이션의 두 가지 state인 사용자의 검색어 입력과 체크박스의 값을 발견하였습니다. 이 예시에서 그들은 항상 함께 나타나기 때문에 같은 위치에 두는 것이 합리적입니다.
 
 이제 이 전략을 애플리케이션에 적용해 봅시다.
 
@@ -272,7 +272,7 @@ props와 state는 다르지만, 함께 동작합니다. state는 보통 부모 �
 
 이제 state 값은 `FilterableProductTable`안에 있습니다.
 
-[`useState()` Hook](/apis/usestate)을 이용해서 state를 컴포넌트에 추가하세요. Hooks는 React 기능에 "연결할 수(hook into)" 있게 해주는 특별한 함수입니다. `FilterableProductTable`의 상단에 두 개의 state 변수를 추가해서 초깃값을 명확하게 보여주세요.
+[`useState()` Hook](/reference/react/useState)을 이용해서 state를 컴포넌트에 추가하세요. Hooks는 React 기능에 "연결할 수(hook into)" 있게 해주는 특별한 함수입니다. `FilterableProductTable`의 상단에 두 개의 state 변수를 추가해서 초깃값을 명확하게 보여주세요.
 
 ```js
 function FilterableProductTable({ products }) {
@@ -284,10 +284,10 @@ function FilterableProductTable({ products }) {
 
 ```js
 <div>
-  <SearchBar 
-    filterText={filterText} 
+  <SearchBar
+    filterText={filterText}
     inStockOnly={inStockOnly} />
-  <ProductTable 
+  <ProductTable
     products={products}
     filterText={filterText}
     inStockOnly={inStockOnly} />
@@ -306,10 +306,10 @@ function FilterableProductTable({ products }) {
   const [inStockOnly, setInStockOnly] = useState(false);
   return (
     <div>
-      <SearchBar 
-        filterText={filterText} 
+      <SearchBar
+        filterText={filterText}
         inStockOnly={inStockOnly} />
-      <ProductTable 
+      <ProductTable
         products={products}
         filterText={filterText}
         inStockOnly={inStockOnly} />
@@ -385,13 +385,13 @@ function ProductTable({ products, filterText, inStockOnly }) {
 function SearchBar({ filterText, inStockOnly }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} 
+      <input
+        type="text"
+        value={filterText}
         placeholder="Search..."/>
       <label>
-        <input 
-          type="checkbox" 
+        <input
+          type="checkbox"
           checked={inStockOnly} />
         {' '}
         Only show products in stock
@@ -435,17 +435,21 @@ td {
 
 아직 폼을 수정하는 작업이 작동하지 않음을 유의하세요. 위의 샌드박스에서 콘솔 에러가 발생하고 그 이유를 설명하겠습니다.
 
-현재 `onChange` 핸들러 없이 폼의 필드에 `value` prop을 전달하였습니다. 이렇게 하면 읽기 전용 필드가 렌더링 됩니다.
+<ConsoleBlock level="error">
 
-위에 있는 샌드박스를 보면, `ProductTable`와 `SearchBar`가 `filterText`와 `inStockOnly` props를 table, input과 체크 박스를 렌더하기 위해서 읽고 있습니다. 예를 들면, `SearchBar` input의 value를 아래와 같이 채우고 있습니다.
+You provided a \`value\` prop to a form field without an \`onChange\` handler. This will render a read-only field.
+
+</ConsoleBlock>
+
+위에 있는 샌드박스를 보면, `ProductTable`와 `SearchBar`가 `filterText`와 `inStockOnly` props를 table, input과 체크 박스를 렌더링하기 위해서 읽고 있습니다. 예를 들면, `SearchBar` input의 value를 아래와 같이 채우고 있습니다.
 
 ```js {1,6}
 function SearchBar({ filterText, inStockOnly }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} 
+      <input
+        type="text"
+        value={filterText}
         placeholder="Search..."/>
 ```
 
@@ -468,8 +472,8 @@ function FilterableProductTable({ products }) {
 
   return (
     <div>
-      <SearchBar 
-        filterText={filterText} 
+      <SearchBar
+        filterText={filterText}
         inStockOnly={inStockOnly}
         onFilterTextChange={setFilterText}
         onInStockOnlyChange={setInStockOnly} />
@@ -512,13 +516,13 @@ function FilterableProductTable({ products }) {
 
   return (
     <div>
-      <SearchBar 
-        filterText={filterText} 
-        inStockOnly={inStockOnly} 
-        onFilterTextChange={setFilterText} 
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
         onInStockOnlyChange={setInStockOnly} />
-      <ProductTable 
-        products={products} 
+      <ProductTable
+        products={products}
         filterText={filterText}
         inStockOnly={inStockOnly} />
     </div>
@@ -600,14 +604,14 @@ function SearchBar({
 }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} placeholder="Search..." 
+      <input
+        type="text"
+        value={filterText} placeholder="Search..."
         onChange={(e) => onFilterTextChange(e.target.value)} />
       <label>
-         <input 
-          type="checkbox" 
-          checked={inStockOnly} 
+         <input
+          type="checkbox"
+          checked={inStockOnly}
           onChange={(e) => onInStockOnlyChange(e.target.checked)} />
         {' '}
         Only show products in stock

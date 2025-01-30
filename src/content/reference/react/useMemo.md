@@ -4,7 +4,7 @@ title: useMemo
 
 <Intro>
 
-`useMemo` 는 재렌더링 사이에 계산 결과를 캐싱할 수 있게 해주는 Rect Hook 입니다.
+`useMemo` 는 재렌더링 사이에 계산 결과를 캐싱할 수 있게 해주는 React Hook 입니다.
 
 ```js
 const cachedValue = useMemo(calculateValue, dependencies)
@@ -143,20 +143,20 @@ console.timeEnd('filter array');
 
 #### 모든 곳에 useMemo를 추가해야 하나요? {/*should-you-add-usememo-everywhere*/}
 
-이 사이트와 같이 대부분의 상호 작용이 거친 경우(페이지 또는 전체 섹션이 교체되는 것과 같이) 메모이제이션이 필요하지 않습니다. 반면, 앱이 그림 편집기와 비슷하고 대부분의 상호 작용이 세분화된 경우(도형 이동과 같은) 메모이제이션이 매우 유용할 수 있습니다. 
+이 사이트와 같이 대부분의 상호 작용이 거친 경우(페이지 또는 전체 섹션이 교체되는 것과 같이) 메모이제이션이 필요하지 않습니다. 반면, 앱이 그림 편집기와 비슷하고 대부분의 상호 작용이 세분화된 경우(도형 이동과 같은) 메모이제이션이 매우 유용할 수 있습니다.
 
 `useMemo`로 최적화하는 것은 몇몇 경우에만 유용합니다.
 
 - `useMemo`에 입력하는 계산이 눈에 띄게 느리고 종속성이 거의 변경되지 않는 경우.
 - [`memo`](/reference/react/memo)로 감싸진 컴포넌트에 prop로 전달할 경우. 값이 변경되지 않았다면 렌더링을 건너뛰고 싶을 것입니다. 메모이제이션을 사용하면 의존성이 동일하지 않은 경우에만 컴포넌트를 다시 렌더링할 수 있습니다.
-- 전달한 값을 나중에 일부 Hook의 종속성으로 이용할 경우. 예를 들어, 다른 `useMemo`의 계산 값이 여기에 종속되어 있을 수 있습니다. 또는 [`useEffect`](/reference/react/useEffect)의 값에 종속되어 있을 수 있습니다. 
+- 전달한 값을 나중에 일부 Hook의 종속성으로 이용할 경우. 예를 들어, 다른 `useMemo`의 계산 값이 여기에 종속되어 있을 수 있습니다. 또는 [`useEffect`](/reference/react/useEffect)의 값에 종속되어 있을 수 있습니다.
 
 이 외는 계산을 `useMemo`로 감싸는 것에 대한 이득이 없습니다. 그러나 그렇게 한다고 해서 크게 문제가 되는 것도 아니므로 일부 팀에서는 개별 사례에 대해 생각하지 않고 가능한 한 많이 메모하는 방식을 선택합니다. 이 접근 방식의 단점은 코드 가독성이 떨어진다는 것입니다. 또한, 모든 메모이제이션이 효과적인 것은 아닙니다. "항상 새로운" 단일 값만으로도 전체 컴포넌트에 대한 메모화가 깨질 수 있기 때문입니다.
 
 **실제로 몇 가지 원칙을 지키면 많은 메모이제이션을 불필요하게 만들 수 있습니다.**
 
 1. 컴포넌트가 다른 컴포넌트를 시각적으로 감쌀 때 [JSX를 자식처럼 받아들이도록 하세요.](/learn/passing-props-to-a-component#passing-jsx-as-children) 이렇게 하면 감싸는 구성 요소가 자신의 상태를 업데이트하더라도 React는 자식을 다시 렌더링할 필요가 없습니다.
-1. 지역 상태를 선호하고 필요 이상으로 [상태를 위로 올리지](/learn/sharing-state-between-components) 마세요. 예를 들어, forms와 같이 일시적인 상태나 어떤 항목이 트리의 맨 위에 위치하거나, 전역 상태 라이브러리에 있게 하지 마세요.
+1. 지역 상태를 선호하고 필요 이상으로 [상태를 위로 올리지](/learn/sharing-state-between-components) 마세요. 예를 들어, 폼과 같이 일시적인 상태나 어떤 항목이 트리의 맨 위에 위치하거나, 전역 상태 라이브러리에 있게 하지 마세요.
 1. [순수한 렌더링 로직](/learn/keeping-components-pure)을 유지하세요. 컴포넌트를 다시 렌더링할 때 문제가 발생하거나 눈에 띄는 시각적인 부작용이 발생하면 컴포넌트에 버그가 있는 것입니다! 메모이제이션을 하는 대신 버그를 수정하세요.
 1. [상태를 업데이트하는 불필요한 Effect](/learn/you-might-not-need-an-effect)를 피하세요. React 앱의 대부분의 성능 문제는 컴포넌트를 반복적으로 렌더링하게 만드는 Effect의 업데이트 체인으로부터 발생합니다.
 1. [Effects에서 불필요한 종속성을 제거하세요.](/learn/removing-effect-dependencies) 예를 들어, 메모이제이션을 하는 대신 일부 객체나 함수를 Effect 내부 또는 컴포넌트 외부로 이동하는 것이 더 간단할 때가 있습니다.
@@ -169,11 +169,11 @@ console.timeEnd('filter array');
 
 #### `useMemo`로 재계산 건너뛰기 {/*skipping-recalculation-with-usememo*/}
 
-이 예제에서는 렌더링 중에 호출하는 자바스크립트 함수가 실제로 느릴 때 어떤 일이 발생하는지 확인할 수 있도록 `filterTodos`을 **인위적으로 느리게** 만들었습니다. 탭을 전환하고 테마를 토글해 보세요.
+이 예시에서는 렌더링 중에 호출하는 자바스크립트 함수가 실제로 느릴 때 어떤 일이 발생하는지 확인할 수 있도록 `filterTodos`을 **인위적으로 느리게** 만들었습니다. 탭을 전환하고 테마를 토글해 보세요.
 
 탭을 전환하면 느려진 `filterTodos`가 다시 실행되므로 느리게 느껴집니다. 이는 `tab`이 변경되었으므로 전체 계산이 *필수적으로* 다시 실행되기 때문에 나타나는 현상입니다. (왜 두 번 실행되는지 궁금하다면 [여기](#my-calculation-runs-twice-on-every-re-render)를 클릭해서 설명을 확인하세요.)
 
-테마를 전환합니다. **인위적인 속도 저하에도 불구하고 빠른 이유는 `useMemo` 덕분입니다!** 느린 속도의 `filterTodos`는 마지막 렌더링 이후 (`useMemo`에 종속성으로 전달한)`todos`와 `tab`이 모두 변경되지 않았기 때문에 호출을 건너뛰었습니다. 
+테마를 전환합니다. **인위적인 속도 저하에도 불구하고 빠른 이유는 `useMemo` 덕분입니다!** 느린 속도의 `filterTodos`는 마지막 렌더링 이후 (`useMemo`에 종속성으로 전달한)`todos`와 `tab`이 모두 변경되지 않았기 때문에 호출을 건너뛰었습니다.
 
 <Sandpack>
 
@@ -301,9 +301,9 @@ label {
 
 #### 항상 값을 재계산하기 {/*always-recalculating-a-value*/}
 
-이 예제에서는 렌더링 중에 호출하는 자바스크립트 함수가 실제로 느릴 때 어떤 일이 발생하는지 확인할 수 있도록 `filterTodos`을 **인위적으로 느리게** 만들었습니다. 탭을 전환하고 테마를 토글해 보세요.
+이 예시에서는 렌더링 중에 호출하는 자바스크립트 함수가 실제로 느릴 때 어떤 일이 발생하는지 확인할 수 있도록 `filterTodos`을 **인위적으로 느리게** 만들었습니다. 탭을 전환하고 테마를 토글해 보세요.
 
-이전 예제와 달리 테마 전환도 이제 느려졌습니다! **이 예제에는 `useMemo` 호출이 없기 때문에** 렌더링마다 느려진 `filterTodos`가 호출되기 때문입니다. 이는 `theme`만 변경하는 경우에도 호출됩니다.
+이전 예시와 달리 테마 전환도 이제 느려졌습니다! **이 예시에는 `useMemo` 호출이 없기 때문에** 렌더링마다 느려진 `filterTodos`가 호출되기 때문입니다. 이는 `theme`만 변경하는 경우에도 호출됩니다.
 
 <Sandpack>
 
@@ -609,7 +609,7 @@ export default function TodoList({ todos, tab, theme }) {
 ```
 
 
-**`visibleTodos`연산을 `useMemo`로 감싸면 다시 렌더링 될 때마다 *같은* 값을 갖게 할 수 있습니다** (종속성이 변경되기 전까지). *특별한 이유가 없는 한* 연산을 `useMemo`로 감싸지 않아도 됩니다. 이 예제에서는 [`memo`](/reference/react/memo)로 감싸진 컴포넌트에 전달하면 재렌더링을 건너뛸 수 있기 때문입니다. 이 페이지에서 자세히 설명하는 `useMemo`를 추가해야 하는 몇 가지 다른 이유가 있습니다. 
+**`visibleTodos`연산을 `useMemo`로 감싸면 다시 렌더링 될 때마다 *같은* 값을 갖게 할 수 있습니다** (종속성이 변경되기 전까지). *특별한 이유가 없는 한* 연산을 `useMemo`로 감싸지 않아도 됩니다. 이 예시에서는 [`memo`](/reference/react/memo)로 감싸진 컴포넌트에 전달하면 재렌더링을 건너뛸 수 있기 때문입니다. 이 페이지에서 자세히 설명하는 `useMemo`를 추가해야 하는 몇 가지 다른 이유가 있습니다.
 
 <DeepDive>
 
@@ -633,7 +633,7 @@ export default function TodoList({ todos, tab, theme }) {
 
 `<List items={visibleTodos} />`와 같은 JSX 노드는 `{ type: List, props: { items: visibleTodos } }`와 같은 객체입니다. 이 객체를 생성하는 것은 매우 저렴하지만, React는 그 내용이 지난번과 동일한지 알 수 없습니다. 그래서 기본적으로 React는 `List` 컴포넌트를 다시 렌더링합니다.
 
-하지만 React가 이전 렌더링과 동일한 JSX를 발견하면 컴포넌트를 다시 렌더링하려고 시도하지 않습니다. JSX 노드는 [불변](https://en.wikipedia.org/wiki/Immutable_object)하기 때문입니다. JSX 노드 객체는 시간이 지나도 변경되지 않으므로 React는 재렌더링을 생략해도 안전하다는 것을 알고 있습니다. 그러나 이것이 동작하려면 노드가 단순히 코드적으로 동일해 보이는 것이 아닌 *실제로 동일한 객체*여야 합니다. 이 예제에서는 `useMemo`가 해당 일을 수행합니다.
+하지만 React가 이전 렌더링과 동일한 JSX를 발견하면 컴포넌트를 다시 렌더링하려고 시도하지 않습니다. JSX 노드는 [불변](https://en.wikipedia.org/wiki/Immutable_object)하기 때문입니다. JSX 노드 객체는 시간이 지나도 변경되지 않으므로 React는 재렌더링을 생략해도 안전하다는 것을 알고 있습니다. 그러나 이것이 동작하려면 노드가 단순히 코드적으로 동일해 보이는 것이 아닌 *실제로 동일한 객체*여야 합니다. 이 예시에서는 `useMemo`가 해당 일을 수행합니다.
 
 JSX 노드를 `useMemo`로 수동으로 감싸는 것은 편리한 방법은 아닙니다. 예를 들어, 조건부로는 이 작업을 수행할 수 없습니다. 그래서 보통 JSX 노드를 감싸는 대신 컴포넌트를 [`memo`](/reference/react/memo)로 감쌉니다.
 
@@ -643,7 +643,7 @@ JSX 노드를 `useMemo`로 수동으로 감싸는 것은 편리한 방법은 아
 
 #### `useMemo` 및 `memo`로 재렌더링 건너뛰기 {/*skipping-re-rendering-with-usememo-and-memo*/}
 
-이 예제에서는 `List` 컴포넌트를 **인위적으로 느리게 만들어** 렌더링 중인 React 컴포넌트가 실제로 느려질 때 어떤 일이 발생하는 지를 확인할 수 있습니다. 탭을 전환하고 테마를 토글해 보세요.
+이 예시에서는 `List` 컴포넌트를 **인위적으로 느리게 만들어** 렌더링 중인 React 컴포넌트가 실제로 느려질 때 어떤 일이 발생하는 지를 확인할 수 있습니다. 탭을 전환하고 테마를 토글해 보세요.
 
 탭을 전환하면 느려진 `List`가 다시 렌더링 되기 때문에 느리게 느껴집니다. 이는 `tab`이 변경되었으므로 사용자의 새로운 선택 사항을 화면에 반영해야 하기 때문에 예상되는 현상입니다.
 
@@ -787,9 +787,9 @@ label {
 
 #### 항상 컴포넌트 재렌더링 하기 {/*always-re-rendering-a-component*/}
 
-이 예제에서는 `List` 컴포넌트를 **인위적으로 느리게 만들어** 렌더링 중인 React 컴포넌트가 실제로 느려질 때 어떤 일이 발생하는 지를 확인할 수 있습니다. 탭을 전환하고 테마를 토글해 보세요.
+이 예시에서는 `List` 컴포넌트를 **인위적으로 느리게 만들어** 렌더링 중인 React 컴포넌트가 실제로 느려질 때 어떤 일이 발생하는 지를 확인할 수 있습니다. 탭을 전환하고 테마를 토글해 보세요.
 
-이전 예제와 다르게 이제는 테마 전환도 느려졌습니다! **이 버전에는 `useMemo` 호출이 없기 때문에** `visibleTodos`는 항상 다른 배열이 되고 `List` 컴포넌트는 재렌더링을 생략할 수 없기 때문입니다.
+이전 예시와 다르게 이제는 테마 전환도 느려졌습니다! **이 버전에는 `useMemo` 호출이 없기 때문에** `visibleTodos`는 항상 다른 배열이 되고 `List` 컴포넌트는 재렌더링을 생략할 수 없기 때문입니다.
 
 <Sandpack>
 
@@ -1056,6 +1056,81 @@ label {
 
 ---
 
+### Preventing an Effect from firing too often {/*preventing-an-effect-from-firing-too-often*/}
+
+Sometimes, you might want to use a value inside an [Effect:](/learn/synchronizing-with-effects)
+
+```js {4-7,10}
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  const options = {
+    serverUrl: 'https://localhost:1234',
+    roomId: roomId
+  }
+
+  useEffect(() => {
+    const connection = createConnection(options);
+    connection.connect();
+    // ...
+```
+
+This creates a problem. [Every reactive value must be declared as a dependency of your Effect.](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) However, if you declare `options` as a dependency, it will cause your Effect to constantly reconnect to the chat room:
+
+
+```js {5}
+  useEffect(() => {
+    const connection = createConnection(options);
+    connection.connect();
+    return () => connection.disconnect();
+  }, [options]); // 🔴 Problem: This dependency changes on every render
+  // ...
+```
+
+To solve this, you can wrap the object you need to call from an Effect in `useMemo`:
+
+```js {4-9,16}
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  const options = useMemo(() => {
+    return {
+      serverUrl: 'https://localhost:1234',
+      roomId: roomId
+    };
+  }, [roomId]); // ✅ Only changes when roomId changes
+
+  useEffect(() => {
+    const connection = createConnection(options);
+    connection.connect();
+    return () => connection.disconnect();
+  }, [options]); // ✅ Only changes when options changes
+  // ...
+```
+
+This ensures that the `options` object is the same between re-renders if `useMemo` returns the cached object.
+
+However, since `useMemo` is performance optimization, not a semantic guarantee, React may throw away the cached value if [there is a specific reason to do that](#caveats). This will also cause the effect to re-fire, **so it's even better to remove the need for a function dependency** by moving your object *inside* the Effect:
+
+```js {5-8,13}
+function ChatRoom({ roomId }) {
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const options = { // ✅ No need for useMemo or object dependencies!
+      serverUrl: 'https://localhost:1234',
+      roomId: roomId
+    }
+
+    const connection = createConnection(options);
+    connection.connect();
+    return () => connection.disconnect();
+  }, [roomId]); // ✅ Only changes when roomId changes
+  // ...
+```
+
+Now your code is simpler and doesn't need `useMemo`. [Learn more about removing Effect dependencies.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
+
 ### 다른 Hook의 종속성 메모화 {/*memoizing-a-dependency-of-another-hook*/}
 
 컴포넌트 본문에서 직접 생성된 객체에 의존하는 연산이 있다고 가정하겠습니다.
@@ -1086,7 +1161,7 @@ function Dropdown({ allItems, text }) {
   // ...
 ```
 
-위의 예제에서 `text`가 변경되지 않았다면 `searchOptions` 객체도 변경되지 않습니다. 그러나 이보다 더 나은 방법은 `searchOptions`를 `useMemo` 계산 함수의 *내부에* 선언하는 것입니다.
+위의 예시에서 `text`가 변경되지 않았다면 `searchOptions` 객체도 변경되지 않습니다. 그러나 이보다 더 나은 방법은 `searchOptions`를 `useMemo` 계산 함수의 *내부에* 선언하는 것입니다.
 
 ```js {3}
 function Dropdown({ allItems, text }) {
@@ -1137,7 +1212,7 @@ export default function Page({ productId, referrer }) {
 }
 ```
 
-위 예제는 투박해 보입니다! **함수를 메모하는 것은 충분히 일반적이기 때문에 React에는 이를 위한 Hook이 내장되어 있습니다. `useMemo` 대신 [`useCallback`](/reference/react/useCallback)으로 함수를 감싸서** 중첩된 함수를 추가로 작성하지 않도록 하세요.
+위 예시는 투박해 보입니다! **함수를 메모하는 것은 충분히 일반적이기 때문에 React에는 이를 위한 Hook이 내장되어 있습니다. `useMemo` 대신 [`useCallback`](/reference/react/useCallback)으로 함수를 감싸서** 중첩된 함수를 추가로 작성하지 않도록 하세요.
 
 ```js {2,7}
 export default function Page({ productId, referrer }) {
@@ -1152,7 +1227,7 @@ export default function Page({ productId, referrer }) {
 }
 ```
 
-위 두 예제는 완전히 동일하게 동작합니다. `useCallback`의 유일한 장점은 내부에 중첩된 함수를 추가로 작성하지 않아도 된다는 것입니다. 그 외에는 아무것도 하지 않습니다. [`useCallback`에 대해 더 읽어보세요.](/reference/react/useCallback)
+위 두 예시는 완전히 동일하게 동작합니다. `useCallback`의 유일한 장점은 내부에 중첩된 함수를 추가로 작성하지 않아도 된다는 것입니다. 그 외에는 아무것도 하지 않습니다. [`useCallback`에 대해 더 읽어보세요.](/reference/react/useCallback)
 
 ---
 
@@ -1202,7 +1277,7 @@ React가 함수를 두 번 호출하므로 todo가 두 번 추가됩니다. 계�
 
 순수성에 대해 자세히 알아보려면 [컴포넌트 순수하게 유지하기](/learn/keeping-components-pure)를 읽어보세요.
 
-또한 변경사항이 없는 [객체 업데이트](/learn/updating-objects-in-state) 및 [배열 업데이트](/learn/updating-arrays-in-state)에 대한 가이드도 확인해보세요. 
+또한 변경사항이 없는 [객체 업데이트](/learn/updating-objects-in-state) 및 [배열 업데이트](/learn/updating-arrays-in-state)에 대한 가이드도 확인해보세요.
 
 ---
 
@@ -1266,7 +1341,7 @@ function TodoList({ todos, tab }) {
   // ...
 ```
 
-만일 위의 예제가 도움이 되지 않았다면, 종속성 중 하나 이상이 이전 렌더링과 달라졌다는 문제일 수 있습니다. 종속성 들을 콘솔에 수동으로 로깅하여 이 문제를 디버그할 수 있습니다.
+만일 위의 예시가 도움이 되지 않았다면, 종속성 중 하나 이상이 이전 렌더링과 달라졌다는 문제일 수 있습니다. 종속성 들을 콘솔에 수동으로 로깅하여 이 문제를 디버그할 수 있습니다.
 
 ```js
   const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab]);
@@ -1287,7 +1362,7 @@ Object.is(temp1[2], temp2[2]); // ... 그리고 기타 모든 종속성들이 �
 
 ### 반복문에서 각 목록 항목에 대해 `useMemo`를 호출해야 하는데 허용되지 않습니다. {/*i-need-to-call-usememo-for-each-list-item-in-a-loop-but-its-not-allowed*/}
 
-`Chart` 컴포넌트가 [`memo`](/reference/react/memo)로 감싸져 있다고 가정해보겠습니다. `ReportList` 컴포넌트가 다시 렌더링 될 때 목록의 모든 `Chart`를 다시 렌더링하는 것을 생략하고 싶을 것입니다. 그러나 반복문에서 `useMemo`를 호출할 수 없습니다. 
+`Chart` 컴포넌트가 [`memo`](/reference/react/memo)로 감싸져 있다고 가정해보겠습니다. `ReportList` 컴포넌트가 다시 렌더링 될 때 목록의 모든 `Chart`를 다시 렌더링하는 것을 생략하고 싶을 것입니다. 그러나 반복문에서 `useMemo`를 호출할 수 없습니다.
 
 ```js {5-11}
 function ReportList({ items }) {

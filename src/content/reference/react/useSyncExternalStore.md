@@ -36,17 +36,17 @@ store에 있는 데이터의 스냅샷을 반환합니다. 두 개의 함수를 
 1. `subscribe` 함수는 store를 구독하고 구독을 취소하는 함수를 반환해야 합니다.
 2. `getSnapshot` 함수는 store에서 데이터의 스냅샷을 읽어야 합니다.
 
-[아래 예제 참조](#usage)
+[아래 예시 참조](#usage)
 
-#### 파라미터 {/*parameters*/}
+#### 매개변수 {/*parameters*/}
 
-* `subscribe`:  하나의 `callback` 인수를 받아 store에 구독하는 함수입니다. 스토어가 변경되면 제공된 `callback`을 호출해야 합니다. 그러면 컴포넌트가 리렌더링됩니다. subscribe 함수는 구독을 정리하는 함수를 반환해야 합니다.
+* `subscribe`:  하나의 `callback` 인수를 받아 store에 구독하는 함수입니다. store가 변경될 때, 제공된 `callback`이 호출되어 React가 `getSnapshot`을 다시 호출하고 (필요한 경우) 컴포넌트를 다시 렌더링하도록 해야 합니다. `subscribe` 함수는 구독을 정리하는 함수를 반환해야 합니다.
 
-* `getSnapshot`: 컴포넌트에 필요한 store 데이터의 스냅샷을 반환하는 함수입니다. 스토어가 변경되지 않은 상태에서 `getSnapshot`을 반복적으로 호출하면 동일한 값을 반환해야 합니다. 저장소가 변경되어 반환된 값이 다르면 ([`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)와 비교하여) React는 컴포넌트를 리렌더링합니다.
+* `getSnapshot`: 컴포넌트에 필요한 store 데이터의 스냅샷을 반환하는 함수입니다. store가 변경되지 않은 상태에서 `getSnapshot`을 반복적으로 호출하면 동일한 값을 반환해야 합니다. 저장소가 변경되어 반환된 값이 다르면 ([`Object.is`](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/is)와 비교하여) React는 컴포넌트를 리렌더링합니다.
 
 * **optional** `getServerSnapshot`: store에 있는 데이터의 초기 스냅샷을 반환하는 함수입니다. 서버 렌더링 도중과 클라이언트에서 서버 렌더링 된 콘텐츠의 하이드레이션 중에만 사용됩니다. 서버 스냅샷은 클라이언트와 서버 간에 동일해야 하며 일반적으로 직렬화되어 서버에서 클라이언트로 전달됩니다. 이 함수가 제공되지 않으면 서버에서 컴포넌트를 렌더링할 때 오류가 발생합니다.
 
-#### 반환 값 {/*returns*/}
+#### 반환값 {/*returns*/}
 
 렌더링 로직에 사용할 수 있는 store의 현재 스냅샷입니다.
 
@@ -330,7 +330,7 @@ function subscribe(callback) {
 React 앱이 [server rendering](/reference/react-dom/server)을 사용하는 경우 React 컴포넌트는 브라우저 환경 외부에서도 실행되어 초기 HTML을 생성합니다. 이로 인해 외부 store에 연결할 때 몇 가지 문제가 발생합니다.
 
 - 브라우저 전용 API에 연결하는 경우 서버에 해당 API가 존재하지 않으므로 작동하지 않습니다.
-- third-party 데이터 저장소에 연결하는 경우 서버와 클라이언트 간에 일치하는 데이터가 필요합니다.
+- 서드 파티 데이터 저장소에 연결하는 경우 서버와 클라이언트 간에 일치하는 데이터가 필요합니다.
 
 이러한 문제를 해결하려면 `getServerSnapshot` 함수를 `useSyncExternalStore`의 세 번째 인수로 전달하세요.
 
@@ -372,7 +372,7 @@ function subscribe(callback) {
 
 ## 트러블 슈팅 {/*troubleshooting*/}
 
-### 오류가 발생했습니다: "`getSnapshot`의 결과를 캐시해야 합니다.” {/*오류가-발생했습니다-getsnapshot의-결과를-캐시해야-합니다*/}
+### 오류가 발생했습니다: "`getSnapshot`의 결과를 캐시해야 합니다." {/*오류가-발생했습니다-getsnapshot의-결과를-캐시해야-합니다*/}
 
 이 오류가 발생하면 `getSnapshot` 함수가 호출될 때마다 새 객체를 반환한다는 의미입니다.
 
@@ -407,8 +407,8 @@ subscribe 함수는 컴포넌트 내부에 정의되므로 리렌더링할 때�
 ```js {4-7}
 function ChatIndicator() {
   const isOnline = useSyncExternalStore(subscribe, getSnapshot);
-  
-  // 🚩항상 다른 함수를 사용하므로 React는 렌더링할 때마다 다시 구독합니다. 
+
+  // 🚩항상 다른 함수를 사용하므로 React는 렌더링할 때마다 다시 구독합니다.
   function subscribe() {
     // ...
   }

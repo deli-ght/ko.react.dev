@@ -126,21 +126,21 @@ export default function Profile() {
     <div>
       <Avatar
         size={100}
-        person={{ 
-          name: 'Katsuko Saruhashi', 
+        person={{
+          name: 'Katsuko Saruhashi',
           imageId: 'YfeOqp2'
         }}
       />
       <Avatar
         size={80}
         person={{
-          name: 'Aklilu Lemma', 
+          name: 'Aklilu Lemma',
           imageId: 'OKS67lh'
         }}
       />
       <Avatar
         size={50}
-        person={{ 
+        person={{
           name: 'Lin Lanying',
           imageId: '1bX5QH6'
         }}
@@ -192,7 +192,7 @@ function Avatar({ person, size }) {
 }
 ```
 
-이 문법을 [“구조 분해 할당”](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Unpacking_fields_from_objects_passed_as_a_function_parameter)이라고 부르며 함수 매개 변수의 속성과 동등합니다.
+이 문법을 ["구조 분해 할당"](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Unpacking_fields_from_objects_passed_as_a_function_parameter)이라고 부르며 함수 매개변수의 속성과 동등합니다.
 
 ```js
 function Avatar(props) {
@@ -237,7 +237,7 @@ function Profile({ person, size, isSepia, thickBorder }) {
 }
 ```
 
-반복적인 코드는 가독성을 높일 수 있다는 점에서 잘못된 것은 아닙니다. 하지만 때로는 간결함이 중요할 때도 있습니다. `Profile`이 `Avatar`에서 하는 것처럼, 일부 컴포넌트는 그들의 모든 props를 자식 컴포넌트에 전달합니다. 
+반복적인 코드는 가독성을 높일 수 있다는 점에서 잘못된 것은 아닙니다. 하지만 때로는 간결함이 중요할 때도 있습니다. `Profile`이 `Avatar`에서 하는 것처럼, 일부 컴포넌트는 그들의 모든 props를 자식 컴포넌트에 전달합니다.
 props를 직접 사용하지 않기 때문에 보다 간결한 "spread" 문법을 사용하는 것이 합리적일 수 있습니다.
 
 
@@ -294,7 +294,7 @@ export default function Profile() {
     <Card>
       <Avatar
         size={100}
-        person={{ 
+        person={{
           name: 'Katsuko Saruhashi',
           imageId: 'YfeOqp2'
         }}
@@ -350,9 +350,9 @@ export function getImageUrl(person, size = 's') {
 
 </Sandpack>
 
-`<Card>` 내부의 `<Avatar>`를 텍스트로 바꾸어 `<Card>` 컴포넌트가 중첩된 콘텐츠를 어떻게 감싸는지 확인해 보세요. 그 내부에서 무엇이 렌더링 되는지 “알” 필요는 없습니다. 이 유연한 패턴은 많은 곳에서 볼 수 있습니다.
+`<Card>` 내부의 `<Avatar>`를 텍스트로 바꾸어 `<Card>` 컴포넌트가 중첩된 콘텐츠를 어떻게 감싸는지 확인해 보세요. 그 내부에서 무엇이 렌더링 되는지 "알" 필요는 없습니다. 이 유연한 패턴은 많은 곳에서 볼 수 있습니다.
 
-`children` prop을 가지고 있는 컴포넌트는 부모 컴포넌트가 임의의 JSX로 “채울” 수 있는 “구멍”이 있는 것으로 생각할 수 있습니다. 패널, 그리드 등의 시각적 래퍼에 종종 `children` prop를 사용합니다.
+`children` prop을 가지고 있는 컴포넌트는 부모 컴포넌트가 임의의 JSX로 "채울" 수 있는 "구멍"이 있는 것으로 생각할 수 있습니다. 패널, 그리드 등의 시각적 래퍼에 종종 `children` prop를 사용합니다.
 
 <Illustration src="/images/docs/illustrations/i_children-prop.png" alt='A puzzle-like Card tile with a slot for "children" pieces like text and Avatar' />
 
@@ -416,7 +416,7 @@ export default function App() {
 그러나 props는 컴퓨터 과학에서 "변경할 수 없다"라는 의미의 [불변성](https://en.wikipedia.org/wiki/Immutable_object)을 가지고 있습니다. 컴포넌트가 props를 변경해야 하는 경우(예: 사용자의 상호작용이나 새로운 데이터에 대한 응답), 부모 컴포넌트에 *다른 props*, 즉 새로운 객체를 전달하도록 "요청"해야 합니다! 그러면 이전의 props는 버려지고, 결국 자바스크립트 엔진은 기존 props가 차지했던 메모리를 회수하게 됩니다.
 
 
-**“props 변경”을 시도하지 마세요.** 선택한 색을 변경하는 등 사용자 입력에 반응해야 하는 경우에는 [State: 컴포넌트의 메모리](/learn/state-a-components-memory)에서 배울 “set state”가 필요할 것입니다.
+**"props 변경"을 시도하지 마세요.** 선택한 색을 변경하는 등 사용자 입력에 반응해야 하는 경우에는 [State: 컴포넌트의 메모리](/learn/state-a-components-memory)에서 배울 "set state"가 필요할 것입니다.
 
 <Recap>
 
@@ -458,11 +458,11 @@ export default function Gallery() {
         />
         <ul>
           <li>
-            <b>Profession: </b> 
+            <b>Profession: </b>
             physicist and chemist
           </li>
           <li>
-            <b>Awards: 4 </b> 
+            <b>Awards: 4 </b>
             (Nobel Prize in Physics, Nobel Prize in Chemistry, Davy Medal, Matteucci Medal)
           </li>
           <li>
@@ -482,11 +482,11 @@ export default function Gallery() {
         />
         <ul>
           <li>
-            <b>Profession: </b> 
+            <b>Profession: </b>
             geochemist
           </li>
           <li>
-            <b>Awards: 2 </b> 
+            <b>Awards: 2 </b>
             (Miyake Prize for geochemistry, Tanaka Prize)
           </li>
           <li>
@@ -529,7 +529,7 @@ li { margin: 5px; }
 
 <Hint>
 
-과학자 중 한 명에 대한 마크업을 추출하는 것으로 시작하세요. 그런 다음 두 번째 예제에서 일치하지 않는 부분을 찾아 props로 구성할 수 있게 만듭니다.
+과학자 중 한 명에 대한 마크업을 추출하는 것으로 시작하세요. 그런 다음 두 번째 예시에서 일치하지 않는 부분을 찾아 props로 구성할 수 있게 만듭니다.
 
 </Hint>
 
@@ -637,7 +637,7 @@ li { margin: 5px; }
 
 `awards`가 배열인 경우 별도의 `awardCount` prop이 필요하지 않다는 점에 주의하세요. `awards.length`를 사용하여 awards 개수를 파악할 수 있습니다. props에는 어떤 값도 사용할 수 있으며, 배열도 포함된다는 점을 기억하세요!
 
-이 페이지의 앞선 예제와 더 유사한 또 다른 해결책은, 사람에 대한 모든 정보를 하나의 객체로 그룹화하고, 해당 객체를 하나의 prop으로 전달하는 것입니다.
+이 페이지의 앞선 예시와 더 유사한 또 다른 해결책은, 사람에 대한 모든 정보를 하나의 객체로 그룹화하고, 해당 객체를 하나의 prop으로 전달하는 것입니다.
 
 <Sandpack>
 
@@ -732,15 +732,15 @@ li { margin: 5px; }
 
 </Sandpack>
 
-JSX 어트리뷰트의 컬렉션이 아닌 JavaScript 객체의 속성으로 구성되어 있어서 문법이 약간 달라 보이지만, 이 예제는 대부분 동일하며 두 가지 접근 방식 중 어느 쪽을 선택해도 괜찮습니다.
+JSX 어트리뷰트의 컬렉션이 아닌 JavaScript 객체의 속성으로 구성되어 있어서 문법이 약간 달라 보이지만, 이 예시는 대부분 동일하며 두 가지 접근 방식 중 어느 쪽을 선택해도 괜찮습니다.
 
 </Solution>
 
 #### prop에 따라 이미지 크기 조정하기 {/*adjust-the-image-size-based-on-a-prop*/}
 
-이번 예제에서는 `Avatar` 가 `<img>`의 넓이와 높이를 결정하는 숫자 `size` prop를 받습니다. `size` prop은 `40`으로 설정되어 있습니다. 그러나 새 탭에서 이미지를 열면, 이미지가 `160픽셀`로 커져 있을 것입니다. 실제 이미지 크기는 요청하는 썸네일 크기에 따라 결정됩니다.
+이번 예시에서는 `Avatar` 가 `<img>`의 넓이와 높이를 결정하는 숫자 `size` prop를 받습니다. `size` prop은 `40`으로 설정되어 있습니다. 그러나 새 탭에서 이미지를 열면, 이미지가 `160픽셀`로 커져 있을 것입니다. 실제 이미지 크기는 요청하는 썸네일 크기에 따라 결정됩니다.
 
-`size` prop에 따라 가장 가까운 이미지 크기를 요청하도록 `Avatar` 컴포넌트를 변경하세요. 특히 `size` 가 `90`보다 작으면 `'s'`(”small”)을, 아니면 `'b'`(”big”)을 `getImageUrl` 함수에 전달하세요. `size` prop를 다른 값들을 전달해 보고, 아바타를 렌더링 하는지, 새 탭에서 이미지를 열어 변경사항이 제대로 반영되는지 확인해 보세요.
+`size` prop에 따라 가장 가까운 이미지 크기를 요청하도록 `Avatar` 컴포넌트를 변경하세요. 특히 `size` 가 `90`보다 작으면 `'s'`("small")을, 아니면 `'b'`("big")을 `getImageUrl` 함수에 전달하세요. `size` prop를 다른 값들을 전달해 보고, 아바타를 렌더링 하는지, 새 탭에서 이미지를 열어 변경사항이 제대로 반영되는지 확인해 보세요.
 <Sandpack>
 
 ```js src/App.js
@@ -762,8 +762,8 @@ export default function Profile() {
   return (
     <Avatar
       size={40}
-      person={{ 
-        name: 'Gregorio Y. Zara', 
+      person={{
+        name: 'Gregorio Y. Zara',
         imageId: '7vQD0fP'
       }}
     />
@@ -818,15 +818,15 @@ export default function Profile() {
     <>
       <Avatar
         size={40}
-        person={{ 
-          name: 'Gregorio Y. Zara', 
+        person={{
+          name: 'Gregorio Y. Zara',
           imageId: '7vQD0fP'
         }}
       />
       <Avatar
         size={120}
-        person={{ 
-          name: 'Gregorio Y. Zara', 
+        person={{
+          name: 'Gregorio Y. Zara',
           imageId: '7vQD0fP'
         }}
       />
@@ -882,22 +882,22 @@ export default function Profile() {
     <>
       <Avatar
         size={40}
-        person={{ 
-          name: 'Gregorio Y. Zara', 
+        person={{
+          name: 'Gregorio Y. Zara',
           imageId: '7vQD0fP'
         }}
       />
       <Avatar
         size={70}
-        person={{ 
-          name: 'Gregorio Y. Zara', 
+        person={{
+          name: 'Gregorio Y. Zara',
           imageId: '7vQD0fP'
         }}
       />
       <Avatar
         size={120}
-        person={{ 
-          name: 'Gregorio Y. Zara', 
+        person={{
+          name: 'Gregorio Y. Zara',
           imageId: '7vQD0fP'
         }}
       />

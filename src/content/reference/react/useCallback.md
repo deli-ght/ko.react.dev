@@ -47,7 +47,8 @@ export default function ProductPage({ productId, referrer, theme }) {
 최초 렌더링에서는 `useCallback`은 전달한 `fn`함수를 그대로 반환합니다.
 
 후속 렌더링에서는 이전 렌더링에서 이미 저장해 두었던 `fn`함수를 반환하거나 (의존성이 변하지 않았을 때), 현재 렌더링 중에 전달한 `fn`함수를 그대로 반환합니다.
-#### 주의사항 {/*caveats*/}
+
+#### 주의 사항 {/*caveats*/}
 
 * `useCallback`은 Hook이므로, **컴포넌트의 최상위 레벨** 또는 커스텀 Hook에서만 호출할 수 있습니다. 반복문이나 조건문 내에서 호출할 수 없습니다. 이 작업이 필요하다면 새로운 컴포넌트로 분리해서 state를 새 컴포넌로 옮기세요.
 * React는 **특별한 이유가 없는 한 캐시 된 함수를 삭제하지 않습니다.** 예를 들어 개발 환경에서는 컴포넌트 파일을 편집할 때 React가 캐시를 삭제합니다. 개발 환경과 프로덕션 환경 모두에서, 초기 마운트 중에 컴포넌트가 일시 중단되면 React는 캐시를 삭제합니다. 앞으로 React는 캐시 삭제를 활용하는 더 많은 기능을 추가할 수 있습니다. 예를 들어, React에 가상화된 목록에 대한 빌트인 지원이 추가한다면, 가상화된 테이블 뷰포트에서 스크롤 밖의 항목에 대해 캐시를 삭제하는것이 적절할 것 입니다. 이는 `useCallback`을 성능 최적화 방법으로 의존하는 경우에 개발자의 예상과 일치해야 합니다. 그렇지 않다면 [state 변수](/reference/react/useState#im-trying-to-set-state-to-a-function-but-it-gets-called-instead) 나 [ref](/reference/react/useRef#avoiding-recreating-the-ref-contents)가 더 적절할 수 있습니다.
@@ -101,7 +102,7 @@ function ProductPage({ productId, referrer, theme }) {
 
 `theme` prop을 토글 하면 앱이 잠시 멈춘다는 것을 알게 되었는데, JSX에서 `<ShippingForm />`을 제거하면 앱이 빨라진 것처럼 느껴집니다. 이것은 `<ShippingForm />` 컴포넌트의 최적화를 시도해 볼 가치가 있다는 것을 나타냅니다.
 
-**기본적으로, 컴포넌트가 리렌더링할 때 React는 이것의 모든 자식을 재귀적으로 재랜더링합니다.** 이것이 `ProductPage`가 다른 `theme` 값으로 리렌더링 할 때, `ShippingForm` 컴포넌트 **또한** 리렌더링 하는 이유입니다. 이 것은 리렌더링에 많은 계산을 요구하지 않는 컴포넌트에서는 괜찮습니다. 하지만 리렌더링이 느린 것을 확인한 경우, `ShippingForm`을 [`memo`](/reference/react/memo)로 감싸면 마지막 렌더링과 동일한 props일 때 리렌더링을 건너뛰도록 할 수 있습니다.
+**기본적으로, 컴포넌트가 리렌더링할 때 React는 이것의 모든 자식을 재귀적으로 재렌더링합니다.** 이것이 `ProductPage`가 다른 `theme` 값으로 리렌더링 할 때, `ShippingForm` 컴포넌트 **또한** 리렌더링 하는 이유입니다. 이 것은 리렌더링에 많은 계산을 요구하지 않는 컴포넌트에서는 괜찮습니다. 하지만 리렌더링이 느린 것을 확인한 경우, `ShippingForm`을 [`memo`](/reference/react/memo)로 감싸면 마지막 렌더링과 동일한 props일 때 리렌더링을 건너뛰도록 할 수 있습니다.
 
 ```js {3,5}
 import { memo } from 'react';
@@ -122,7 +123,7 @@ function ProductPage({ productId, referrer, theme }) {
       orderDetails,
     });
   }
-  
+
   return (
     <div className={theme}>
       {/* ... 그래서 ShippingForm의 props는 같은 값이 아니므로 매번 리렌더링 할 것입니다.*/}
@@ -157,13 +158,13 @@ function ProductPage({ productId, referrer, theme }) {
 
 <Note>
 
-**`useCallback`은 성능 최적화를 위한 용도로만 사용해야 합니다.** 만약 코드가 `useCallback` 없이 작동하지 않는다면 먼저 근본적인 문제를 찾아 해결해야 합니다. 그다음에 `useCallback`을 다시 추가할 수 있습니다. 
+**`useCallback`은 성능 최적화를 위한 용도로만 사용해야 합니다.** 만약 코드가 `useCallback` 없이 작동하지 않는다면 먼저 근본적인 문제를 찾아 해결해야 합니다. 그다음에 `useCallback`을 다시 추가할 수 있습니다.
 
 </Note>
 
 <DeepDive>
 
-#### useCallback과 useMemo는 어떤 연관이 있나요? {/*how-is-usecallback-related-to-usememo*/}
+#### `useCallback`과 `useMemo`는 어떤 연관이 있나요? {/*how-is-usecallback-related-to-usememo*/}
 
 [`useMemo`](/reference/react/useMemo)가 `useCallback`과 함께 쓰이는 것을 자주 봤을 것입니다. 두 hook은 모두 자식 컴포넌트를 최적화할 때 유용합니다. 무언가를 전달할 때 [memoization](https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98)(다른 말로는 캐싱)을 할 수 있도록 해줍니다.
 
@@ -212,13 +213,13 @@ function useCallback(fn, dependencies) {
 
 <DeepDive>
 
-#### 항상 useCallback을 사용해야 할까요? {/*should-you-add-usecallback-everywhere*/}
+#### 항상 `useCallback`을 사용해야 할까요? {/*should-you-add-usecallback-everywhere*/}
 
 이 사이트처럼 대부분의 상호작용이 (페이지 전체나 전체 부문을 교체하는 것처럼) 굵직한 경우, 보통 memoization이 필요하지 않습니다. 반면에 앱이 (도형을 이동하는 것과 같이) 미세한 상호작용을 하는 그림 편집기 같은 경우, memoization이 매우 유용할 수 있습니다.
 
 `useCallback`으로 함수를 캐싱하는 것은 몇 가지 경우에만 가치 있습니다.
 
-- [`memo`](/reference/react/memo)로 감싸진 컴포넌트에 prop으로 넘깁니다. 이 값이 변하지 않으면 리렌더링을 건너뛰고 싶습니다. memoization은 의존성이 변했을 때만 컴포넌트가 리렌더링하도록 합니다. 
+- [`memo`](/reference/react/memo)로 감싸진 컴포넌트에 prop으로 넘깁니다. 이 값이 변하지 않으면 리렌더링을 건너뛰고 싶습니다. memoization은 의존성이 변했을 때만 컴포넌트가 리렌더링하도록 합니다.
 - 넘긴 함수가 나중에 어떤 Hook의 의존성으로 사용됩니다. 예를 들어, `useCallback`으로 감싸진 다른 함수가 이 함수에 의존하거나, [`useEffect`](/reference/react/useEffect)에서 이 함수에 의존합니다.
 
 다른 경우에서 `useCallback`으로 함수를 감싸는 것은 아무런 이익이 없습니다. 또한 이렇게 하는 것이 큰 불이익을 가져오지도 않으므로  일부 팀은 개별적인 경우를 따로 생각하지 않고, 가능한 한 많이 memoization하는 방식을 택합니다. 단점은 코드의 가독성이 떨어지는 것입니다. 또한, 모든 memoization이 효과적인 것은 아닙니다. "항상 새로운" 하나의 값이 있다면 전체 컴포넌트의 memoization을 깨기에 충분합니다.
@@ -315,7 +316,7 @@ const ShippingForm = memo(function ShippingForm({ onSubmit }) {
   }
 
   function handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     const formData = new FormData(e.target);
     const orderDetails = {
       ...Object.fromEntries(formData),
@@ -385,7 +386,7 @@ button[type="button"] {
 
 이 예시에서 `ShippingForm` 컴포넌트 또한 **인위적으로 느리게 만들었기 때문에** 렌더링하는 React 컴포넌트가 실제로 느릴 때 어떤 일이 일어나는 지 볼 수 있습니다. 카운터를 증가시키고 테마를 토글 해보세요.
 
-이전 예시와 다르게 지금은 테마를 토글 하는 것도 느립니다! **이 버전에서는 `useCallback`을 호출하고 있지 않기** 때문에 `handleSubmit`은 항상 새로운 함수이고, 느려진 `ShippingForm` 컴포넌트는 리렌더링을 건너뛸 수 없습니다. 
+이전 예시와 다르게 지금은 테마를 토글 하는 것도 느립니다! **이 버전에서는 `useCallback`을 호출하고 있지 않기** 때문에 `handleSubmit`은 항상 새로운 함수이고, 느려진 `ShippingForm` 컴포넌트는 리렌더링을 건너뛸 수 없습니다.
 
 <Sandpack>
 
@@ -662,7 +663,7 @@ button[type="button"] {
 
 때때로 memoized 콜백에서 이전 상태를 기반으로 상태를 업데이트해야 할 때가 있습니다.
 
-`handleAddTodo` 함수는 `todos`로부터 다음 할 일을 계산하기 때문에 이를 의존성으로 명시했습니다. 
+`handleAddTodo` 함수는 `todos`로부터 다음 할 일을 계산하기 때문에 이를 의존성으로 명시했습니다.
 
 ```js {6,7}
 function TodoList() {
@@ -709,7 +710,7 @@ function ChatRoom({ roomId }) {
 
   useEffect(() => {
     const options = createOptions();
-    const connection = createConnection();
+    const connection = createConnection(options);
     connection.connect();
     // ...
 ```
@@ -720,7 +721,7 @@ function ChatRoom({ roomId }) {
 ```js {6}
   useEffect(() => {
     const options = createOptions();
-    const connection = createConnection();
+    const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
   }, [createOptions]); // 🔴 문제점: 이 의존성은 매 렌더링마다 변경됩니다.
@@ -742,7 +743,7 @@ function ChatRoom({ roomId }) {
 
   useEffect(() => {
     const options = createOptions();
-    const connection = createConnection();
+    const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
   }, [createOptions]); // ✅ createOptions가 변경될 때만 변경됩니다.
@@ -764,7 +765,7 @@ function ChatRoom({ roomId }) {
     }
 
     const options = createOptions();
-    const connection = createConnection();
+    const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
   }, [roomId]); // ✅ roomId가 변경될 때만 변경됩니다.

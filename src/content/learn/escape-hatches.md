@@ -23,7 +23,7 @@ title: 탈출구
 
 ## Ref로 값 참조하기 {/*referencing-values-with-refs*/}
 
-컴포넌트가 일부 정보를 “기억”하고 싶지만, 해당 정보가 [렌더링을 유발](/learn/render-and-commit)하지 않도록 하려면 ref를 사용하세요.
+컴포넌트가 일부 정보를 "기억"하고 싶지만, 해당 정보가 [렌더링을 유발](/learn/render-and-commit)하지 않도록 하려면 ref를 사용하세요.
 
 ```js
 const ref = useRef(0);
@@ -193,11 +193,11 @@ input { display: block; margin-bottom: 20px; }
 
 ## Effect가 필요하지 않은 경우 {/*you-might-not-need-an-effect*/}
 
-Effect는 React 패러다임에서 벗어날 수 있는 탈출구입니다. Effect를 사용하면 React를 “벗어나” 컴포넌트를 외부 시스템과 동기화할 수 있습니다. 외부 시스템이 관여하지 않는 경우 (예를 들어 일부 props 또는 state가 변경될 때 컴포넌트의 state를 업데이트하려는 경우) Effect가 필요하지 않습니다. 불필요한 Effect를 제거하면 코드를 더 쉽게 따라갈 수 있고, 실행 속도가 빨라지며, 에러 발생 가능성이 줄어듭니다.
+Effect는 React 패러다임에서 벗어날 수 있는 탈출구입니다. Effect를 사용하면 React를 "벗어나" 컴포넌트를 외부 시스템과 동기화할 수 있습니다. 외부 시스템이 관여하지 않는 경우 (예를 들어 일부 props 또는 state가 변경될 때 컴포넌트의 state를 업데이트하려는 경우) Effect가 필요하지 않습니다. 불필요한 Effect를 제거하면 코드를 더 쉽게 따라갈 수 있고, 실행 속도가 빨라지며, 에러 발생 가능성이 줄어듭니다.
 
 Effect가 필요하지 않은 두 가지 일반적인 경우가 있습니다.
 - **렌더링을 위해 데이터를 변환하는 데 Effect가 필요하지 않습니다.**
-- **사용자 이벤트를 핸들링하는 데 Effect가 필요하지 않습니다.**
+- **사용자 이벤트를 처리하는 데 Effect가 필요하지 않습니다.**
 
 예를 들어 다른 state에 따라 일부 state를 조정하는 데는 Effect가 필요하지 않습니다.
 
@@ -237,7 +237,7 @@ function Form() {
 
 ## React Effect의 생명주기 {/*lifecycle-of-reactive-effects*/}
 
-Effect는 컴포넌트와 다른 생명주기를 가집니다. 컴포넌트는 마운트, 업데이트 또는 언마운트할 수 있습니다. 반면 Effect는 동기화를 시작하거나 후에 동기화를 중지하는 두 가지 작업만 할 수 있습니다. Effect가 시간에 따라 변하는 props와 state에 의존하는 경우 이 주기는 여러 번 발생할 수 있습니다.
+Effect는 컴포넌트와 다른 생명주기를 가집니다. 컴포넌트는 마운트, 업데이트 또는 마운트 해제할 수 있습니다. 반면 Effect는 동기화를 시작하거나 후에 동기화를 중지하는 두 가지 작업만 할 수 있습니다. Effect가 시간에 따라 변하는 props와 state에 의존하는 경우 이 주기는 여러 번 발생할 수 있습니다.
 
 다음 Effect는 `roomId` prop의 값에 의존합니다. Props는 다시 렌더링할 때 변할 수 있는 *반응형 값* 입니다. `roomId`가 변경되면 Effect가 *다시 동기화* (및 서버에 다시 연결)합니다.
 
@@ -388,7 +388,7 @@ export default function App() {
       <hr />
       <ChatRoom
         roomId={roomId}
-        theme={isDark ? 'dark' : 'light'} 
+        theme={isDark ? 'dark' : 'light'}
       />
     </>
   );
@@ -521,7 +521,7 @@ export default function App() {
       <hr />
       <ChatRoom
         roomId={roomId}
-        theme={isDark ? 'dark' : 'light'} 
+        theme={isDark ? 'dark' : 'light'}
       />
     </>
   );
@@ -581,7 +581,7 @@ label { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-Effect Event 내부의 코드는 반응이 아니므로 `theme`를 변경해도 더 이상 Effect가 다시 연결하지 않습니다.
+Effect 이벤트 내부의 코드는 반응이 아니므로 `theme`를 변경해도 더 이상 Effect가 다시 연결하지 않습니다.
 
 <LearnMore path="/learn/separating-events-from-effects">
 
@@ -754,7 +754,7 @@ Effect 재실행을 줄이는 방법을 배우려면 **[Effect의 의존성 제�
 
 React는 `useState`, `useContext`, 그리고 `useEffect`같은 Hook들이 내장되어 있습니다. 때로는 데이터를 가져오거나 사용자가 온라인 상태인지 여부를 추적하거나 대화방에 연결하는 등 조금 더 구체적인 목적을 가진 Hook이 존재하길 바랄 수도 있습니다. 이를 위해 애플리케이션의 필요에 따라 자신만의 Hook을 만들 수 있습니다.
 
-이번 예제에서는 `usePointerPosition` 커스텀 Hook은 커서 위치를 추적하는 반면 `useDelayedValue` 커스텀 Hook은 전달한 값보다 특정 밀리초만큼 "지연"된 값을 반환합니다. 샌드박스 미리보기 영역 위로 커서를 이동하면 커서를 따라 움직이는 점의 흔적을 확인할 수 있습니다.
+이번 예시에서는 `usePointerPosition` 커스텀 Hook은 커서 위치를 추적하는 반면 `useDelayedValue` 커스텀 Hook은 전달한 값보다 특정 밀리초만큼 "지연"된 값을 반환합니다. 샌드박스 미리보기 영역 위로 커서를 이동하면 커서를 따라 움직이는 점의 흔적을 확인할 수 있습니다.
 
 <Sandpack>
 

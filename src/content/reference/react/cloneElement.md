@@ -4,13 +4,13 @@ title: cloneElement
 
 <Pitfall>
 
-`cloneElement`를 사용하는 것은 흔하지 않으며, 불안정한 코드를 만들 수 있습니다. [일반적인 대안을 확인하세요.](#alternatives)
+`cloneElement`사용하는 것은 일반적이지 않고 불안정한 코드를 만들 수 있습니다. [일반적으로 사용하는 대안을 살펴보세요.](#alternatives)
 
 </Pitfall>
 
 <Intro>
 
-`cloneElement`를 사용하면 element를 기준으로 새로운 React 엘리먼트를 만들 수 있습니다.
+`cloneElement`를 사용하면 엘리먼트를 기준으로 새로운 React 엘리먼트를 만들 수 있습니다.
 
 ```js
 const clonedElement = cloneElement(element, props, ...children)
@@ -43,7 +43,7 @@ const clonedElement = cloneElement(
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
 ```
 
-[아래에서 더 많은 예제를 볼 수 있습니다.](#usage)
+[아래에서 더 많은 예시를 볼 수 있습니다.](#usage)
 
 #### 매개변수 {/*parameters*/}
 
@@ -64,7 +64,7 @@ console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye
 
 일반적으로 컴포넌트에서 엘리먼트를 반환하거나 다른 엘리먼트의 자식으로 만듭니다. 엘리먼트의 프로퍼티를 읽을 수 있지만, 생성된 후에는 모든 엘리먼트의 프로퍼티를 읽을 수 없는 것처럼 취급하고 렌더링하는 것이 좋습니다.
 
-#### 주의 {/*caveats*/}
+#### 주의 사항 {/*caveats*/}
 
 * 엘리먼트를 복제해도 **원본 엘리먼트는 수정되지 않습니다.**
 
@@ -92,7 +92,7 @@ const clonedElement = cloneElement(
 
 <CodeStep step={3}>clonedElement</CodeStep>의 결과는 `<Row title="Cabbage" isHighlighted={true} />`가 됩니다.
 
-**어떤 경우에 유용한지 예제를 통해 알아보도록 하겠습니다.**
+**어떤 경우에 유용한지 예시를 통해 알아보도록 하겠습니다.**
 
 [`children`](/learn/passing-props-to-a-component#passing-jsx-as-children)을 선택할 수 있는 행 목록으로 렌더링하고, 선택된 행을 변경하는 "다음" 버튼이 있는 `List` 컴포넌트를 상상해 보세요. `List` 컴포넌트는 선택된 행을 다르게 렌더링해야 하므로 전달받은 모든 `<Row>` 자식 요소를 복제합니다. 그리고 `isHighlighted: true` 또는 `isHighlighted: false`인 `prop`을 추가합니다.
 
@@ -103,7 +103,7 @@ export default function List({ children }) {
     <div className="List">
       {Children.map(children, (child, index) =>
         cloneElement(child, {
-          isHighlighted: index === selectedIndex 
+          isHighlighted: index === selectedIndex
         })
       )}
 ```
@@ -124,15 +124,15 @@ export default function List({ children }) {
 <List>
   <Row
     title="Cabbage"
-    isHighlighted={true} 
+    isHighlighted={true}
   />
   <Row
     title="Garlic"
-    isHighlighted={false} 
+    isHighlighted={false}
   />
   <Row
     title="Apple"
-    isHighlighted={false} 
+    isHighlighted={false}
   />
 </List>
 ```
@@ -152,7 +152,7 @@ export default function App() {
       {products.map(product =>
         <Row
           key={product.id}
-          title={product.title} 
+          title={product.title}
         />
       )}
     </List>
@@ -169,7 +169,7 @@ export default function List({ children }) {
     <div className="List">
       {Children.map(children, (child, index) =>
         cloneElement(child, {
-          isHighlighted: index === selectedIndex 
+          isHighlighted: index === selectedIndex
         })
       )}
       <hr />
@@ -244,9 +244,9 @@ button {
 
 ## 대안 {/*alternatives*/}
 
-### render prop으로 데이터를 전달하기 {/*passing-data-with-a-render-prop*/}
+### 렌더링 prop으로 데이터를 전달하기 {/*passing-data-with-a-render-prop*/}
 
-`cloneElement`를 사용하는 대신에 `renderItem`과 같은 *render prop*을 사용하는 것을 고려해 보세요. 다음 예제의 `List`는 `renderItem`을 prop으로 받습니다. `List`는 모든 item에 대해 `renderItem`을 호출하고 `isHighlighted`를 인자로 전달합니다.
+`cloneElement`를 사용하는 대신에 `renderItem`과 같은 *렌더링 prop*을 사용하는 것을 고려해 보세요. 다음 예시의 `List`는 `renderItem`을 prop으로 받습니다. `List`는 모든 item에 대해 `renderItem`을 호출하고 `isHighlighted`를 인자로 전달합니다.
 
 ```js {1,7}
 export default function List({ items, renderItem }) {
@@ -259,7 +259,7 @@ export default function List({ items, renderItem }) {
       })}
 ```
 
-`renderItem` prop은 렌더링 방법을 지정하는 prop이기 때문에 "render prop"이라고 불립니다. 예를 들어, 주어진 `isHighlighted` 값으로 `<Row>`를 렌더링하는 `renderItem`을 전달할 수 있습니다.
+`renderItem` prop은 렌더링 방법을 지정하는 prop이기 때문에 "렌더링 prop"이라고 불립니다. 예를 들어, 주어진 `isHighlighted` 값으로 `<Row>`를 렌더링하는 `renderItem`을 전달할 수 있습니다.
 
 ```js {3,7}
 <List
@@ -280,15 +280,15 @@ export default function List({ items, renderItem }) {
 <List>
   <Row
     title="Cabbage"
-    isHighlighted={true} 
+    isHighlighted={true}
   />
   <Row
     title="Garlic"
-    isHighlighted={false} 
+    isHighlighted={false}
   />
   <Row
     title="Apple"
-    isHighlighted={false} 
+    isHighlighted={false}
   />
 </List>
 ```
@@ -554,9 +554,9 @@ button {
 
 ---
 
-### Custom Hook으로 로직 추출하기 {/*extracting-logic-into-a-custom-hook*/}
+### 커스텀 Hook으로 로직 추출하기 {/*extracting-logic-into-a-custom-hook*/}
 
-다른 접근 방식으로는 자체 hook을 통해 "비시각적인" 로직을 추출하는 것을 시도해 볼 수 있습니다. 그리고 hook에 의해서 반환된 정보를 사용하여 렌더링할 내용을 정합니다. 예를 들어 다음과 같이 `useList` 같은 custom hook을 작성할 수 있습니다.
+다른 접근 방식으로는 자체 hook을 통해 "비시각적인" 로직을 추출하는 것을 시도해 볼 수 있습니다. 그리고 hook에 의해서 반환된 정보를 사용하여 렌더링할 내용을 정합니다. 예를 들어 다음과 같이 `useList` 같은 커스텀 hook을 작성할 수 있습니다.
 
 ```js
 import { useState } from 'react';

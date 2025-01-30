@@ -5,7 +5,7 @@ title: <StrictMode>
 
 <Intro>
 
-`<StrictMode>`는 개발 중에 컴포넌트에서 일반적인 버그를 빠르게 찾을 수 있도록 합니다.
+`<StrictMode>`를 통해 개발 중에 컴포넌트에서 일반적인 버그를 빠르게 찾을 수 있도록 합니다.
 
 
 ```js
@@ -38,17 +38,19 @@ root.render(
 );
 ```
 
-[아래에서 더 많은 예시를 확인할 수 있습니다.](#usage)
+[아래 예시를 참고하세요.](#usage)
 
 Strict Mode는 다음과 같은 개발 전용 동작을 활성화합니다.
 
-- 순수하지 않은 렌더링으로 인해 발생하는 버그를 찾기 위해 컴포넌트가 [추가로 다시 렌더링됩니다.](#fixing-bugs-found-by-double-rendering-in-development)
-- Effect 클린업이 누락되어 발생하는 버그를 찾기 위해 컴포넌트가 [추가로 Effect를 다시 실행합니다.](#fixing-bugs-found-by-re-running-effects-in-development)
-- [더 이상 사용되지 않는 API의 사용 여부를 확인](#fixing-deprecation-warnings-enabled-by-strict-mode)하기 위해 컴포넌트를 검사합니다.
+- 컴포넌트가 순수하지 않은 렌더링으로 인한 버그를 찾기 위해 [추가로 다시 렌더링합니다.](#fixing-bugs-found-by-double-rendering-in-development)
+- 컴포넌트가 Effect 클린업이 누락되어 발생한 버그를 찾기 위해 [Effect를 다시 실행합니다.](#fixing-bugs-found-by-re-running-effects-in-development)
+- Your components will [re-run refs callbacks an extra time](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) to find bugs caused by missing ref cleanup.
+- 컴포넌트가 [더 이상 사용되지 않는 API를 사용하는지 확인합니다.](#fixing-deprecation-warnings-enabled-by-strict-mode)
+
 
 #### Props {/*props*/}
 
-`StrictMode`는 props를 허용하지 않습니다.
+`StrictMode`는 Props를 받지 않습니다.
 
 #### 주의 사항 {/*caveats*/}
 
@@ -56,7 +58,7 @@ Strict Mode는 다음과 같은 개발 전용 동작을 활성화합니다.
 
 ---
 
-## 사용 방법 {/*usage*/}
+## 사용법 {/*usage*/}
 
 ### 전체 앱에 대해 Strict Mode 활성화 {/*enabling-strict-mode-for-entire-app*/}
 
@@ -79,7 +81,7 @@ root.render(
 
 전체 앱을 (특히 새로 생성된 앱의 경우) Strict Mode로 래핑하는 것을 권장합니다. `createRoot`를 호출하는 프레임워크를 사용하는 경우, Strict Mode를 활성화하는 방법에 대한 문서를 확인하세요.
 
-Strict Mode 검사는 **개발 환경에서만 실행되지만**, 이미 코드에 존재하지만 프로덕션에서 제대로 재현하기 어려울 수 있는 버그를 찾는 데 도움이 됩니다. Strict Mode를 사용하면 사용자가 보고하기 전에 버그를 수정할 수 있습니다.
+Strict Mode 검사는 **개발 환경에서만 실행되지만**, 이미 코드에 존재하는 버그를 찾아내는 데 도움을 줍니다. 이러한 버그는 실제 운영 환경에서 재현하기 까다로울 수 있습니다. Strict Mode를 사용하면 사용자가 보고하기 전에 버그를 수정할 수 있습니다.
 
 <Note>
 
@@ -87,9 +89,11 @@ Strict Mode에서는 개발 시 다음과 같은 검사를 가능하게 합니�
 
 - 컴포넌트가 순수하지 않은 렌더링으로 인한 버그를 찾기 위해 [추가로 다시 렌더링합니다.](#fixing-bugs-found-by-double-rendering-in-development)
 - 컴포넌트가 Effect 클린업이 누락되어 발생한 버그를 찾기 위해 [Effect를 다시 실행합니다.](#fixing-bugs-found-by-re-running-effects-in-development)
+- Your components will [re-run ref callbacks an extra time](#fixing-bugs-found-by-cleaning-up-and-re-attaching-dom-refs-in-development) to find bugs caused by missing ref cleanup.
 - 컴포넌트가 [더 이상 사용되지 않는 API를 사용하는지 확인합니다.](#fixing-deprecation-warnings-enabled-by-strict-mode)
 
-**이러한 모든 검사는 개발 전용이며 프로덕션 빌드에는 영향을 미치지 않습니다.**
+
+**이러한 모든 검사는 개발 환경 전용이며 프로덕션 빌드에는 영향을 미치지 않습니다.**
 
 </Note>
 
@@ -124,15 +128,15 @@ function App() {
 
 ### 개발 중 이중 렌더링으로 발견한 버그 수정 {/*fixing-bugs-found-by-double-rendering-in-development*/}
 
-[React는 작성하는 모든 컴포넌트가 순수 함수라고 가정합니다.](/learn/keeping-components-pure) 이것은 React 컴포넌트는 항상 동일한 입력(props, state, context)에 대해 동일한 JSX를 반환해야 한다는 것을 의미합니다.
+[React는 작성하는 모든 컴포넌트가 순수 함수라고 가정합니다.](/learn/keeping-components-pure) 이것은 React 컴포넌트는 항상 동일한 입력(Props, State, Context)에 대해 동일한 JSX를 반환해야 한다는 것을 의미합니다.
 
 이 규칙을 위반하는 컴포넌트는 예기치 않게 동작하며 버그를 일으킵니다. Strict Mode는 실수로 작성된 순수하지 않은 코드를 찾아내기 위해 몇 가지 함수(순수 함수여야 하는 것만)를 **개발 환경에서 두 번 호출**합니다. 이에는 다음이 포함됩니다.
 
-- 컴포넌트 함수 본문 (이벤트 핸들러 내부 코드를 포함하지 않도록 최상위 로직에서만)
-- [`useState`](/reference/react/useState), [`set` 함수](/reference/react/useState#setstate), [`useMemo`](/reference/react/useMemo), 또는 [`useReducer`](/reference/react/useReducer)에 전달한 함수
-- [`constructor`](/reference/react/Component#constructor), [`render`](/reference/react/Component#render), [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate)와 같은 일부 클래스 컴포넌트 메소드 ([전체 목록 보기](https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects))
+- 컴포넌트 함수 본문. (단, 최상위 로직만 해당하며, 이벤트 핸들러 내부의 코드는 포함하지 않음.)
+- [`useState`](/reference/react/useState), [`set` 함수](/reference/react/useState#setstate), [`useMemo`](/reference/react/useMemo), 또는 [`useReducer`](/reference/react/useReducer)에 전달한 함수.
+- [`constructor`](/reference/react/Component#constructor), [`render`](/reference/react/Component#render), [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate)와 같은 일부 클래스 컴포넌트 메소드. ([전체 목록 보기](https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects))
 
-함수가 순수한 경우 두 번 실행하여도 동작이 변경되지 않습니다. 순수 함수는 항상 같은 결과를 생성하기 때문입니다. 그러나 함수가 순수하지 않다면 (예: 받은 데이터를 변경하는 함수) 두 번 실행하면 보통 알아챌 수 있습니다. (이것이 순수하지 않은 이유입니다!) 이는 버그를 조기에 발견하고 수정하는 데 도움이 됩니다.
+함수가 순수한 경우 두 번 실행하여도 동작이 변경되지 않습니다. 순수 함수는 항상 같은 결과를 생성하기 때문입니다. 그러나 함수가 순수하지 않다면 (예: 받은 데이터를 변경하는 함수) 두 번 실행하면 보통 알아챌 수 있습니다. (이것이 바로 함수가 순수하지 않다는 것을 의미합니다!) 이는 버그를 조기에 발견하고 수정하는 데 도움이 됩니다.
 
 **다음은 Strict Mode의 이중 렌더링이 어떻게 버그를 조기에 발견하는 데 도움이 되는지 보여주는 예시입니다.**
 
@@ -314,7 +318,7 @@ export default function StoryTray({ stories }) {
   items.push({ id: 'create', label: '이야기 만들기' });
 ```
 
-이렇게 하면 [`StoryTray` 함수를 순수하게 만들 수 있습니다.](/learn/keeping-components-pure) 함수가 호출될 때마다 배열의 사본만 수정하고 외부 객체나 변수에 영향을 미치지 않습니다. 이렇게 하면 버그가 해결되지만 컴포넌트의 동작에 문제가 있다는 것이 명확해지기 전에 컴포넌트를 더 자주 다시 렌더링해야 했습니다.
+이렇게 하면 [`StoryTray` 함수를 순수하게 만들 수 있습니다.](/learn/keeping-components-pure) 함수가 호출될 때마다 배열의 사본만 수정하고, 외부 객체나 변수에는 영향을 미치지 않습니다. 이렇게 하면 버그를 해결할 수 있지만, 컴포넌트를 여러번 다시 렌더링하도록 만들어야 비로소 컴포넌트의 동작에 문제가 있다는 것이 명확해졌습니다.
 
 **원래 예시에서는 버그가 명확하지 않았습니다. 이제 원래 (버그가 있는) 코드를 `<StrictMode>`로 래핑해 보겠습니다.**
 
@@ -399,7 +403,7 @@ li {
 
 </Sandpack>
 
-**Strict Mode에서는 *항상* 렌더링 함수를 두 번 호출하므로 실수를 바로 확인할 수 있습니다**("이야기 만들기"가 두 번 나타남). 따라서 프로세스 초기에 이러한 실수를 발견할 수 있습니다. 컴포넌트가 Strict Mode에서 렌더링되도록 수정하면 이전의 호버 기능과 같이 향후 발생할 수 있는 많은 프로덕션 버그도 *수정*할 수 있습니다.
+**Strict Mode에서는 *항상* 렌더링 함수를 두 번 호출하므로 실수를 바로 확인할 수 있습니다.** ("이야기 만들기"가 두 번 나타남.) 따라서 프로세스 초기에 이러한 실수를 발견할 수 있습니다. 컴포넌트가 Strict Mode에서 렌더링되도록 수정하면 이전의 호버 기능과 같이 향후 발생할 수 있는 많은 프로덕션 버그도 *수정*할 수 있습니다.
 
 <Sandpack>
 
@@ -491,13 +495,13 @@ li {
 
 </Sandpack>
 
-Strict Mode가 없으면 리렌더링을 더 추가하기 전까지는 버그를 놓치기 쉬웠습니다. Strict Mode를 사용하면 동일한 버그가 즉시 나타납니다. Strict Mode를 사용하면 버그를 팀과 사용자에게 푸시하기 전에 발견하는 데 도움이 됩니다.
+Strict Mode가 없으면 리렌더링을 더 추가하기 전까지는 버그를 놓치기 쉬웠습니다. Strict Mode를 사용하면 동일한 버그가 즉시 나타납니다. Strict Mode는 버그를 팀이나 사용자에게 푸시하기 전에 발견할 수 있도록 도와줍니다.
 
 [컴포넌트를 순수하게 유지하는 방법에 대해 자세히 알아보세요.](/learn/keeping-components-pure)
 
 <Note>
 
-[React DevTools](/learn/react-developer-tools)가 설치되어 있다면, 두 번째 렌더링 호출 중 `console.log` 호출이 약간 흐리게 표시됩니다. React 개발자 도구는 이를 완전히 억제하는 설정(기본값은 꺼짐)도 제공합니다.
+[React 개발자 도구](/learn/react-developer-tools)가 설치되어 있다면, 두 번째 렌더링 호출 중 `console.log` 호출이 약간 흐리게 표시됩니다. React 개발자 도구는 이를 완전히 억제하는 설정(기본값은 꺼짐)도 제공합니다.
 
 </Note>
 
@@ -505,13 +509,13 @@ Strict Mode가 없으면 리렌더링을 더 추가하기 전까지는 버그를
 
 ### 개발 환경에서 Effect를 다시 실행하여 발견된 버그 수정 {/*fixing-bugs-found-by-re-running-effects-in-development*/}
 
-Strict Mode는 [Effects](/learn/synchronizing-with-effects)의 버그를 찾는 데도 도움이 될 수 있습니다.
+Strict Mode는 [Effect](/learn/synchronizing-with-effects)의 버그를 찾는 데도 도움이 될 수 있습니다.
 
 모든 Effect에는 몇 가지 셋업 코드가 있고 어쩌면 클린업 코드가 있을 수 있습니다. 일반적으로 React는 컴포넌트가 *마운트*(화면에 추가)될 때 셋업을 호출하고 컴포넌트가 *마운트 해제*(화면에서 제거)될 때 클린업을 호출합니다. 그런 다음 React는 마지막 렌더링 이후로부터 의존성이 변경된 경우 클린업과 셋업을 다시 호출합니다.
 
 Strict Mode가 켜져 있으면 React는 **모든 Effect에 대해 개발 환경에서 한 번 더 셋업+클린업 사이클을 실행합니다.** 의외로 느껴질 수도 있지만 수동으로 파악하기 어려운 미묘한 버그를 드러내는 데 도움이 됩니다.
 
-**다음은 Strict Mode에서 Effects를 다시 실행하는 것이 버그를 조기에 발견하는 데 어떻게 도움이 되는지 보여주는 예시입니다.**
+**다음은 Strict Mode에서 Effect를 다시 실행하는 것이 버그를 조기에 발견하는 데 어떻게 도움이 되는지 보여주는 예시입니다.**
 
 컴포넌트를 채팅에 연결하는 이 예시를 살펴봅시다.
 
@@ -547,7 +551,7 @@ export default function ChatRoom() {
 let connections = 0;
 
 export function createConnection(serverUrl, roomId) {
-  // 현실 구현은 실제로 서버에 연결될 것입니다.
+  // 현실 구현은 실제로 서버에 연결할 것입니다.
   return {
     connect() {
       console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
@@ -825,14 +829,422 @@ Strict Mode가 없으면 Effect를 클린업해야 한다는 사실을 놓치기
 [Effect 클린업을 구현하는 방법에 대해 자세히 알아보세요.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
 
 ---
+### Fixing bugs found by re-running ref callbacks in development {/*fixing-bugs-found-by-re-running-ref-callbacks-in-development*/}
 
-### Strict Mode에 의해 활성화된 사용 중단 경고 수정 {/*fixing-deprecation-warnings-enabled-by-strict-mode*/}
+Strict Mode can also help find bugs in [callbacks refs.](/learn/manipulating-the-dom-with-refs)
+
+Every callback `ref` has some setup code and may have some cleanup code. Normally, React calls setup when the element is *created* (is added to the DOM) and calls cleanup when the element is *removed* (is removed from the DOM).
+
+When Strict Mode is on, React will also run **one extra setup+cleanup cycle in development for every callback `ref`.** This may feel surprising, but it helps reveal subtle bugs that are hard to catch manually.
+
+Consider this example, which allows you to select an animal and then scroll to one of them. Notice when you switch from "Cats" to "Dogs", the console logs show that the number of animals in the list keeps growing, and the "Scroll to" buttons stop working:
+
+<Sandpack>
+
+```js src/index.js
+import { createRoot } from 'react-dom/client';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById("root"));
+// ❌ Not using StrictMode.
+root.render(<App />);
+```
+
+```js src/App.js active
+import { useRef, useState } from "react";
+
+export default function AnimalFriends() {
+  const itemsRef = useRef([]);
+  const [animalList, setAnimalList] = useState(setupAnimalList);
+  const [animal, setAnimal] = useState('cat');
+
+  function scrollToAnimal(index) {
+    const list = itemsRef.current;
+    const {node} = list[index];
+    node.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
+  const animals = animalList.filter(a => a.type === animal)
+
+  return (
+    <>
+      <nav>
+        <button onClick={() => setAnimal('cat')}>Cats</button>
+        <button onClick={() => setAnimal('dog')}>Dogs</button>
+      </nav>
+      <hr />
+      <nav>
+        <span>Scroll to:</span>{animals.map((animal, index) => (
+          <button key={animal.src} onClick={() => scrollToAnimal(index)}>
+            {index}
+          </button>
+        ))}
+      </nav>
+      <div>
+        <ul>
+          {animals.map((animal) => (
+              <li
+                key={animal.src}
+                ref={(node) => {
+                  const list = itemsRef.current;
+                  const item = {animal: animal, node};
+                  list.push(item);
+                  console.log(`✅ Adding animal to the map. Total animals: ${list.length}`);
+                  if (list.length > 10) {
+                    console.log('❌ Too many animals in the list!');
+                  }
+                  return () => {
+                    // 🚩 No cleanup, this is a bug!
+                  }
+                }}
+              >
+                <img src={animal.src} />
+              </li>
+            ))}
+
+        </ul>
+      </div>
+    </>
+  );
+}
+
+function setupAnimalList() {
+  const animalList = [];
+  for (let i = 0; i < 10; i++) {
+    animalList.push({type: 'cat', src: "https://loremflickr.com/320/240/cat?lock=" + i});
+  }
+  for (let i = 0; i < 10; i++) {
+    animalList.push({type: 'dog', src: "https://loremflickr.com/320/240/dog?lock=" + i});
+  }
+
+  return animalList;
+}
+
+```
+
+```css
+div {
+  width: 100%;
+  overflow: hidden;
+}
+
+nav {
+  text-align: center;
+}
+
+button {
+  margin: .25rem;
+}
+
+ul,
+li {
+  list-style: none;
+  white-space: nowrap;
+}
+
+li {
+  display: inline;
+  padding: 0.5rem;
+}
+```
+
+</Sandpack>
+
+
+**This is a production bug!** Since the ref callback doesn't remove animals from the list in the cleanup, the list of animals keeps growing. This is a memory leak that can cause performance problems in a real app, and breaks the behavior of the app.
+
+The issue is the ref callback doesn't cleanup after itself:
+
+```js {6-8}
+<li
+  ref={node => {
+    const list = itemsRef.current;
+    const item = {animal, node};
+    list.push(item);
+    return () => {
+      // 🚩 No cleanup, this is a bug!
+    }
+  }}
+</li>
+```
+
+Now let's wrap the original (buggy) code in `<StrictMode>`:
+
+<Sandpack>
+
+```js src/index.js
+import { createRoot } from 'react-dom/client';
+import {StrictMode} from 'react';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById("root"));
+// ✅ Using StrictMode.
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+
+```js src/App.js active
+import { useRef, useState } from "react";
+
+export default function AnimalFriends() {
+  const itemsRef = useRef([]);
+  const [animalList, setAnimalList] = useState(setupAnimalList);
+  const [animal, setAnimal] = useState('cat');
+
+  function scrollToAnimal(index) {
+    const list = itemsRef.current;
+    const {node} = list[index];
+    node.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
+  const animals = animalList.filter(a => a.type === animal)
+
+  return (
+    <>
+      <nav>
+        <button onClick={() => setAnimal('cat')}>Cats</button>
+        <button onClick={() => setAnimal('dog')}>Dogs</button>
+      </nav>
+      <hr />
+      <nav>
+        <span>Scroll to:</span>{animals.map((animal, index) => (
+          <button key={animal.src} onClick={() => scrollToAnimal(index)}>
+            {index}
+          </button>
+        ))}
+      </nav>
+      <div>
+        <ul>
+          {animals.map((animal) => (
+              <li
+                key={animal.src}
+                ref={(node) => {
+                  const list = itemsRef.current;
+                  const item = {animal: animal, node}
+                  list.push(item);
+                  console.log(`✅ Adding animal to the map. Total animals: ${list.length}`);
+                  if (list.length > 10) {
+                    console.log('❌ Too many animals in the list!');
+                  }
+                  return () => {
+                    // 🚩 No cleanup, this is a bug!
+                  }
+                }}
+              >
+                <img src={animal.src} />
+              </li>
+            ))}
+
+        </ul>
+      </div>
+    </>
+  );
+}
+
+function setupAnimalList() {
+  const animalList = [];
+  for (let i = 0; i < 10; i++) {
+    animalList.push({type: 'cat', src: "https://loremflickr.com/320/240/cat?lock=" + i});
+  }
+  for (let i = 0; i < 10; i++) {
+    animalList.push({type: 'dog', src: "https://loremflickr.com/320/240/dog?lock=" + i});
+  }
+
+  return animalList;
+}
+
+```
+
+```css
+div {
+  width: 100%;
+  overflow: hidden;
+}
+
+nav {
+  text-align: center;
+}
+
+button {
+  margin: .25rem;
+}
+
+ul,
+li {
+  list-style: none;
+  white-space: nowrap;
+}
+
+li {
+  display: inline;
+  padding: 0.5rem;
+}
+```
+
+</Sandpack>
+
+**With Strict Mode, you immediately see that there is a problem**. Strict Mode runs an extra setup+cleanup cycle for every callback ref. This callback ref has no cleanup logic, so it adds refs but doesn't remove them. This is a hint that you're missing a cleanup function.
+
+Strict Mode lets you eagerly find mistakes in callback refs. When you fix your callback by adding a cleanup function in Strict Mode, you *also* fix many possible future production bugs like the "Scroll to" bug from before:
+
+<Sandpack>
+
+```js src/index.js
+import { createRoot } from 'react-dom/client';
+import {StrictMode} from 'react';
+import './styles.css';
+
+import App from './App';
+
+const root = createRoot(document.getElementById("root"));
+// ✅ Using StrictMode.
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+
+```js src/App.js active
+import { useRef, useState } from "react";
+
+export default function AnimalFriends() {
+  const itemsRef = useRef([]);
+  const [animalList, setAnimalList] = useState(setupAnimalList);
+  const [animal, setAnimal] = useState('cat');
+
+  function scrollToAnimal(index) {
+    const list = itemsRef.current;
+    const {node} = list[index];
+    node.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }
+
+  const animals = animalList.filter(a => a.type === animal)
+
+  return (
+    <>
+      <nav>
+        <button onClick={() => setAnimal('cat')}>Cats</button>
+        <button onClick={() => setAnimal('dog')}>Dogs</button>
+      </nav>
+      <hr />
+      <nav>
+        <span>Scroll to:</span>{animals.map((animal, index) => (
+          <button key={animal.src} onClick={() => scrollToAnimal(index)}>
+            {index}
+          </button>
+        ))}
+      </nav>
+      <div>
+        <ul>
+          {animals.map((animal) => (
+              <li
+                key={animal.src}
+                ref={(node) => {
+                  const list = itemsRef.current;
+                  const item = {animal, node};
+                  list.push({animal: animal, node});
+                  console.log(`✅ Adding animal to the map. Total animals: ${list.length}`);
+                  if (list.length > 10) {
+                    console.log('❌ Too many animals in the list!');
+                  }
+                  return () => {
+                    list.splice(list.indexOf(item));
+                    console.log(`❌ Removing animal from the map. Total animals: ${itemsRef.current.length}`);
+                  }
+                }}
+              >
+                <img src={animal.src} />
+              </li>
+            ))}
+
+        </ul>
+      </div>
+    </>
+  );
+}
+
+function setupAnimalList() {
+  const animalList = [];
+  for (let i = 0; i < 10; i++) {
+    animalList.push({type: 'cat', src: "https://loremflickr.com/320/240/cat?lock=" + i});
+  }
+  for (let i = 0; i < 10; i++) {
+    animalList.push({type: 'dog', src: "https://loremflickr.com/320/240/dog?lock=" + i});
+  }
+
+  return animalList;
+}
+
+```
+
+```css
+div {
+  width: 100%;
+  overflow: hidden;
+}
+
+nav {
+  text-align: center;
+}
+
+button {
+  margin: .25rem;
+}
+
+ul,
+li {
+  list-style: none;
+  white-space: nowrap;
+}
+
+li {
+  display: inline;
+  padding: 0.5rem;
+}
+```
+
+</Sandpack>
+
+Now on inital mount in StrictMode, the ref callbacks are all setup, cleaned up, and setup again:
+
+```
+...
+✅ Adding animal to the map. Total animals: 10
+...
+❌ Removing animal from the map. Total animals: 0
+...
+✅ Adding animal to the map. Total animals: 10
+```
+
+**This is expected.** Strict Mode confirms that the ref callbacks are cleaned up correctly, so the size never grows above the expected amount. After the fix, there are no memory leaks, and all the features work as expected.
+
+Without Strict Mode, it was easy to miss the bug until you clicked around to app to notice broken features. Strict Mode made the bugs appear right away, before you push them to production.
+
+---
+### Fixing deprecation warnings enabled by Strict Mode {/*fixing-deprecation-warnings-enabled-by-strict-mode*/}
 
 React는 `<StrictMode>` 트리 내부의 컴포넌트가 더 이상 사용되지 않는 다음 API 중 하나를 사용하는 경우 경고를 표시합니다.
 
-* [`findDOMNode`](/reference/react-dom/findDOMNode). [대안 보기](https://reactjs.org/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage)
-* [`UNSAFE_componentWillMount`](/reference/react/Component#unsafe_componentwillmount)와 같은 `UNSAFE_` 클래스 생명주기 메서드. [대안 보기](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles)
-* 레거시 context ([`childContextTypes`](/reference/react/Component#static-childcontexttypes), [`contextTypes`](/reference/react/Component#static-contexttypes), 및 [`getChildContext`](/reference/react/Component#getchildcontext)). [대안 보기](/reference/react/createContext)
-* 레거시 문자열 refs ([`this.refs`](/reference/react/Component#refs)). [대안 보기](https://ko.legacy.reactjs.org/docs/strict-mode.html#warning-about-legacy-string-ref-api-usage)
+* [`UNSAFE_componentWillMount`](/reference/react/Component#unsafe_componentwillmount)와 같은 `UNSAFE_` 클래스 생명주기 메서드. [대안 확인하기](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles).
 
 이러한 API는 주로 이전 [클래스 컴포넌트](/reference/react/Component)에서 사용되므로 최신 앱에서는 거의 나타나지 않습니다.

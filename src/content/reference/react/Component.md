@@ -4,13 +4,13 @@ title: Component
 
 <Pitfall>
 
-컴포넌트를 class 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#alternatives)
+컴포넌트를 클래스 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#alternatives)
 
 </Pitfall>
 
 <Intro>
 
-`Component`는 [자바스크립트 class](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes)로 정의된 React 컴포넌트의 기본 class입니다. React에서 클래스 컴포넌트를 계속 지원하지만, 새 코드에서는 사용하지 않는 것을 추천합니다.
+`Component`는 [자바스크립트 클래스](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes)로 정의된 React 컴포넌트의 기본 클래스입니다. React에서 클래스 컴포넌트를 계속 지원하지만, 새 코드에서는 사용하지 않는 것을 추천합니다.
 
 ```js
 class Greeting extends Component {
@@ -30,7 +30,7 @@ class Greeting extends Component {
 
 ### `Component` {/*component*/}
 
-React 컴포넌트를 class로 정의하려면, 내장 `Component` class를 확장하고 [`render` 메서드](#render)를 정의하세요.
+React 컴포넌트를 클래스로 정의하려면, 내장 `Component` 클래스를 확장하고 [`render` 메서드](#render)를 정의하세요.
 
 ```js
 import { Component } from 'react';
@@ -50,7 +50,7 @@ class Greeting extends Component {
 
 ### `context` {/*context*/}
 
-클래스 컴포넌트의 [context](/learn/passing-data-deeply-with-context)는 `this.context`로 사용할 수 있습니다. [`static contextType`](#static-contexttype)(modern) 또는 [`static contextTypes`](#static-contexttypes)(deprecated)를 사용하여 *어떤* context를 받길 원하는지 지정해야만 사용할 수 있습니다.
+클래스 컴포넌트의 [context](/learn/passing-data-deeply-with-context)는 `this.context`로 사용할 수 있습니다. [`static contextType`](#static-contexttype)를 사용하여 *어떤* context를 받을지 지정해야만 사용할 수 있습니다.
 
 클래스 컴포넌트는 한 번에 하나의 context만 읽을 수 있습니다.
 
@@ -105,18 +105,6 @@ class Greeting extends Component {
 
 ---
 
-### `refs` {/*refs*/}
-
-<Deprecated>
-
-이 API는 React의 향후 주요 버전에서 제거될 예정입니다. [대신 `createRef`를 사용하세요.](/reference/react/createRef)
-
-</Deprecated>
-
-컴포넌트에 대한 [legacy string refs](https://ko.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs)에 액세스할 수 있습니다.
-
----
-
 ### `state` {/*state*/}
 
 클래스 컴포넌트의 state는 `this.state`로 사용할 수 있습니다. `state` 필드는 반드시 객체여야합니다. state를 직접 변경하지 마세요. state를 변경하려면 새 state로 `setState`를 호출하세요.
@@ -129,7 +117,7 @@ class Counter extends Component {
 
   handleAgeChange = () => {
     this.setState({
-      age: this.state.age + 1 
+      age: this.state.age + 1
     });
   };
 
@@ -158,7 +146,7 @@ class Counter extends Component {
 
 ### `constructor(props)` {/*constructor*/}
 
-클래스 컴포넌트가 *마운트*(화면에 추가됨)되기 전에 [constructor](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/constructor)가 실행됩니다. 일반적으로 constructor는 React에서 두 가지 목적으로만 사용됩니다. state를 선언하고 class 메서드를 class 인스턴스에 [바인딩](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_objects/Function/bind)할 수 있습니다.
+클래스 컴포넌트가 *마운트*(화면에 추가됨)되기 전에 [constructor](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/constructor)가 실행됩니다. 일반적으로 constructor는 React에서 두 가지 목적으로만 사용됩니다. state를 선언하고 클래스 메서드를 클래스 인스턴스에 [바인딩](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_objects/Function/bind)할 수 있습니다.
 
 ```js {2-6}
 class Counter extends Component {
@@ -173,7 +161,7 @@ class Counter extends Component {
   }
 ```
 
-최신 자바스크립트 문법을 사용한다면 constructor는 거의 필요하지 않습니다. 대신 최신 브라우저와 [Babel](https://babeljs.io/)과 같은 도구에서 모두 지원되는 [공용 class 필드 문법](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Public_class_fields)을 사용하여 위의 코드를 다시 작성할 수 있습니다.
+최신 자바스크립트 문법을 사용한다면 constructor는 거의 필요하지 않습니다. 대신 최신 브라우저와 [Babel](https://babeljs.io/)과 같은 도구에서 모두 지원되는 [공용 클래스 필드 문법](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Public_class_fields)을 사용하여 위의 코드를 다시 작성할 수 있습니다.
 
 ```js {2,4}
 class Counter extends Component {
@@ -194,7 +182,7 @@ constructor는 부수 효과 또는 구독을 포함하면 안됩니다.
 
 `constructor`는 아무것도 반환하면 안 됩니다.
 
-#### 주의사항 {/*constructor-caveats*/}
+#### 주의 사항 {/*constructor-caveats*/}
 
 * constructor에서 부수 효과 또는 구독을 실행하지 마세요. 대신 [`componentDidMount`](#componentdidmount)를 사용하세요.
 
@@ -232,7 +220,7 @@ constructor는 부수 효과 또는 구독을 포함하면 안됩니다.
 
 `componentDidCatch`는 아무것도 반환하면 안 됩니다.
 
-#### 주의사항 {/*componentdidcatch-caveats*/}
+#### 주의 사항 {/*componentdidcatch-caveats*/}
 
 * 과거에는 UI를 업데이트하고 대체 에러 메세지를 표시하기 위해 `setState`를 `componentDidCatch` 안에서 호출하는 것이 일반적이었습니다. 이는 [`static getDerivedStateFromError`](#static-getderivedstatefromerror)를 정의하기 위해 더 이상 사용되지 않습니다.
 
@@ -290,7 +278,7 @@ class ChatRoom extends Component {
 
 `componentDidMount`는 아무것도 반환하면 안 됩니다.
 
-#### 주의사항 {/*componentdidmount-caveats*/}
+#### 주의 사항 {/*componentdidmount-caveats*/}
 
 - [Strict 모드](/reference/react/StrictMode)가 켜져 있으면 개발 중인 React가 `componentDidMount`를 호출한 다음 [`componentWillUnmount`](#componentwillunmount)를 호출하고 `componentDidMount`를 다시 호출합니다. 이를 통해 `componentWillUnmount`를 구현하는 것을 잊었거나 로직이 `componentDidMount`가 수행하는 작업을 완전히 "미러링"하지 않는 경우를 알 수 있습니다.
 
@@ -355,7 +343,7 @@ class ChatRoom extends Component {
 
 `componentDidUpdate`는 아무것도 반환하지 않아야 합니다.
 
-#### 주의사항 {/*componentdidupdate-caveats*/}
+#### 주의 사항 {/*componentdidupdate-caveats*/}
 
 - [`shouldComponentUpdate`](#shouldcomponentupdate)가 정의되어 있으면 `componentDidUpdate`가 호출되지 않고 `false`를 반환합니다.
 
@@ -452,7 +440,7 @@ class ChatRoom extends Component {
 
 `componentWillUnmount`는 아무것도 반환하지 않아야 합니다.
 
-#### 주의사항 {/*componentwillunmount-caveats*/}
+#### 주의 사항 {/*componentwillunmount-caveats*/}
 
 - [Strict 모드](/reference/react/StrictMode)가 켜져 있으면 개발 시 React는 [`componentDidMount`](#componentdidmount)를 호출한 다음 즉시 `componentWillUnmount`를 호출한 다음 `componentDidMount`를 다시 호출합니다. 이렇게 하면 `componentWillUnmount`를 구현하는 것을 잊어버렸거나 그 로직이 `componentDidMount`의 동작을 완전히 "미러링"하지 않는지 확인할 수 있습니다.
 
@@ -482,7 +470,7 @@ class ChatRoom extends Component {
 
 `forceUpdate`는 아무것도 반환하지 않습니다.
 
-#### 주의사항 {/*forceupdate-caveats*/}
+#### 주의 사항 {/*forceupdate-caveats*/}
 
 - `forceUpdate`를 호출하면 React는 [`shouldComponentUpdate`](#shouldcomponentupdate)를 호출하지 않고 다시 렌더링합니다.
 
@@ -491,18 +479,6 @@ class ChatRoom extends Component {
 외부 데이터 소스를 읽는 것과 `forceUpdate`를 사용하여 변경된 내용에 따라 클래스 컴포넌트를 다시 렌더링하도록 강제하는 것은 함수 컴포넌트에서 [`useSyncExternalStore`](/reference/react/useSyncExternalStore)로 대체되었습니다.
 
 </Note>
-
----
-
-### `getChildContext()` {/*getchildcontext*/}
-
-<Deprecated>
-
-이 API는 향후 React의 주요 버전에서 제거될 예정입니다. [대신 `Context.Provider`를 사용하세요.](/reference/react/createContext#provider)
-
-</Deprecated>
-
-이 컴포넌트가 제공하는 [legacy context](https://ko.reactjs.org/docs/legacy-context.html)에 대한 값을 지정할 수 있습니다.
 
 ---
 
@@ -559,7 +535,7 @@ class ScrollingList extends React.Component {
 
 원하는 유형의 스냅샷 값 또는 `null`을 반환해야 합니다. 반환한 값은 [componentDidUpdate](#componentdidupdate)의 세 번째 인자로 전달됩니다.
 
-#### 주의사항 {/*getsnapshotbeforeupdate-caveats*/}
+#### 주의 사항 {/*getsnapshotbeforeupdate-caveats*/}
 
 - [`shouldComponentUpdate`](#shouldcomponentupdate)가 정의되어 있으면 `getSnapshotBeforeUpdate`가 호출되지 않고 `false`를 반환합니다.
 
@@ -599,7 +575,7 @@ React는 언제든 `render`를 호출할 수 있으므로 특정 시간에 실�
 
 `render`는 유효한 모든 React 노드를 반환할 수 있습니다. 여기에는 `<div />`, 문자열, 숫자, [portals](/reference/react-dom/createPortal), 빈 노드(`null`, `undefined`, `true`, `false`) 및 React 노드의 배열과 같은 React 엘리먼트가 포함됩니다.
 
-#### 주의사항 {/*render-caveats*/}
+#### 주의 사항 {/*render-caveats*/}
 
 - `render`는 props, state, context의 순수한 함수로 작성되어야 합니다. 부수 효과가 없어야 합니다.
 
@@ -685,7 +661,7 @@ function handleClick() {
 
 `setState`는 아무것도 반환하지 않습니다.
 
-#### 주의사항 {/*setstate-caveats*/}
+#### 주의 사항 {/*setstate-caveats*/}
 
 - `setState`를 컴포넌트를 업데이트하는 즉각적인 명령이 아닌 *요청*으로 생각하세요. 여러 컴포넌트가 이벤트에 반응하여 state를 업데이트하면 React는 업데이트를 batch하고 이벤트가 끝날 때 단일 패스로 함께 다시 렌더링합니다. 드물게 특정 state 업데이트를 강제로 동기화하여 적용해야 하는 경우, [`flushSync`](/reference/react-dom/flushSync)로 래핑할 수 있지만, 이 경우 성능이 저하될 수 있습니다.
 
@@ -738,7 +714,7 @@ class Rectangle extends Component {
 
 - `nextProps`: 컴포넌트가 렌더링할 다음 props입니다. `nextProps`와 [`this.props`](#props)를 비교하여 무엇이 변경되었는지 확인합니다.
 - `nextState`: 컴포넌트가 렌더링할 다음 state입니다. `nextState`와 [`this.state`](#props)를 비교하여 무엇이 변경되었는지 확인합니다.
-- `nextContext`: 컴포넌트가 렌더링할 다음 context입니다. `nextContext`를 [`this.context`](#context)와 비교하여 변경된 내용을 확인합니다. [`static contextType`](#static-contexttype)(modern) 또는 [`static contextTypes`](#static-contexttypes)(legacy)를 지정한 경우에만 사용할 수 있습니다.
+- `nextContext`: 컴포넌트가 렌더링할 다음 context입니다. `nextContext`를 [`this.context`](#context)와 비교하여 변경된 내용을 확인합니다. [`static contextType`](#static-contexttype)(modern)을 지정한 경우에만 사용할 수 있습니다.
 
 #### 반환값 {/*shouldcomponentupdate-returns*/}
 
@@ -746,7 +722,7 @@ class Rectangle extends Component {
 
 React에 재렌더링을 건너뛸 수 있음을 알리려면 `false`를 반환합니다.
 
-#### 주의사항 {/*shouldcomponentupdate-caveats*/}
+#### 주의 사항 {/*shouldcomponentupdate-caveats*/}
 
 - 이 메서드는 *오직* 성능 최적화를 위해서만 존재합니다. 이 메서드 없이 컴포넌트가 중단되는 경우 먼저 그 문제를 해결하세요.
 
@@ -770,7 +746,7 @@ React에 재렌더링을 건너뛸 수 있음을 알리려면 `false`를 반환�
 
 `UNSAFE_componentWillMount`를 정의하면 React는 [`constructor`](#constructor) 바로 뒤에 이를 호출합니다. 이 메서드는 역사적인 이유로만 존재하며 새로운 코드에서 사용하면 안 됩니다. 대신 다른 대안을 사용하세요.
 
-- state를 초기화하려면 [`state`](#state)를 class 필드로 선언하거나 [`constructor`](#constructor) 내에서 `this.state`를 설정하세요.
+- state를 초기화하려면 [`state`](#state)를 클래스 필드로 선언하거나 [`constructor`](#constructor) 내에서 `this.state`를 설정하세요.
 - 부수 효과를 실행하거나 구독을 설정해야 하는 경우 해당 로직을 [`componentDidMount`](#componentdidmount)로 옮기세요.
 
 [안전하지 않은 생명주기에서 벗어나 마이그레이션한 사례를 확인하세요.](https://ko.legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#examples)
@@ -783,7 +759,7 @@ React에 재렌더링을 건너뛸 수 있음을 알리려면 `false`를 반환�
 
 `UNSAFE_componentWillMount`는 아무것도 반환하지 않아야 합니다.
 
-#### 주의사항 {/*unsafe_componentwillmount-caveats*/}
+#### 주의 사항 {/*unsafe_componentwillmount-caveats*/}
 
 - 컴포넌트가 [`static getDerivedStateFromProps`](#static-getderivedstatefromprops) 또는 [`getSnapshotBeforeUpdate`](#getsnapshotbeforeupdate)를 구현하는 경우 `UNSAFE_componentWillMount`가 호출되지 않습니다.
 
@@ -813,13 +789,13 @@ React에 재렌더링을 건너뛸 수 있음을 알리려면 `false`를 반환�
 #### 매개변수 {/*unsafe_componentwillreceiveprops-parameters*/}
 
 - `nextProps`: 컴포넌트가 부모 컴포넌트로부터 받으려는 다음 props입니다. `nextProps`와 [`this.props`](#props)를 비교하여 무엇이 변경되었는지 확인합니다.
-- `nextContext`: 컴포넌트가 가장 가까운 공급자(provider)로부터 받으려는 다음 props입니다. `nextContext`를 [`this.context`](#context)와 비교하여 변경된 내용을 확인합니다. [`static contextType`](#static-contexttype)(modern) 또는 [`static contextTypes`](#static-contexttypes)(legacy)를 지정한 경우에만 사용할 수 있습니다.
+- `nextContext`: 컴포넌트가 가장 가까운 공급자(provider)로부터 받으려는 다음 props입니다. `nextContext`를 [`this.context`](#context)와 비교하여 변경된 내용을 확인합니다. [`static contextType`](#static-contexttype)(modern)을 지정한 경우에만 사용할 수 있습니다.
 
 #### 반환값 {/*unsafe_componentwillreceiveprops-returns*/}
 
 `UNSAFE_componentWillReceiveProps`는 아무것도 반환하지 않아야 합니다.
 
-#### 주의사항 {/*unsafe_componentwillreceiveprops-caveats*/}
+#### 주의 사항 {/*unsafe_componentwillreceiveprops-caveats*/}
 
 - 컴포넌트가 [`static getDerivedStateFromProps`](#static-getderivedstatefromprops) 또는 [`getSnapshotBeforeUpdate`](#getsnapshotbeforeupdate)를 구현하는 경우 `UNSAFE_componentWillReceiveProps`가 호출되지 않습니다.
 
@@ -856,7 +832,7 @@ React에 재렌더링을 건너뛸 수 있음을 알리려면 `false`를 반환�
 
 `UNSAFE_componentWillUpdate`는 아무것도 반환하지 않아야 합니다.
 
-#### 주의사항 {/*unsafe_componentwillupdate-caveats*/}
+#### 주의 사항 {/*unsafe_componentwillupdate-caveats*/}
 
 - [`shouldComponentUpdate`](#shouldcomponentupdate)가 정의된 경우 `UNSAFE_componentWillUpdate`는 호출되지 않으며 `false`를 반환합니다.
 
@@ -875,30 +851,6 @@ React에 재렌더링을 건너뛸 수 있음을 알리려면 `false`를 반환�
 함수 컴포넌트에는 `UNSAFE_componentWillUpdate`와 직접적으로 대응하는 것이 없습니다.
 
 </Note>
-
----
-
-### `static childContextTypes` {/*static-childcontexttypes*/}
-
-<Deprecated>
-
-이 API는 향후 React의 주요 버전에서 제거될 예정입니다. [대신 `static contextType`을 사용하세요.](#static-contexttype)
-
-</Deprecated>
-
-이 컴포넌트가 제공하는 [legacy context](https://ko.reactjs.org/docs/legacy-context.html)를 지정할 수 있습니다.
-
----
-
-### `static contextTypes` {/*static-contexttypes*/}
-
-<Deprecated>
-
-이 API는 향후 React의 주요 버전에서 제거될 예정입니다. [대신 `static contextType`을 사용하세요.](#static-contexttype)
-
-</Deprecated>
-
-이 컴포넌트가 사용할 [legacy context](https://ko.reactjs.org/docs/legacy-context.html)를 지정할 수 있습니다.
 
 ---
 
@@ -934,7 +886,7 @@ class Button extends Component {
 
 ### `static defaultProps` {/*static-defaultprops*/}
 
-`static defaultProps`를 정의하여 class의 기본 props을 설정할 수 있습니다. `undefined`와 누락된 props에는 사용되지만 `null` props에는 사용되지 않습니다.
+`static defaultProps`를 정의하여 클래스의 기본 props을 설정할 수 있습니다. `undefined`와 누락된 props에는 사용되지만 `null` props에는 사용되지 않습니다.
 
 예를 들어, `color` prop의 기본값을 `'blue'`로 정의하는 방법은 다음과 같습니다.
 
@@ -976,34 +928,6 @@ class Button extends Component {
 
 ---
 
-### `static propTypes` {/*static-proptypes*/}
-
-[`prop-types`](https://www.npmjs.com/package/prop-types) 라이브러리와 함께 `static propTypes`를 정의하여 컴포넌트에서 허용되는 props의 유형을 선언할 수 있습니다. 이러한 유형은 렌더링 중과 개발 중에만 확인됩니다.
-
-```js
-import PropTypes from 'prop-types';
-
-class Greeting extends React.Component {
-  static propTypes = {
-    name: PropTypes.string
-  };
-
-  render() {
-    return (
-      <h1>Hello, {this.props.name}</h1>
-    );
-  }
-}
-```
-
-<Note>
-
-런타임에 prop 타입을 확인하는 대신 [TypeScript](https://www.typescriptlang.org/ko/)를 사용하는 것을 추천합니다.
-
-</Note>
-
----
-
 ### `static getDerivedStateFromError(error)` {/*static-getderivedstatefromerror*/}
 
 `static getDerivedStateFromError`를 정의하면 렌더링 도중 자식 컴포넌트(멀리 떨어진 자식 포함)가 에러를 throw 할 때 React가 이를 호출합니다. 이렇게 하면 UI를 지우는 대신 오류 메시지를 표시할 수 있습니다.
@@ -1020,7 +944,7 @@ class Greeting extends React.Component {
 
 `static getDerivedStateFromError`는 컴포넌트에 오류 메시지를 표시하도록 지시하는 state를 반환해야 합니다.
 
-#### 주의사항 {/*static-getderivedstatefromerror-caveats*/}
+#### 주의 사항 {/*static-getderivedstatefromerror-caveats*/}
 
 * `static getDerivedStateFromError`는 순수 함수여야 합니다. 예를 들어 분석 서비스를 호출하는 등의 부수 효과를 수행하려면 [`componentDidCatch`](#componentdidcatch)도 구현해야 합니다.
 
@@ -1048,7 +972,7 @@ class Form extends Component {
   static getDerivedStateFromProps(props, state) {
     // 현재 사용자가 변경될 때마다,
     // 해당 사용자와 연결된 state의 모든 부분을 재설정합니다.
-    // 이 간단한 예제에서는 이메일만 해당됩니다.
+    // 이 간단한 예시에서는 이메일만 해당됩니다.
     if (props.userID !== state.prevUserID) {
       return {
         prevUserID: props.userID,
@@ -1083,11 +1007,11 @@ state를 파생하면 코드가 장황해지고 컴포넌트에 대해 생각하
 
 `static getDerivedStateFromProps`는 state를 업데이트할 객체를 반환하거나, 아무것도 업데이트하지 않으면 `null`을 반환합니다.
 
-#### 주의사항 {/*static-getderivedstatefromprops-caveats*/}
+#### 주의 사항 {/*static-getderivedstatefromprops-caveats*/}
 
 - 이 메서드는 원인에 관계없이 *모든* 렌더링에서 호출됩니다. 이는 부모가 다시 렌더링을 일으킬 때만 발동하고 로컬 `setState`의 결과가 아닐 때만 발동하는 [`UNSAFE_componentWillReceiveProps`](#unsafe_cmoponentwillreceiveprops)와는 다릅니다.
 
-- 이 메서드에는 컴포넌트 인스턴스에 대한 액세스 권한이 없습니다. 원하는 경우 class 정의 외부 컴포넌트 props 및 state의 순수 함수를 추출하여 `static getDerivedStateFromProps`와 다른 class 메서드 사이에 일부 코드를 재사용할 수 있습니다.
+- 이 메서드에는 컴포넌트 인스턴스에 대한 액세스 권한이 없습니다. 원하는 경우 클래스 정의 외부 컴포넌트 props 및 state의 순수 함수를 추출하여 `static getDerivedStateFromProps`와 다른 클래스 메서드 사이에 일부 코드를 재사용할 수 있습니다.
 
 <Note>
 
@@ -1101,7 +1025,7 @@ state를 파생하면 코드가 장황해지고 컴포넌트에 대해 생각하
 
 ### 클래스 컴포넌트 정의하기 {/*defining-a-class-component*/}
 
-React 컴포넌트를 class로 정의하려면 기본 제공 `Component` class를 확장하고 [`render` 메서드](#render)를 정의합니다,
+React 컴포넌트를 클래스로 정의하려면 기본 제공 `Component` 클래스를 확장하고 [`render` 메서드](#render)를 정의합니다,
 
 ```js
 import { Component } from 'react';
@@ -1145,7 +1069,7 @@ export default function App() {
 
 <Pitfall>
 
-컴포넌트를 class 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#migrating-a-simple-component-from-a-class-to-a-function)
+컴포넌트를 클래스 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#migrating-a-simple-component-from-a-class-to-a-function)
 
 </Pitfall>
 
@@ -1153,7 +1077,7 @@ export default function App() {
 
 ### 클래스 컴포넌트에 state 추가하기 {/*adding-state-to-a-class-component*/}
 
-class에 [state](/learn/state-a-components-memory)를 추가하려면 [`state`](#state)라는 프로퍼티에 객체를 할당합니다. state를 업데이트하려면 [`this.setState`](#setstate)를 호출합니다.
+클래스에 [state](/learn/state-a-components-memory)를 추가하려면 [`state`](#state)라는 프로퍼티에 객체를 할당합니다. state를 업데이트하려면 [`this.setState`](#setstate)를 호출합니다.
 
 <Sandpack>
 
@@ -1174,7 +1098,7 @@ export default class Counter extends Component {
 
   handleAgeChange = () => {
     this.setState({
-      age: this.state.age + 1 
+      age: this.state.age + 1
     });
   };
 
@@ -1199,11 +1123,11 @@ export default class Counter extends Component {
 button { display: block; margin-top: 10px; }
 ```
 
-</Sandpack> 
+</Sandpack>
 
 <Pitfall>
 
-컴포넌트를 class 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#migrating-a-component-with-state-from-a-class-to-a-function)
+컴포넌트를 클래스 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#migrating-a-component-with-state-from-a-class-to-a-function)
 
 </Pitfall>
 
@@ -1211,7 +1135,7 @@ button { display: block; margin-top: 10px; }
 
 ### 클래스 컴포넌트에 생명주기 메서드 추가하기 {/*adding-lifecycle-methods-to-a-class-component*/}
 
-class에서 정의할 수 있는 몇 가지 특별한 메서드가 있습니다.
+클래스에서 정의할 수 있는 몇 가지 특별한 메서드가 있습니다.
 
 [`componentDidMount`](#componentdidmount) 메서드를 정의하면 컴포넌트가 화면에 추가 *(마운트)* 될 때 React가 이를 호출합니다. 컴포넌트가 props나 state 변경으로 인해 다시 렌더링되면 React는 [`componentDidUpdate`](#componentdidupdate)를 호출합니다. 컴포넌트가 화면에서 제거 *(마운트 해제)* 된 후 React는 [`componentWillUnmount`](#componentwillunmount)를 호출합니다.
 
@@ -1283,7 +1207,7 @@ export default class ChatRoom extends Component {
       this.state.serverUrl,
       this.props.roomId
     );
-    this.connection.connect();    
+    this.connection.connect();
   }
 
   destroyConnection() {
@@ -1337,7 +1261,7 @@ button { margin-left: 10px; }
 
 <Pitfall>
 
-컴포넌트를 class 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
+컴포넌트를 클래스 대신 함수로 정의하는 것을 추천합니다. [마이그레이션 방법을 확인하세요.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
 
 </Pitfall>
 
@@ -1395,7 +1319,7 @@ class ErrorBoundary extends React.Component {
 
 <Note>
 
-현재 error boundary를 함수 컴포넌트로 작성할 수 있는 방법은 없습니다. 하지만 error boundary class를 직접 작성할 필요는 없습니다. 예를 들어 [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary)를 대신 사용할 수 있습니다.
+현재 error boundary를 함수 컴포넌트로 작성할 수 있는 방법은 없습니다. 하지만 error boundary 클래스를 직접 작성할 필요는 없습니다. 예를 들어 [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary)를 대신 사용할 수 있습니다.
 
 </Note>
 
@@ -1403,7 +1327,7 @@ class ErrorBoundary extends React.Component {
 
 ## 대안 {/*alternatives*/}
 
-### class에서 함수로 간단한 컴포넌트 마이그레이션하기 {/*migrating-a-simple-component-from-a-class-to-a-function*/}
+### 클래스에서 함수로 간단한 컴포넌트 마이그레이션하기 {/*migrating-a-simple-component-from-a-class-to-a-function*/}
 
 일반적으로 [컴포넌트를 함수로 대신 정의합니다.](/learn/your-first-component#defining-a-component)
 
@@ -1449,7 +1373,7 @@ function Greeting({ name }) {
 }
 ```
 
-다음은 전체 예제입니다.
+다음은 전체 예시입니다.
 
 <Sandpack>
 
@@ -1473,7 +1397,7 @@ export default function App() {
 
 ---
 
-### state가 있는 컴포넌트를 class에서 함수로 마이그레이션하기 {/*migrating-a-component-with-state-from-a-class-to-a-function*/}
+### state가 있는 컴포넌트를 클래스에서 함수로 마이그레이션하기 {/*migrating-a-component-with-state-from-a-class-to-a-function*/}
 
 이 `Counter` 클래스 컴포넌트를 함수로 변환한다고 가정해 봅시다.
 
@@ -1496,7 +1420,7 @@ export default class Counter extends Component {
 
   handleAgeChange = (e) => {
     this.setState({
-      age: this.state.age + 1 
+      age: this.state.age + 1
     });
   };
 
@@ -1595,7 +1519,7 @@ button { display: block; margin-top: 10px; }
 
 ---
 
-### 생명주기 메서드가 있는 컴포넌트를 class에서 함수로 마이그레이션하기 {/*migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function*/}
+### 생명주기 메서드가 있는 컴포넌트를 클래스에서 함수로 마이그레이션하기 {/*migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function*/}
 
 생명주기 메서드가 있는 `ChatRoom` 클래스 컴포넌트를 함수로 변환한다고 가정해 보겠습니다.
 
@@ -1663,7 +1587,7 @@ export default class ChatRoom extends Component {
       this.state.serverUrl,
       this.props.roomId
     );
-    this.connection.connect();    
+    this.connection.connect();
   }
 
   destroyConnection() {
@@ -1737,7 +1661,7 @@ function ChatRoom({ roomId }) {
 }
 ```
 
-이 [`useEffect`](/reference/react/useEffect) 호출은 위의 생명주기 메서드의 로직과 동일합니다. 생명주기 메서드가 서로 관련이 없는 여러 가지 작업을 수행하는 경우, [이를 여러 개의 독립적인 Effect로 분할하세요.](/learn/removing-effect-dependencies#is-your-effect-doing-several-unrelated-things) 다음은 완전한 예제입니다.
+이 [`useEffect`](/reference/react/useEffect) 호출은 위의 생명주기 메서드의 로직과 동일합니다. 생명주기 메서드가 서로 관련이 없는 여러 가지 작업을 수행하는 경우, [이를 여러 개의 독립적인 Effect로 분할하세요.](/learn/removing-effect-dependencies#is-your-effect-doing-several-unrelated-things) 다음은 완전한 예시입니다.
 
 <Sandpack>
 
@@ -1830,9 +1754,9 @@ button { margin-left: 10px; }
 
 ---
 
-### context가 있는 컴포넌트를 class에서 함수로 마이그레이션하기 {/*migrating-a-component-with-context-from-a-class-to-a-function*/}
+### context가 있는 컴포넌트를 클래스에서 함수로 마이그레이션하기 {/*migrating-a-component-with-context-from-a-class-to-a-function*/}
 
-이 예제에서 `Panel` 및 `Button` 클래스 컴포넌트는 [`this.context`](#context)에서 [context](/learn/passing-data-deeply-with-context)를 읽습니다:
+이 예시에서 `Panel` 및 `Button` 클래스 컴포넌트는 [`this.context`](#context)에서 [context](/learn/passing-data-deeply-with-context)를 읽습니다.
 
 <Sandpack>
 
@@ -1852,7 +1776,7 @@ class Panel extends Component {
         <h1>{this.props.title}</h1>
         {this.props.children}
       </section>
-    );    
+    );
   }
 }
 

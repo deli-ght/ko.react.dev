@@ -4,7 +4,7 @@ title: 컴포넌트 간 State 공유하기
 
 <Intro>
 
-때때로 두 컴포넌트의 state가 항상 함께 변경되기를 원할 수 있습니다. 그렇게 하려면 각 컴포넌트에서 state를 제거하고 가장 가까운 공통의 부모 컴포넌트로 옮긴 후 props로 전달해야 합니다. 이 방법을 *State 끌어올리기*라고 하며 React 코드를 작성할 때 가장 흔히 하는 일 중 하나입니다.
+때때로 두 컴포넌트의 state가 항상 함께 변경되기를 원할 수 있습니다. 그렇게 하려면 각 컴포넌트에서 state를 제거하고 가장 가까운 공통 부모 컴포넌트로 옮긴 후 props로 전달해야 합니다. 이 방법을 *State 끌어올리기*라고 하며 React 코드를 작성할 때 가장 흔히 하는 일 중 하나입니다.
 
 </Intro>
 
@@ -15,7 +15,7 @@ title: 컴포넌트 간 State 공유하기
 
 </YouWillLearn>
 
-## State 끌어올리기 예제 {/*lifting-state-up-by-example*/}
+## State 끌어올리기 예시 {/*lifting-state-up-by-example*/}
 
 예시에서는 부모 컴포넌트인 `Accordion`이 두 개의 `Panel`을 렌더링합니다.
 
@@ -96,8 +96,8 @@ h3, p { margin: 5px 0px; }
 두 패널을 조정하려면 다음 세 단계를 통해 부모 컴포넌트로 패널의 "State 끌어올리기"가 필요합니다.
 
 1. 자식 컴포넌트의 state를 **제거**합니다.
-2. 하드 코딩된 값을 공통의 부모로부터 **전달**합니다.
-3. 공통의 부모에 state를 **추가**하고 이벤트 핸들러와 함께 전달합니다.
+2. 하드 코딩된 값을 공통 부모로부터 **전달**합니다.
+3. 공통 부모에 state를 **추가**하고 이벤트 핸들러와 함께 전달합니다.
 
 이 방법으로 `Accordion` 컴포넌트가 두 `Panel`을 조정하고 한 번에 하나만 열리도록 할 수 있습니다.
 
@@ -178,7 +178,7 @@ h3, p { margin: 5px 0px; }
 
 상태 끌어올리기는 종종 state로 저장하고 있는 것의 특성을 바꿉니다.
 
-이 케이스에서는, 한 번에 하나의 패널만 활성화되어야 합니다. 이를 위해 공통 부모 컴포넌트인 `Accordian`은 *어떤* 패널이 활성화된 패널인지 추적하고 있어야 합니다. state 변수에 `boolean` 값을 사용하는 대신, 활성화되어있는 `Panel`의 인덱스 숫자를 사용할 수 있습니다:
+이 케이스에서는, 한 번에 하나의 패널만 활성화되어야 합니다. 이를 위해 공통 부모 컴포넌트인 `Accordian`은 *어떤* 패널이 활성화된 패널인지 추적하고 있어야 합니다. state 변수에 `boolean` 값을 사용하는 대신, 활성화되어있는 `Panel`의 인덱스 숫자를 사용할 수 있습니다.
 
 ```js
 const [activeIndex, setActiveIndex] = useState(0);
@@ -186,7 +186,7 @@ const [activeIndex, setActiveIndex] = useState(0);
 
 `activeIndex`가 `0`이면 첫 번째 패널이 활성화된 것이고, `1`이면 두 번째 패널이 활성화된 것입니다.
 
-각 `Panel`에서 "Show 버튼을 클릭하면 `Accordion`의 활성화된 인덱스를 변경해야 합니다. `activeIndex` state는 `Accordion` 내에서 정의되었기 때문에 `Panel`은 값을 직접 설정할 수 없습니다. `Accordion` 컴포넌트는 `Panel` 컴포넌트가 state를 변경할 수 있음을 [이벤트 핸들러를 prop으로 전달하기](/learn/responding-to-events#passing-event-handlers-as-props)를 통해 *명시적으로 허용*해야 합니다.
+각 `Panel`에서 "Show" 버튼을 클릭하면 `Accordion`의 활성화된 인덱스를 변경해야 합니다. `activeIndex` state는 `Accordion` 내에서 정의되었기 때문에 `Panel`은 값을 직접 설정할 수 없습니다. `Accordion` 컴포넌트는 `Panel` 컴포넌트가 state를 변경할 수 있음을 [이벤트 핸들러를 prop으로 전달하기](/learn/responding-to-events#passing-event-handlers-as-props)를 통해 *명시적으로 허용*해야 합니다.
 
 ```js
 <>
@@ -272,7 +272,7 @@ h3, p { margin: 5px 0px; }
 
 <Diagram name="sharing_state_parent" height={385} width={487} alt="Accordion이라는 이름의 하나의 부모와 Panel이라는 이름의 두 자식으로 구성된 세 컴포넌트 트리를 나타내는 다이어그램입니다. Accordion은 값이 0인 activeIndex를 가지며, 첫 번째 패널의 isActive에 true를, 두 번째 패널의 isActive에 false를 반환합니다." >
 
-처음에 `Accordion`의 `activeIndex`는 0이고, 따라서 첫 번째 `Panel`은 `isActive = true`를 받습니다.
+처음에 `Accordion`의 `activeIndex`는 `0`이므로 첫 번째 `Panel`은 `isActive = true`를 받습니다.
 
 </Diagram>
 
@@ -302,7 +302,7 @@ h3, p { margin: 5px 0px; }
 
 ## 각 state의 단일 진리의 원천 {/*a-single-source-of-truth-for-each-state*/}
 
-리액트 애플리케이션에서 많은 컴포넌트는 자체 state를 가집니다. 일부 상태는 입력처럼 리프 컴포넌트(트리 맨 아래에 있는 컴포넌트)와 가깝게 "생존"합니다. 다른 상태는 앱의 상단에 더 가깝게 "생존"할 수 있습니다. 예를 들면 클라이언트 측 라우팅 라이브러리도 현재 경로를 리액트 state로 저장하고 props로 전달하도록 구현되어 있습니다!
+React 애플리케이션에서 많은 컴포넌트는 자체 state를 가집니다. 일부 상태는 입력처럼 리프 컴포넌트(트리 맨 아래에 있는 컴포넌트)와 가깝게 "생존"합니다. 다른 상태는 앱의 상단에 더 가깝게 "생존"할 수 있습니다. 예를 들면 클라이언트 측 라우팅 라이브러리도 현재 경로를 React state로 저장하고 props로 전달하도록 구현되어 있습니다!
 
 **각각의 고유한 state에 대해 어떤 컴포넌트가 "소유"할지 고를 수 있습니다.** 이 원칙은 또한 ["단일 진리의 원천"](https://en.wikipedia.org/wiki/Single_source_of_truth) 을 갖는 것으로 알려져 있습니다. 이는 모든 state가 한 곳에 존재한다는 의미가 아니라 그 정보를 가지고 있는 _특정_ 컴포넌트가 있다는 것을 말합니다. 컴포넌트 간의 공유된 state를 중복하는 대신 그들의 공통 부모로 *끌어올리고* 필요한 자식에게 *전달*하세요.
 

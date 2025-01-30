@@ -17,7 +17,7 @@ state 변수를 설정하면 다음 렌더링이 큐에 들어갑니다. 그러�
 
 ## React state batches 업데이트 {/*react-batches-state-updates*/}
 
-setNumber(number + 1) 를 세 번 호출하므로 “+3” 버튼을 클릭하면 세 번 증가할 것으로 예상할 수 있습니다.
+`setNumber(number + 1)`를 세 번 호출하므로 "+3" 버튼을 클릭하면 세 번 증가할 것으로 예상할 수 있습니다.
 
 <Sandpack>
 
@@ -67,7 +67,7 @@ setNumber(0 + 1);
 
 ## 다음 렌더링 전에 동일한 state 변수를 여러 번 업데이트하기 {/*updating-the-same-state-multiple-times-before-the-next-render*/}
 
-흔한 사례는 아니지만, 다음 렌더링 전에 동일한 state 변수를 여러 번 업데이트 하고 싶다면 `setNumber(number + 1)` 와 같은 다음 state 값을 전달하는 대신, `setNumber(n => n + 1)` 와 같이 이전 큐의 state를 기반으로 다음 state를 계산하는 함수를 전달할 수 있습니다. 이는 단순히 state 값을 대체하는 것이 아니라 React에 “state 값으로 무언가를 하라”고 지시하는 방법입니다.
+흔한 사례는 아니지만, 다음 렌더링 전에 동일한 state 변수를 여러 번 업데이트 하고 싶다면 `setNumber(number + 1)` 와 같은 다음 state 값을 전달하는 대신, `setNumber(n => n + 1)` 와 같이 이전 큐의 state를 기반으로 다음 state를 계산하는 함수를 전달할 수 있습니다. 이는 단순히 state 값을 대체하는 것이 아니라 React에 "state 값으로 무언가를 하라"고 지시하는 방법입니다.
 
 이제 카운터를 증가시켜 보세요.
 
@@ -126,7 +126,7 @@ React가 이벤트 핸들러를 수행하는 동안 여러 코드를 통해 작�
 
 React는 `3`을 최종 결과로 저장하고 `useState`에서 반환합니다.
 
-이것이 위 예제  "+3"을 클릭하면 값이 3씩 올바르게 증가하는 이유입니다.
+이것이 위 예시  "+3"을 클릭하면 값이 3씩 올바르게 증가하는 이유입니다.
 
 ### state를 교체한 후 업데이트하면 어떻게 되나요? {/*what-happens-if-you-update-state-after-replacing-it*/}
 
@@ -168,7 +168,7 @@ h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
 
 이 이벤트 핸들러가 React에 지시하는 작업은 다음과 같습니다.
 
-1. `setNumber(number + 5)` : `number`는 `0`이므로 `setNumber(0 + 5)`입니다. React는 큐에 *“`5`로 바꾸기”* 를 추가합니다.
+1. `setNumber(number + 5)` : `number`는 `0`이므로 `setNumber(0 + 5)`입니다. React는 큐에 *"`5`로 바꾸기"* 를 추가합니다.
 2. `setNumber(n => n + 1)` : `n => n + 1`는 업데이터 함수입니다. React는 *해당 함수*를 큐에 추가합니다.
 
 다음 렌더링하는 동안 React는 state 큐를 순회합니다.
@@ -373,7 +373,7 @@ function delay(ms) {
 
 이번 도전과제에서는 React의 작은 부분을 처음부터 다시 구현하게 됩니다! 생각보다 어렵지 않습니다.
 
-샌드박스 미리보기를 스크롤 하세요. **4개의 테스트 케이스**가 표시되는 것을 확인하세요. 이 페이지의 앞부분에서 보았던 예제와 일치합니다. 여러분의 임무는 각 케이스에 대해 올바른 결과를 반환하도록 `getFinalState` 함수를 구현하는 것입니다. 올바르게 구현하면 네 가지 테스트를 모두 통과할 것입니다.
+샌드박스 미리보기를 스크롤 하세요. **4개의 테스트 케이스**가 표시되는 것을 확인하세요. 이 페이지의 앞부분에서 보았던 예시와 일치합니다. 여러분의 임무는 각 케이스에 대해 올바른 결과를 반환하도록 `getFinalState` 함수를 구현하는 것입니다. 올바르게 구현하면 네 가지 테스트를 모두 통과할 것입니다.
 
 두 개의 인수를 받게 됩니다. `baseState`는 초기 state(예: `0`)이고, `queue`는 숫자(예: `5`)와 업데이터 함수(예: `n => n + 1`)가 추가된, 순서대로 섞여 있는 배열입니다.
 

@@ -30,7 +30,7 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
     return () => connection.disconnect();
-  	// ...
+    // ...
 }
 ```
 
@@ -311,7 +311,7 @@ export default function Timer() {
   const [increment, setIncrement] = useState(1);
 
   function onTick() {
-	setCount(count + increment);
+    setCount(count + increment);
   }
 
   useEffect(() => {
@@ -352,7 +352,7 @@ button { margin: 10px; }
 
 이 카운터는 두 개의 버튼으로 설정할 수 있는 양만큼 매초마다 증가해야 합니다. 하지만 이 Effect가 아무 것도 의존하지 않는다고 React에 "거짓말"을 했기 때문에, React는 초기 렌더링에서 계속 `onTick` 함수를 사용합니다. [이 렌더링에서](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `count`는 `0`이었고 `increment`는 `1`이었습니다. 그래서 이 렌더링의 `onTick`은 항상 매초마다 `setCount(0 + 1)`를 호출하고 항상 `1`이 표시됩니다. 이와 같은 버그는 여러 컴포넌트에 분산되어 있을 때 수정하기가 더 어렵습니다.
 
-린터를 무시하는 것보다 더 좋은 해결책은 항상 있습니다! 이 코드를 수정하려면 의존성 목록에 `onTick`을 추가해야 합니다. (interval을 한 번만 설정하려면 [onTick을 Effect Event로 만드세요.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events))
+린터를 무시하는 것보다 더 좋은 해결책은 항상 있습니다! 이 코드를 수정하려면 의존성 목록에 `onTick`을 추가해야 합니다. (interval을 한 번만 설정하려면 [`onTick`을 Effect 이벤트로 만드세요.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events))
 
 **의존성 린트 오류는 컴파일 오류로 처리하는 것이 좋습니다. 이를 억제하지 않으면 이와 같은 버그가 발생하지 않습니다.** 이 페이지의 나머지 부분에서는 이 경우와 다른 경우에 대한 대안을 설명합니다.
 
@@ -411,7 +411,7 @@ function Form() {
 
   function handleSubmit() {
     setSubmitted(true);
-  }  
+  }
 
   // ...
 }
@@ -429,7 +429,7 @@ function Form() {
     // ✅ Good: Event-specific logic is called from event handlers
     post('/api/register');
     showNotification('Successfully registered!', theme);
-  }  
+  }
 
   // ...
 }
@@ -1248,9 +1248,9 @@ Effect 내부에서 `count`를 읽는 대신 `c => c + 1` 명령어("이 숫자�
 
 #### 애니메이션을 다시 촉발하는 현상 고치기 {/*fix-a-retriggering-animation*/}
 
-이 예시에서는 "Show"를 누르면 환영 메시지가 페이드인 합니다. 애니메이션은 1초 정도 걸립니다."Remove"를 누르면 환영 메시지가 즉시 사라집니다. 페이드인 애니메이션의 로직은 `animation.js` 파일에서 일반 자바스크립트 애니메이션 루프로 구현됩니다. 이 로직을 변경할 필요는 없습니다. 서드파티 라이브러리로 처리하면 됩니다. Effect는 돔 노드에 대한 `FadeInAnimation` 인스턴스를 생성한 다음 `start(duration)` 또는 `stop()`을 호출하여 애니메이션을 제어합니다. `duration`은 슬라이더로 제어합니다. 슬라이더를 조정하여 애니메이션이 어떻게 변하는지 확인하세요.
+이 예시에서는 "Show"를 누르면 환영 메시지가 페이드인 합니다. 애니메이션은 1초 정도 걸립니다."Remove"를 누르면 환영 메시지가 즉시 사라집니다. 페이드인 애니메이션의 로직은 `animation.js` 파일에서 일반 자바스크립트 애니메이션 루프로 구현됩니다. 이 로직을 변경할 필요는 없습니다. 서드파티 라이브러리로 처리하면 됩니다. Effect는 DOM 노드에 대한 `FadeInAnimation` 인스턴스를 생성한 다음 `start(duration)` 또는 `stop()`을 호출하여 애니메이션을 제어합니다. `duration`은 슬라이더로 제어합니다. 슬라이더를 조정하여 애니메이션이 어떻게 변하는지 확인하세요.
 
-이 코드는 이미 작동하지만 변경하고 싶은 부분이 있습니다. 현재 `duration` State 변수를 제어하는 슬라이더를 움직이면 애니메이션이 다시 촉발됩니다. Effect가 `duration` 변수에 "반응"하지 않도록 동작을 변경하세요. "Show"를 누르면 Effect는 슬라이더의 현재 `duration을` 사용해야 합니다. 그러나 슬라이더를 움직이는 것만으로 애니메이션이 다시 촉발되어서는 안 됩니다.
+이 코드는 이미 작동하지만 변경하고 싶은 부분이 있습니다. 현재 `duration` State 변수를 제어하는 슬라이더를 움직이면 애니메이션이 다시 촉발됩니다. Effect가 `duration` 변수에 "반응"하지 않도록 동작을 변경하세요. "Show"를 누르면 Effect는 슬라이더의 현재 `duration`을 사용해야 합니다. 그러나 슬라이더를 움직이는 것만으로 애니메이션이 다시 촉발되어서는 안 됩니다.
 
 <Hint>
 

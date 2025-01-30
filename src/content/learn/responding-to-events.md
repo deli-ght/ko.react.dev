@@ -11,7 +11,7 @@ React에서는 JSX에 *이벤트 핸들러*를 추가할 수 있습니다. 이�
 <YouWillLearn>
 
 * 이벤트 핸들러를 작성하는 여러가지 방법
-* 이벤트 핸들링 로직을 부모 컴포넌트에서 전달하는 방법
+* 이벤트 처리 로직을 부모 컴포넌트에서 전달하는 방법
 * 이벤트가 전파되는 방식와 이를 멈추는 방법
 
 </YouWillLearn>
@@ -67,7 +67,7 @@ button { margin-right: 10px; }
 * 주로 컴포넌트 *내부*에서 정의됩니다.
 * `handle`로 시작하고 그 뒤에 이벤트명을 붙인 함수명을 가집니다.
 
-관습적으로 `handle`로 시작하여 이벤트명을 이어 붙인 이벤트 핸들러 명명법이 일반적입니다. `onClick={handleClick}`, `onMouseEnter={handleMouseEnter}`와 같은 경우를 자주 볼 수 있을 것입니다.
+관습적으로 `handle`로 시작하며 이벤트명을 이어 붙인 이벤트 핸들러 명명법이 일반적입니다. `onClick={handleClick}`, `onMouseEnter={handleMouseEnter}`와 같은 경우를 자주 볼 수 있을 것입니다.
 
 다른 방법으로 이벤트 핸들러를 JSX 내에서 인라인으로 정의할 수 있습니다.
 
@@ -126,7 +126,7 @@ button { margin-right: 10px; }
 * `<button onClick={handleClick}>`은 `handleClick` 함수를 전달합니다.
 * `<button onClick={() => alert('...')}>`은 `() => alert('...')` 함수를 전달합니다.
 
-[화살표 함수에 대해 더 알아보세요.](https://javascript.info/arrow-functions-basics)
+[화살표 함수에 대해 더 알아보세요.](https://ko.javascript.info/arrow-functions-basics)
 
 </Pitfall>
 
@@ -313,11 +313,11 @@ button { margin-right: 10px; }
 </Sandpack>
 
 `App` 컴포넌트는 `Toolbar`가 `onPlayMovie` 또는 `onUploadImage`를 가지고 *무엇*을 할 것인지 알 필요가 없음에 유의하세요. 이 `Toolbar` 구현의 특별한 부분입니다. 지금 `Toolbar`는 위 요소들을 `Button`의 `onClick` 핸들러 요소로 내려보내지만, 추후에는 키보드 바로가기 키 입력을 통해 이들을 활성화할 수도 있을 것입니다. `onPlayMovie`와 같이 prop 이름을 애플리케이션별 상호작용에 기반하여 명명한다면 나중에 어떻게 이를 이용하게 될지에 대한 유연성을 제공할 것입니다.
-  
+
 <Note>
 
-이벤트 핸들러에 적절한 HTML 태그를 사용하고 있는지 확인하세요. 예를 들어 클릭을 핸들링하기 위해서는 `<div onClick={handleClick}>` 대신 [`<button onClick={handleClick}>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)을 사용하세요. 실제 브라우저에서 `<button>`은 키보드 내비게이션과 같은 빌트인 브라우저 동작을 활성화 합니다. 만일 버튼의 기본 브라우저 스타일링이 싫어서 링크나 다른 UI 요소처럼 보이도록 하고 싶다면 CSS를 통해 그 목적을 이룰 수 있습니다. [접근성을 위한 마크업 작성법에 대해 더 알아보세요.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML)
-  
+이벤트 핸들러에 적절한 HTML 태그를 사용하고 있는지 확인하세요. 예를 들어 클릭을 처리하기 위해서는 `<div onClick={handleClick}>` 대신 [`<button onClick={handleClick}>`](https://developer.mozilla.org/ko/docs/Web/HTML/Element/button)을 사용하세요. 실제 브라우저에서 `<button>`은 키보드 내비게이션과 같은 빌트인 브라우저 동작을 활성화 합니다. 만일 버튼의 기본 브라우저 스타일링이 싫어서 링크나 다른 UI 요소처럼 보이도록 하고 싶다면 CSS를 통해 그 목적을 이룰 수 있습니다. [접근성을 위한 마크업 작성법에 대해 더 알아보세요.](https://developer.mozilla.org/ko/docs/Learn/Accessibility/HTML)
+
 </Note>
 
 ## 이벤트 전파 {/*event-propagation*/}
@@ -460,7 +460,7 @@ function Button({ onClick, children }) {
 }
 ```
 
-이 핸들러 내에서 부모의 `onClick` 이벤트 핸들러를 호출하는 부분 앞에 코드를 더 추가할 수도 있습니다. 이러한 패턴은 전파의 대안을 제공합니다. 부모 컴포넌트가 일부 추가적인 동작에 특화되도록 하면서 자식 컴포넌트가 이벤트를 핸들링할 수 있도록 합니다. 전파와는 다르게 자동으로 동작하지 않습니다. 이 패턴의 장점은 일부 이벤트의 결과로 실행되는 전체 코드 체인을 명확히 좇을 수 있게 해줍니다.
+이 핸들러 내에서 부모의 `onClick` 이벤트 핸들러를 호출하는 부분 앞에 코드를 더 추가할 수도 있습니다. 이러한 패턴은 전파의 대안을 제공합니다. 부모 컴포넌트가 일부 추가적인 동작에 특화되도록 하면서 자식 컴포넌트가 이벤트를 처리할 수 있도록 합니다. 전파와는 다르게 자동으로 동작하지 않습니다. 이 패턴의 장점은 일부 이벤트의 결과로 실행되는 전체 코드 체인을 명확히 좇을 수 있게 해줍니다.
 
 전파를 활용하고 있지만 어떤 핸들러가 왜 실행되는 지 추적하는데 어려움을 겪고 있다면 이러한 접근법을 시도해 보시기 바랍니다.
 
@@ -524,7 +524,7 @@ button { margin-left: 5px; }
 
 <Recap>
 
-* `<button>`과 같은 요소에 함수를 prop으로 전달하여 이벤트를 핸들링할 수 있습니다.
+* `<button>`과 같은 요소에 함수를 prop으로 전달하여 이벤트를 처리할 수 있습니다.
 * 이벤트 핸들러는 **호출이 아니라** 전달만 가능합니다! `onClick={handleClick()}`이 아니라 `onClick={handleClick}`입니다.
 * 이벤트 핸들러 함수는 별개의 함수 혹은 인라인 형태로 정의할 수 있습니다.
 * 이벤트 핸들러는 컴포넌트 내부에서 정의되기에 다른 prop에 접근할 수 있습니다.

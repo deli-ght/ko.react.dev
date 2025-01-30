@@ -26,7 +26,7 @@ State를 잘 구조화하면 수정과 디버깅이 즐거운 컴포넌트와 �
 4. **State의 중복 피하기.** 여러 상태 변수 간 또는 중첩된 객체 내에서 동일한 데이터가 중복될 경우 동기화를 유지하기가 어렵습니다. 가능하다면 중복을 줄이세요.
 5. **깊게 중첩된 state 피하기.** 깊게 계층화된 state는 업데이트하기 쉽지 않습니다. 가능하면 state를 평탄한 방식으로 구성하는 것이 좋습니다.
 
-이러한 원칙 뒤에 있는 목표는 *오류 없이 상태를 쉽게 업데이트하는 것* 입니다. State에서 불필요하고 중복된 데이터를 제거하면 모든 데이터 조각이 동기화 상태를 유지하는 데 도움이 됩니다. 이는 데이터베이스 엔지니어가 [데이터베이스 구조를 "정규화"](https://docs.microsoft.com/en-us/office/troubleshoot/access/database-normalization-description)하여 버그 발생 가능성을 줄이는 것과 유사합니다. 알베르트 아인슈타인의 말을 빌리자면, **"당신의 state를 가능한 한 단순하게 만들어야 한다, 더 단순하게 가 아니라."**
+이러한 원칙 뒤에 있는 목표는 *오류 없이 상태를 쉽게 업데이트하는 것* 입니다. State에서 불필요하고 중복된 데이터를 제거하면 모든 데이터 조각이 동기화 상태를 유지하는 데 도움이 됩니다. 이는 데이터베이스 엔지니어가 [데이터베이스 구조를 "정규화"](https://learn.microsoft.com/ko-kr/office/troubleshoot/access/database-normalization-description)하여 버그 발생 가능성을 줄이는 것과 유사합니다. 알베르트 아인슈타인의 말을 빌리자면, **"당신의 state를 가능한 한 단순하게 만들어야 한다, 더 단순하게 가 아니라."**
 
 이제 이 원칙들이 실제로 어떻게 적용되는지 살펴보겠습니다.
 
@@ -48,7 +48,7 @@ const [y, setY] = useState(0);
 const [position, setPosition] = useState({ x: 0, y: 0 });
 ```
 
-기술적으로 이 두 가지 접근 방식 모두 사용할 수 있습니다. 하지만 **두 개의 state 변수가 항상 함께 변경된다면, 단일 state 변수로 통합하는 것이 좋습니다.** 그러면 마우스 커서를 움직이면 빨간 점의 두 좌표가 모두 업데이트되는 이 예제처럼 항상 동기화를 유지하는 것을 잊지 않을 것입니다.
+기술적으로 이 두 가지 접근 방식 모두 사용할 수 있습니다. 하지만 **두 개의 state 변수가 항상 함께 변경된다면, 단일 state 변수로 통합하는 것이 좋습니다.** 그러면 마우스 커서를 움직이면 빨간 점의 두 좌표가 모두 업데이트되는 이 예시처럼 항상 동기화를 유지하는 것을 잊지 않을 것입니다.
 
 <Sandpack>
 
@@ -98,7 +98,7 @@ body { margin: 0; padding: 0; height: 250px; }
 
 <Pitfall>
 
-State 변수가 객체인 경우에는 다른 필드를 명시적으로 복사하지 않고 [하나의 필드만 업데이트할 수 없다](/learn/updating-objects-in-state)는 것을 기억하세요. 예를 들어, 위의 예제에서는 `y` 속성이 전혀 없기 때문입니다 `setPosition({ x: 100 })`를 할 수 없습니다! 대신, `x`만 설정하려면 `setPosition({ ...position, x: 100 })`을 하거나 두 개의 state 변수로 나누고 `setX(100)`을 해야 합니다.
+State 변수가 객체인 경우에는 다른 필드를 명시적으로 복사하지 않고 [하나의 필드만 업데이트할 수 없다](/learn/updating-objects-in-state)는 것을 기억하세요. 예를 들어 위의 예시에서 `setPosition({ x: 100 })`은 `y` 속성이 존재하지 않기 때문에 사용할 수 없습니다! 대신, `x`만 설정하려면 `setPosition({ ...position, x: 100 })`을 하거나 두 개의 state 변수로 나누고 `setX(100)`을 해야 합니다.
 
 </Pitfall>
 
@@ -459,7 +459,7 @@ export default function Menu() {
 
   return (
     <>
-      <h2>What's your travel snack?</h2> 
+      <h2>What's your travel snack?</h2>
       <ul>
         {items.map((item, index) => (
           <li key={item.id}>
@@ -571,7 +571,7 @@ State는 다음과 같이 중복되었습니다.
 
 ## 깊게 중첩된 state 피하기 {/*avoid-deeply-nested-state*/}
 
-행성, 대륙, 국가로 구성된 여행 계획을 상상해 보세요. 이 예제처럼 중첩된 객체와 배열을 사용하여 여행 계획의 state를 구성하고 싶을 수 있습니다.
+행성, 대륙, 국가로 구성된 여행 계획을 상상해 보세요. 이 예시처럼 중첩된 객체와 배열을 사용하여 여행 계획의 state를 구성하고 싶을 수 있습니다.
 
 <Sandpack>
 
@@ -805,7 +805,7 @@ export const initialTravelPlan = {
     }, {
       id: 48,
       title: 'Green Hill',
-      childPlaces: []      
+      childPlaces: []
     }]
   }]
 };
@@ -883,7 +883,7 @@ export const initialTravelPlan = {
     id: 2,
     title: 'Africa',
     childIds: [3, 4, 5, 6 , 7, 8, 9]
-  }, 
+  },
   3: {
     id: 3,
     title: 'Botswana',
@@ -903,7 +903,7 @@ export const initialTravelPlan = {
     id: 6,
     title: 'Madagascar',
     childIds: []
-  }, 
+  },
   7: {
     id: 7,
     title: 'Morocco',
@@ -922,7 +922,7 @@ export const initialTravelPlan = {
   10: {
     id: 10,
     title: 'Americas',
-    childIds: [11, 12, 13, 14, 15, 16, 17, 18],   
+    childIds: [11, 12, 13, 14, 15, 16, 17, 18],
   },
   11: {
     id: 11,
@@ -938,7 +938,7 @@ export const initialTravelPlan = {
     id: 13,
     title: 'Barbados',
     childIds: []
-  }, 
+  },
   14: {
     id: 14,
     title: 'Canada',
@@ -967,7 +967,7 @@ export const initialTravelPlan = {
   19: {
     id: 19,
     title: 'Asia',
-    childIds: [20, 21, 22, 23, 24, 25],   
+    childIds: [20, 21, 22, 23, 24, 25],
   },
   20: {
     id: 20,
@@ -1002,7 +1002,7 @@ export const initialTravelPlan = {
   26: {
     id: 26,
     title: 'Europe',
-    childIds: [27, 28, 29, 30, 31, 32, 33],   
+    childIds: [27, 28, 29, 30, 31, 32, 33],
   },
   27: {
     id: 27,
@@ -1042,7 +1042,7 @@ export const initialTravelPlan = {
   34: {
     id: 34,
     title: 'Oceania',
-    childIds: [35, 36, 37, 38, 39, 40, 41],   
+    childIds: [35, 36, 37, 38, 39, 40, 41],
   },
   35: {
     id: 35,
@@ -1219,7 +1219,7 @@ export const initialTravelPlan = {
     id: 2,
     title: 'Africa',
     childIds: [3, 4, 5, 6 , 7, 8, 9]
-  }, 
+  },
   3: {
     id: 3,
     title: 'Botswana',
@@ -1239,7 +1239,7 @@ export const initialTravelPlan = {
     id: 6,
     title: 'Madagascar',
     childIds: []
-  }, 
+  },
   7: {
     id: 7,
     title: 'Morocco',
@@ -1258,7 +1258,7 @@ export const initialTravelPlan = {
   10: {
     id: 10,
     title: 'Americas',
-    childIds: [11, 12, 13, 14, 15, 16, 17, 18],   
+    childIds: [11, 12, 13, 14, 15, 16, 17, 18],
   },
   11: {
     id: 11,
@@ -1274,7 +1274,7 @@ export const initialTravelPlan = {
     id: 13,
     title: 'Barbados',
     childIds: []
-  }, 
+  },
   14: {
     id: 14,
     title: 'Canada',
@@ -1303,7 +1303,7 @@ export const initialTravelPlan = {
   19: {
     id: 19,
     title: 'Asia',
-    childIds: [20, 21, 22, 23, 24, 25],   
+    childIds: [20, 21, 22, 23, 24, 25],
   },
   20: {
     id: 20,
@@ -1338,7 +1338,7 @@ export const initialTravelPlan = {
   26: {
     id: 26,
     title: 'Europe',
-    childIds: [27, 28, 29, 30, 31, 32, 33],   
+    childIds: [27, 28, 29, 30, 31, 32, 33],
   },
   27: {
     id: 27,
@@ -1378,7 +1378,7 @@ export const initialTravelPlan = {
   34: {
     id: 34,
     title: 'Oceania',
-    childIds: [35, 36, 37, 38, 39, 40, 41],   
+    childIds: [35, 36, 37, 38, 39, 40, 41],
   },
   35: {
     id: 35,
@@ -1558,7 +1558,7 @@ export const initialTravelPlan = {
     id: 2,
     title: 'Africa',
     childIds: [3, 4, 5, 6 , 7, 8, 9]
-  }, 
+  },
   3: {
     id: 3,
     title: 'Botswana',
@@ -1578,7 +1578,7 @@ export const initialTravelPlan = {
     id: 6,
     title: 'Madagascar',
     childIds: []
-  }, 
+  },
   7: {
     id: 7,
     title: 'Morocco',
@@ -1597,7 +1597,7 @@ export const initialTravelPlan = {
   10: {
     id: 10,
     title: 'Americas',
-    childIds: [11, 12, 13, 14, 15, 16, 17, 18],   
+    childIds: [11, 12, 13, 14, 15, 16, 17, 18],
   },
   11: {
     id: 11,
@@ -1613,7 +1613,7 @@ export const initialTravelPlan = {
     id: 13,
     title: 'Barbados',
     childIds: []
-  }, 
+  },
   14: {
     id: 14,
     title: 'Canada',
@@ -1642,7 +1642,7 @@ export const initialTravelPlan = {
   19: {
     id: 19,
     title: 'Asia',
-    childIds: [20, 21, 22, 23, 24, 25,],   
+    childIds: [20, 21, 22, 23, 24, 25,],
   },
   20: {
     id: 20,
@@ -1677,7 +1677,7 @@ export const initialTravelPlan = {
   26: {
     id: 26,
     title: 'Europe',
-    childIds: [27, 28, 29, 30, 31, 32, 33],   
+    childIds: [27, 28, 29, 30, 31, 32, 33],
   },
   27: {
     id: 27,
@@ -1717,7 +1717,7 @@ export const initialTravelPlan = {
   34: {
     id: 34,
     title: 'Oceania',
-    childIds: [35, 36, 37, 38, 39, 40,, 41],   
+    childIds: [35, 36, 37, 38, 39, 40,, 41],
   },
   35: {
     id: 35,
@@ -2003,7 +2003,7 @@ export default function App() {
 
 <Hint>
 
-이 예제에 불필요한 state가 있나요?
+이 예시에 불필요한 state가 있나요?
 
 </Hint>
 
@@ -2061,7 +2061,7 @@ export default function TravelPlan() {
   }
 
   return (
-    <>  
+    <>
       <AddItem
         onAddItem={handleAddItem}
       />
@@ -2196,7 +2196,7 @@ export default function TravelPlan() {
   }
 
   return (
-    <>  
+    <>
       <AddItem
         onAddItem={handleAddItem}
       />
@@ -2349,7 +2349,7 @@ export default function Letter({
         isHighlighted ? 'highlighted' : ''
       }
       onFocus={() => {
-        onHover(letter);        
+        onHover(letter);
       }}
       onPointerMove={() => {
         onHover(letter);
@@ -2392,7 +2392,7 @@ li { border-radius: 5px; }
 
 <Solution>
 
-문제는 `highlightedLetter`에 문자 객체를 보관하고 있다는 것입니다. 그러나 `letters` 배열에서도 동일한 정보를 보관하고 있습니다. 그래서 state에 중복이 있습니다! 버튼 클릭 후 `letters` 배열을 업데이트하면 `highlightedLetter`와 다른 새 문자 객체가 생성됩니다. 이것이 `highlightedLetter === letter` 검사가 `false`가 되고 하이라이트가 사라지는 이유입니다. 포인터가 움직일 때 `setHighlightedLetter`를 호출하면 다시 나타납니다. 
+문제는 `highlightedLetter`에 문자 객체를 보관하고 있다는 것입니다. 그러나 `letters` 배열에서도 동일한 정보를 보관하고 있습니다. 그래서 state에 중복이 있습니다! 버튼 클릭 후 `letters` 배열을 업데이트하면 `highlightedLetter`와 다른 새 문자 객체가 생성됩니다. 이것이 `highlightedLetter === letter` 검사가 `false`가 되고 하이라이트가 사라지는 이유입니다. 포인터가 움직일 때 `setHighlightedLetter`를 호출하면 다시 나타납니다.
 
 문제를 해결하기 위해 state에서 중복을 제거하세요. 두 곳에 *문자 자체* 를 저장하는 대신 `highlightedId`를 저장하세요. 그런 다음 `letter.id === highlightedId`로 각 문자에 대해 `isHighlighted`를 확인할 수 있으며, 이는 마지막 렌더링 이후 `letter` 객체가 변경되었더라도 작동합니다.
 
@@ -2458,7 +2458,7 @@ export default function Letter({
         isHighlighted ? 'highlighted' : ''
       }
       onFocus={() => {
-        onHover(letter.id);        
+        onHover(letter.id);
       }}
       onPointerMove={() => {
         onHover(letter.id);
@@ -2503,7 +2503,7 @@ li { border-radius: 5px; }
 
 #### 다중 선택 구현 {/*implement-multiple-selection*/}
 
-이 예제에서 각 `Letter`는 `isSelected` prop와 선택된 것으로 표시하는 `onToggle` 핸들러를 갖고 있습니다. 이는 작동하지만 state는 `selectedId` (`null` 또는 ID)로 저장되므로 한 번에 하나의 문자만 선택할 수 있습니다.
+이 예시에서 각 `Letter`는 `isSelected` prop와 선택된 것으로 표시하는 `onToggle` 핸들러를 갖고 있습니다. 이는 작동하지만 state는 `selectedId` (`null` 또는 ID)로 저장되므로 한 번에 하나의 문자만 선택할 수 있습니다.
 
 다중 선택을 지원하도록 state 구조를 변경하세요. (어떻게 구조화할까요? 코드를 작성하기 전에 이에 대해 생각해 보세요.) 각 체크박스는 다른 체크박스와 독립적이어야 합니다. 선택된 문자를 클릭하면 선택이 해제되어야 합니다. 마지막으로, 푸터는 선택된 항목의 올바른 수를 보여야 합니다.
 

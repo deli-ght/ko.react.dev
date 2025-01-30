@@ -1,13 +1,6 @@
 ---
 title: preinitModule
-canary: true
 ---
-
-<Canary>
-
-The `preinitModule` function is currently only available in React's Canary and experimental channels. Learn more about [React's release channels here](/community/versioning-policy#all-release-channels).
-
-</Canary>
 
 <Note>
 
@@ -51,12 +44,12 @@ The `preinitModule` function provides the browser with a hint that it should sta
 
 #### Parameters {/*parameters*/}
 
-* `href`: a string. The URL of the module you want to download and exeucute.
+* `href`: a string. The URL of the module you want to download and execute.
 * `options`: an object. It contains the following properties:
   *  `as`: a required string. It must be `'script'`.
   *  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`.
   *  `integrity`: a string. A cryptographic hash of the module, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-  *  `nonce`: a string. A cryptographic [nonce to allow the module](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy. 
+  *  `nonce`: a string. A cryptographic [nonce to allow the module](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy.
 
 #### Returns {/*returns*/}
 

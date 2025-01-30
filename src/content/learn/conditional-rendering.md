@@ -4,7 +4,7 @@ title: 조건부 렌더링
 
 <Intro>
 
-컴포넌트는 조건에 따라 다른 항목을 표시해야 하는 경우가 많습니다. 리액트는 `if` 문, `&&` 및 `? :` 연산자와 같은 자바스크립트 문법을 사용하여 조건부로 JSX를 렌더링할 수 있습니다.
+컴포넌트는 조건에 따라 다른 항목을 표시해야 하는 경우가 많습니다. React는 `if` 문, `&&` 및 `? :` 연산자와 같은 자바스크립트 문법을 사용하여 조건부로 JSX를 렌더링할 수 있습니다.
 
 </Intro>
 
@@ -32,17 +32,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -52,13 +52,13 @@ export default function PackingList() {
 
 </Sandpack>
 
-`Item` 컴포넌트 중 일부는 `isPacked` prop이 `false`가 아닌 `true`로 설정되어 있습니다. `isPacked={true}`인 경우 짐을 챙긴 항목에 체크 표시(✔)를 추가하려고 합니다.
+`Item` 컴포넌트 중 일부는 `isPacked` prop이 `false`가 아닌 `true`로 설정되어 있습니다. `isPacked={true}`인 경우 짐을 챙긴 항목에 체크 표시(✅)를 추가하려고 합니다.
 
 다음과 같이 [`if`/`else` 문](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/if...else)으로 작성할 수 있습니다.
 
 ```js
 if (isPacked) {
-  return <li className="item">{name} ✔</li>;
+  return <li className="item">{name} ✅</li>;
 }
 return <li className="item">{name}</li>;
 ```
@@ -70,7 +70,7 @@ return <li className="item">{name}</li>;
 ```js
 function Item({ name, isPacked }) {
   if (isPacked) {
-    return <li className="item">{name} ✔</li>;
+    return <li className="item">{name} ✅</li>;
   }
   return <li className="item">{name}</li>;
 }
@@ -80,17 +80,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -132,17 +132,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -156,10 +156,10 @@ export default function PackingList() {
 
 ## 조건부로 JSX 포함시키기 {/*conditionally-including-jsx*/}
 
-이전 예제에서는 어떤 항목(있는 경우)을 제어했습니다. 컴포넌트에 의해 JSX 트리가 반환되었습니다. 렌더링 된 출력 결과에서 이미 일부 중복이 발견되었을 수 있습니다.
+이전 예시에서는 어떤 항목(있는 경우)을 제어했습니다. 컴포넌트에 의해 JSX 트리가 반환되었습니다. 렌더링된 출력 결과에서 이미 일부 중복이 발견되었을 수 있습니다.
 
 ```js
-<li className="item">{name} ✔</li>
+<li className="item">{name} ✅</li>
 ```
 
 이것은 아래와 매우 비슷합니다.
@@ -172,7 +172,7 @@ export default function PackingList() {
 
 ```js
 if (isPacked) {
-  return <li className="item">{name} ✔</li>;
+  return <li className="item">{name} ✅</li>;
 }
 return <li className="item">{name}</li>;
 ```
@@ -187,7 +187,7 @@ JavaScript는 [조건 연산자](https://developer.mozilla.org/ko/docs/Web/JavaS
 
 ```js
 if (isPacked) {
-  return <li className="item">{name} ✔</li>;
+  return <li className="item">{name} ✅</li>;
 }
 return <li className="item">{name}</li>;
 ```
@@ -197,16 +197,16 @@ return <li className="item">{name}</li>;
 ```js
 return (
   <li className="item">
-    {isPacked ? name + ' ✔' : name}
+    {isPacked ? name + ' ✅' : name}
   </li>
 );
 ```
 
-*“`isPacked`가 참이면 (`?`) `name + ' ✔'`을 렌더링하고, 그렇지 않으면 (`:`) `name`을 렌더링 한다."* 라고 읽을 수 있습니다.
+*"`isPacked`가 참이면 (`?`) `name + ' ✔'`을 렌더링하고, 그렇지 않으면 (`:`) `name`을 렌더링한다."* 라고 읽을 수 있습니다.
 
 <DeepDive>
 
-#### 두 예제는 완전히 동일할까요? {/*are-these-two-examples-fully-equivalent*/}
+#### 두 예시는 완전히 동일할까요? {/*are-these-two-examples-fully-equivalent*/}
 
 `<li>`의 두 가지 다른 "인스턴스"를 만들 수 있기 때문에 객체 지향 프로그래밍에서는 위의 두 예가 미묘하게 다르다고 생각할 수 있습니다. 그러나 JSX 엘리먼트는 내부 상태를 보유하지 않으며 실제 DOM 노드가 아니기 때문에 "인스턴스"가 아닙니다. 이것은 청사진처럼 간단한 설명입니다. 따라서 위의 두 가지 예시 코드는 실제로 완전히 *동일합니다*. [상태를 보존하고 초기화하기](/learn/preserving-and-resetting-state)에서는 이 기능이 어떻게 작동하는지 자세히 설명합니다.
 
@@ -222,7 +222,7 @@ function Item({ name, isPacked }) {
     <li className="item">
       {isPacked ? (
         <del>
-          {name + ' ✔'}
+          {name + ' ✅'}
         </del>
       ) : (
         name
@@ -236,17 +236,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -265,12 +265,12 @@ export default function PackingList() {
 ```js
 return (
   <li className="item">
-    {name} {isPacked && '✔'}
+    {name} {isPacked && '✅'}
   </li>
 );
 ```
 
-이것을 “`isPacked`이면 (`&&`) 체크 표시를 렌더링하고, 그렇지 않으면 아무것도 렌더링하지 않습니다."라고 읽을 수 있습니다.
+이것을 "`isPacked`이면 (`&&`) 체크 표시를 렌더링하고, 그렇지 않으면 아무것도 렌더링하지 않습니다."라고 읽을 수 있습니다.
 
 자, 잘 작동합니다.
 
@@ -280,7 +280,7 @@ return (
 function Item({ name, isPacked }) {
   return (
     <li className="item">
-      {name} {isPacked && '✔'}
+      {name} {isPacked && '✅'}
     </li>
   );
 }
@@ -290,17 +290,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -317,7 +317,7 @@ export default function PackingList() {
 
 **`&&`의 왼쪽에 숫자를 두지 마세요.**
 
-조건을 테스트하기 위해 JavaScript는 자동으로 왼쪽을 부울로 변환합니다. 그러나 왼쪽이 `0`이면 전체 식이 (`0`)을 얻게 되고, 리액트는 아무것도 아닌 `0`을 렌더링할 것입니다.
+조건을 테스트하기 위해 JavaScript는 자동으로 왼쪽을 부울로 변환합니다. 그러나 왼쪽이 `0`이면 전체 식이 (`0`)을 얻게 되고, React는 아무것도 아닌 `0`을 렌더링할 것입니다.
 
 예를 들어, 흔하게 하는 실수로 `messageCount && <p>New messages</p>`와 같은 코드를 작성하는 것입니다. 메시지 카운트가 `0`일 때 아무것도 렌더링하지 않는다고 쉽게 추측할 수 있지만, 실제로는 `0` 자체를 렌더링합니다!
 
@@ -337,7 +337,7 @@ let itemContent = name;
 
 ```js
 if (isPacked) {
-  itemContent = name + " ✔";
+  itemContent = name + " ✅";
 }
 ```
 
@@ -357,7 +357,7 @@ if (isPacked) {
 function Item({ name, isPacked }) {
   let itemContent = name;
   if (isPacked) {
-    itemContent = name + " ✔";
+    itemContent = name + " ✅";
   }
   return (
     <li className="item">
@@ -371,17 +371,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -401,7 +401,7 @@ function Item({ name, isPacked }) {
   if (isPacked) {
     itemContent = (
       <del>
-        {name + " ✔"}
+        {name + " ✅"}
       </del>
     );
   }
@@ -417,17 +417,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -444,8 +444,8 @@ JavaScript가 익숙하지 않다면, 처음에는 이런 다양한 코드 스�
 * React에서 JavaScript로 분기 로직을 제어합니다.
 * 조건부로 `if` 문과 함께 JSX 식을 반환할 수 있습니다.
 * 조건부로 일부 JSX를 변수에 저장한 다음 중괄호를 사용하여 다른 JSX에 포함할 수 있습니다.
-* JSX에서 `{cond ? <A /> : <B />}`는 *“`cond`이면 `<A />`를 렌더링하고, 그렇지 않으면 `<B />`를 렌더링합니다."* 를 의미합니다.
-* JSX에서 `{cond && <A />}`는 *“`cond`이면, `<A />`를 렌더링하되, 그렇지 않으면 아무것도 렌더링하지 않습니다."* 를 의미합니다.
+* JSX에서 `{cond ? <A /> : <B />}`는 *"`cond`이면 `<A />`를 렌더링하고, 그렇지 않으면 `<B />`를 렌더링합니다."* 를 의미합니다.
+* JSX에서 `{cond && <A />}`는 *"`cond`이면, `<A />`를 렌더링하되, 그렇지 않으면 아무것도 렌더링하지 않습니다."* 를 의미합니다.
 * 위 예시는 흔한 방법이지만, `if`를 선호한다면 사용하지 않아도 됩니다.
 
 </Recap>
@@ -464,7 +464,7 @@ JavaScript가 익숙하지 않다면, 처음에는 이런 다양한 코드 스�
 function Item({ name, isPacked }) {
   return (
     <li className="item">
-      {name} {isPacked && '✔'}
+      {name} {isPacked && '✅'}
     </li>
   );
 }
@@ -474,17 +474,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -502,7 +502,7 @@ export default function PackingList() {
 function Item({ name, isPacked }) {
   return (
     <li className="item">
-      {name} {isPacked ? '✔' : '❌'}
+      {name} {isPacked ? '✅' : '❌'}
     </li>
   );
 }
@@ -512,17 +512,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -560,17 +560,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          importance={9} 
-          name="Space suit" 
+        <Item
+          importance={9}
+          name="Space suit"
         />
-        <Item 
-          importance={0} 
-          name="Helmet with a golden leaf" 
+        <Item
+          importance={0}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          importance={6} 
-          name="Photo of Tam" 
+        <Item
+          importance={6}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -604,17 +604,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          importance={9} 
-          name="Space suit" 
+        <Item
+          importance={9}
+          name="Space suit"
         />
-        <Item 
-          importance={0} 
-          name="Helmet with a golden leaf" 
+        <Item
+          importance={0}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          importance={6} 
-          name="Photo of Tam" 
+        <Item
+          importance={6}
+          name="Photo of Tam"
         />
       </ul>
     </section>

@@ -26,6 +26,7 @@ import {Feedback} from '../Feedback';
 import {SidebarRouteTree} from '../Sidebar';
 import type {RouteItem} from '../getRouteMeta';
 import {siteConfig} from 'siteConfig';
+import BrandMenu from './BrandMenu';
 
 declare global {
   interface Window {
@@ -33,6 +34,22 @@ declare global {
     __setPreferredTheme: (theme: string) => void;
   }
 }
+
+const react18Icon = (
+  <svg
+    stroke="currentColor"
+    fill="none"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    height="200px"
+    width="200px"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 8h1v8"></path>
+    <path d="M15 12h-1a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1zh-1a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1"></path>
+  </svg>
+);
 
 const darkIcon = (
   <svg
@@ -241,15 +258,15 @@ export default function TopNav({
         className={cn(
           isMenuOpen
             ? 'h-screen sticky top-0 lg:bottom-0 lg:h-screen flex flex-col shadow-nav dark:shadow-nav-dark z-20'
-            : 'z-50 sticky top-0'
+            : 'z-40 sticky top-0'
         )}>
         <nav
           className={cn(
-            'duration-300 backdrop-filter backdrop-blur-lg backdrop-saturate-200 transition-shadow bg-opacity-90 items-center w-full flex justify-between bg-wash dark:bg-wash-dark dark:bg-opacity-95 px-1.5 lg:pe-5 lg:ps-4 z-50',
+            'duration-300 backdrop-filter backdrop-blur-lg backdrop-saturate-200 transition-shadow bg-opacity-90 items-center w-full flex justify-between bg-wash dark:bg-wash-dark dark:bg-opacity-95 px-1.5 lg:pe-5 lg:ps-4 z-40',
             {'dark:shadow-nav-dark shadow-nav': isScrolled || isMenuOpen}
           )}>
           <div className="flex items-center justify-between w-full h-16 gap-0 sm:gap-3">
-            <div className="flex flex-row 3xl:flex-1 ">
+            <div className="flex flex-row 3xl:flex-1 items-centers">
               <button
                 type="button"
                 aria-label="Menu"
@@ -262,33 +279,35 @@ export default function TopNav({
                 )}>
                 {isMenuOpen ? <IconClose /> : <IconHamburger />}
               </button>
-              <div className="f">
-                <div className="uwu-visible flex items-center justify-center h-full">
-                  <NextLink href="/">
-                    <Image
-                      alt="logo by @sawaratsuki1004"
-                      title="logo by @sawaratsuki1004"
-                      className="h-8"
-                      priority
-                      width={63}
-                      height={32}
-                      src="/images/uwu.png"
-                    />
-                  </NextLink>
+              <BrandMenu>
+                <div className="flex items-center">
+                  <div className="uwu-visible flex items-center justify-center h-full">
+                    <NextLink href="/">
+                      <Image
+                        alt="logo by @sawaratsuki1004"
+                        title="logo by @sawaratsuki1004"
+                        className="h-8"
+                        priority
+                        width={63}
+                        height={32}
+                        src="/images/uwu.png"
+                      />
+                    </NextLink>
+                  </div>
+                  <div className="uwu-hidden">
+                    <NextLink
+                      href="/"
+                      className={`active:scale-95 overflow-hidden transition-transform relative items-center text-primary dark:text-primary-dark p-1 whitespace-nowrap outline-link rounded-full 3xl:rounded-xl inline-flex text-lg font-normal gap-2`}>
+                      <Logo
+                        className={cn(
+                          'text-sm me-0 w-10 h-10 text-brand dark:text-brand-dark flex origin-center transition-all ease-in-out'
+                        )}
+                      />
+                      <span className="sr-only 3xl:not-sr-only">React</span>
+                    </NextLink>
+                  </div>
                 </div>
-                <div className="uwu-hidden">
-                  <NextLink
-                    href="/"
-                    className={`active:scale-95 overflow-hidden transition-transform relative items-center text-primary dark:text-primary-dark p-1 whitespace-nowrap outline-link rounded-full 3xl:rounded-xl inline-flex text-lg font-normal gap-2`}>
-                    <Logo
-                      className={cn(
-                        'text-sm me-0 w-10 h-10 text-brand dark:text-brand-dark flex origin-center transition-all ease-in-out'
-                      )}
-                    />
-                    <span className="sr-only 3xl:not-sr-only">React</span>
-                  </NextLink>
-                </div>
-              </div>
+              </BrandMenu>
               <div className="flex flex-column justify-center items-center">
                 <NextLink
                   href="/versions"
@@ -323,7 +342,7 @@ export default function TopNav({
                 <NavItem
                   isActive={section === 'reference'}
                   url="/reference/react">
-                  레퍼런스
+                  API 참고서
                 </NavItem>
                 <NavItem isActive={section === 'community'} url="/community">
                   커뮤니티
@@ -342,6 +361,14 @@ export default function TopNav({
                     onClick={onOpenSearch}>
                     <IconSearch className="w-5 h-5 align-middle" />
                   </button>
+                </div>
+                <div className="flex">
+                  <Link
+                    href="https://ko-react-exy5xcwjj-fbopensource.vercel.app/"
+                    aria-label="React version 18 Korean translation"
+                    className="active:scale-95 transition-transform flex w-12 h-12 rounded-full items-center justify-center hover:bg-primary/5 hover:dark:bg-primary-dark/5 outline-link">
+                    {react18Icon}
+                  </Link>
                 </div>
                 <div className="flex dark:hidden">
                   <button
@@ -394,8 +421,8 @@ export default function TopNav({
             className="overflow-y-scroll isolate no-bg-scrollbar lg:w-[342px] grow bg-wash dark:bg-wash-dark">
             <aside
               className={cn(
-                `lg:grow lg:flex flex-col w-full pb-8 lg:pb-0 lg:max-w-custom-xs z-50`,
-                isMenuOpen ? 'block z-40' : 'hidden lg:block'
+                `lg:grow lg:flex flex-col w-full pb-8 lg:pb-0 lg:max-w-custom-xs z-40`,
+                isMenuOpen ? 'block z-30' : 'hidden lg:block'
               )}>
               <nav
                 role="navigation"
@@ -405,20 +432,20 @@ export default function TopNav({
                 <Suspense fallback={null}>
                   <div className="ps-3 xs:ps-5 xs:gap-0.5 xs:text-base overflow-x-auto flex flex-row lg:hidden text-base font-bold text-secondary dark:text-secondary-dark">
                     <NavItem isActive={section === 'learn'} url="/learn">
-                      Learn
+                      학습하기
                     </NavItem>
                     <NavItem
                       isActive={section === 'reference'}
                       url="/reference/react">
-                      Reference
+                      API 참고서
                     </NavItem>
                     <NavItem
                       isActive={section === 'community'}
                       url="/community">
-                      Community
+                      커뮤니티
                     </NavItem>
                     <NavItem isActive={section === 'blog'} url="/blog">
-                      Blog
+                      블로그
                     </NavItem>
                   </div>
                   <div

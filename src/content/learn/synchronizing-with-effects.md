@@ -22,7 +22,7 @@ title: 'Effect로 동기화하기'
 
 Effect에 대해 자세히 알아보기 전에, 컴포넌트 내부의 2가지 로직 유형에 대해 알아야 합니다.
 
-- **렌더링 코드**([UI 표현하기](/learn/description-the-UI)에 소개됨)를 주관하는 로직은 컴포넌트의 최상단에 위치하며, props와 state를 적절히 변형해 결과적으로 JSX를 반환합니다. [렌더링 코드 로직은 순수해야 합니다.](/learn/keep-components-pure) 수학 공식처럼 결과만 계산해야 하고, 그 외에는 아무것도 하지 말아야 합니다.
+- **렌더링 코드**([UI 표현하기](/learn/describing-the-ui)에 소개됨)를 주관하는 로직은 컴포넌트의 최상단에 위치하며, props와 state를 적절히 변형해 결과적으로 JSX를 반환합니다. [렌더링 코드 로직은 순수해야 합니다.](/learn/keeping-components-pure) 수학 공식처럼 결과만 계산해야 하고, 그 외에는 아무것도 하지 말아야 합니다.
 
 - **이벤트 핸들러**([상호작용 더하기](/learn/adding-interactivity)에 소개됨)는 단순한 계산 용도가 아닌 무언가를 *하는* 컴포넌트 내부의 중첩 함수입니다. 이벤트 핸들러는 입력 필드를 업데이트하거나, 제품을 구입하기 위해 HTTP POST 요청을 보내거나, 사용자를 다른 화면으로 이동시킬 수 있습니다. 이벤트 핸들러에는 특정 사용자 작업(예: 버튼 클릭 또는 입력)으로 인해 발생하는 ["부수 효과"](https://en.wikipedia.org/wiki/Side_effect_(computer_science))(이러한 부수 효과가 프로그램 상태를 변경합니다.)를 포함합니다.
 
@@ -39,7 +39,7 @@ Effect에 대해 자세히 알아보기 전에, 컴포넌트 내부의 2가지 �
 
 ## Effect가 필요 없을지도 모릅니다 {/*you-might-not-need-an-effect*/}
 
-**컴포넌트에 Effect를 무작정 추가하지 마세요.** Effect는 주로 React 코드를 벗어난 특정 *외부* 시스템과 동기화하기 위해 사용됩니다. 이는 브라우저 API, 써드파티 위젯, 네트워크 등을 포함합니다. 만약 당신의 Effect가 단순히 다른 상태에 기반하여 일부 상태를 조정하는 경우에는 [Effect가 필요하지 않을 수 있습니다.](/learn/you-might-not-need-an-effect)
+**컴포넌트에 Effect를 무작정 추가하지 마세요.** Effect는 주로 React 코드를 벗어난 특정 *외부* 시스템과 동기화하기 위해 사용됩니다. 이는 브라우저 API, 서드 파티 위젯, 네트워크 등을 포함합니다. 만약 당신의 Effect가 단순히 다른 상태에 기반하여 일부 상태를 조정하는 경우에는 [Effect가 필요하지 않을 수 있습니다.](/learn/you-might-not-need-an-effect)
 
 ## Effect를 작성하는 법 {/*how-to-write-an-effect*/}
 
@@ -205,9 +205,9 @@ video { width: 250px; }
 
 </Sandpack>
 
-이 예제에서 React 상태와 동기화된 "외부 시스템"은 브라우저 미디어 API였습니다. 이와 비슷한 접근 방식으로 React가 아닌 레거시 코드(예: jQuery 플러그인)를 선언적인 React 컴포넌트로 감싸는 데에도 사용할 수 있습니다.
+이 예시에서 React 상태와 동기화된 "외부 시스템"은 브라우저 미디어 API였습니다. 이와 비슷한 접근 방식으로 React가 아닌 레거시 코드(예: jQuery 플러그인)를 선언적인 React 컴포넌트로 감싸는 데에도 사용할 수 있습니다.
 
-실제로 비디오 플레이어를 제어하는 것은 훨씬 복잡합니다. play()를 호출하는 것이 실패할 수 있으며, 사용자는 컴포넌트의 UI가 아닌 브라우저 내장 컨트롤을 사용하여 동영상을 재생 또는 일시 정지할 수 있습니다. 이 예제는 매우 단순화되었고 불완전한 것임을 유의해주세요.
+실제로 비디오 플레이어를 제어하는 것은 훨씬 복잡합니다. `play()`를 호출하는 것이 실패할 수 있으며, 사용자는 컴포넌트의 UI가 아닌 브라우저 내장 컨트롤을 사용하여 동영상을 재생 또는 일시 정지할 수 있습니다. 이 예시는 매우 단순화되었고 불완전한 것임을 유의해주세요.
 
 <Pitfall>
 
@@ -233,7 +233,7 @@ Effect는 일반적으로 컴포넌트를 *외부* 시스템과 동기화하는 
 - 때때로 느릴 수 있습니다. 외부 시스템과 동기화하는 것이 항상 즉시 이루어지지 않기 때문에 필요하지 않을 경우에는 실행을 건너뛰고 싶을 수 있습니다. 예를 들어, 모든 키 입력마다 채팅 서버에 다시 연결하길 원하지 않을 것입니다.
 - 때때로 잘못될 수 있습니다. 예를 들어, 모든 키 입력마다 컴포넌트 fade-in 애니메이션을 트리거하길 원하지 않을 것입니다. 애니메이션은 컴포넌트가 처음 나타날 때에만 한 번 실행되어야 합니다.
 
-이 문제를 설명하기 위해 이전 예제에 몇 가지 `console.log` 호출과 부모 컴포넌트의 상태를 업데이트하는 텍스트 입력을 추가한 예제를 살펴보겠습니다. 입력할 때 Effect가 다시 실행되는 것을 주목하세요.
+이 문제를 설명하기 위해 이전 예시에 몇 가지 `console.log` 호출과 부모 컴포넌트의 상태를 업데이트하는 텍스트 입력을 추가한 예시를 살펴보겠습니다. 입력할 때 Effect가 다시 실행되는 것을 주목하세요.
 
 <Sandpack>
 
@@ -281,7 +281,7 @@ video { width: 250px; }
 
 </Sandpack>
 
-React에게 Effect를 **불필요하게 다시 실행하지 않도록 지시**하려면 `useEffect` 호출의 두 번째 인자로 *의존성(dependencies)* 배열을 지정하세요. 먼저 위의 예제에 빈 `[]` 배열을 14번째 줄에 추가하면 됩니다.
+React에게 Effect를 **불필요하게 다시 실행하지 않도록 지시**하려면 `useEffect` 호출의 두 번째 인자로 *의존성(dependencies)* 배열을 지정하세요. 먼저 위의 예시에 빈 `[]` 배열을 14번째 줄에 추가하면 됩니다.
 
 ```js {3}
   useEffect(() => {
@@ -524,11 +524,11 @@ input { display: block; margin-bottom: 20px; }
 
 이 Effect는 마운트될 때만 실행되므로 콘솔에 "✅ 연결 중..."이 한 번 출력될 것으로 예상할 수 있습니다. 그러나 콘솔을 확인해 보면 "✅ 연결 중..."이 두 번 출력됩니다. 왜 그럴까요?
 
-ChatRoom 컴포넌트가 여러 화면으로 구성된 큰 앱의 일부라고 가정해 보겠습니다. 사용자가 ChatRoom 페이지에서 여정을 시작합니다. 컴포넌트가 마운트되고 connection.connect()를 호출합니다. 그런 다음 사용자가 다른 화면으로 이동한다고 상상해보세요. 예를 들어, 설정 페이지로 이동할 수 있습니다. ChatRoom 컴포넌트가 언마운트됩니다. 마지막으로 사용자가 뒤로 가기 버튼을 클릭하고 ChatRoom이 다시 마운트됩니다. 이렇게 되면 두 번째 연결이 설정되지만 첫 번째 연결은 종료되지 않았습니다! 사용자가 앱을 탐색하는 동안 연결은 종료되지 않고 계속 쌓일 것입니다.
+ChatRoom 컴포넌트가 여러 화면으로 구성된 큰 앱의 일부라고 가정해 보겠습니다. 사용자가 ChatRoom 페이지에서 여정을 시작합니다. 컴포넌트가 마운트되고 `connection.connect()`를 호출합니다. 그런 다음 사용자가 다른 화면으로 이동한다고 상상해보세요. 예를 들어, 설정 페이지로 이동할 수 있습니다. ChatRoom 컴포넌트가 마운트 해제됩니다. 마지막으로 사용자가 뒤로 가기 버튼을 클릭하고 ChatRoom이 다시 마운트됩니다. 이렇게 되면 두 번째 연결이 설정되지만 첫 번째 연결은 종료되지 않았습니다! 사용자가 앱을 탐색하는 동안 연결은 종료되지 않고 계속 쌓일 것입니다.
 
 이와 같은 버그는 앱의 이곳저곳을 수동으로 테스트해보지 않으면 놓치기 쉽습니다. 이러한 문제를 빠르게 파악할 수 있도록 React는 개발 모드에서 초기 마운트 후 모든 컴포넌트를 한 번 다시 마운트합니다.
 
-"✅ 연결 중..." 로그가 두 번 출력되는 것을 보면 결국 무엇이 문제인지 알 수 있습니다. 컴포넌트가 언마운트될 때 연결을 닫지 않는 문제가 바로 그것이죠.
+"✅ 연결 중..." 로그가 두 번 출력되는 것을 보면 결국 무엇이 문제인지 알 수 있습니다. 컴포넌트가 마운트 해제될 때 연결을 닫지 않는 문제가 바로 그것이죠.
 
 이 문제를 해결하려면 Effect에서 클린업 함수를 반환하면 됩니다.
 
@@ -542,7 +542,7 @@ ChatRoom 컴포넌트가 여러 화면으로 구성된 큰 앱의 일부라고 �
   }, []);
 ```
 
-React는 Effect가 다시 실행되기 전마다 클린업 함수를 호출하고, 컴포넌트가 언마운트(제거)될 때에도 마지막으로 호출합니다. 클린업 함수가 구현된 경우 어떤 일이 일어나는지 살펴보겠습니다.
+React는 Effect가 다시 실행되기 전마다 클린업 함수를 호출하고, 컴포넌트가 마운트 해제(제거)될 때에도 마지막으로 호출합니다. 클린업 함수가 구현된 경우 어떤 일이 일어나는지 살펴보겠습니다.
 
 <Sandpack>
 
@@ -600,14 +600,14 @@ React는 마지막 예시와 같은 버그를 찾기 위해 개발 중에 컴포
 
 <Pitfall>
 
-#### Don't use refs to prevent Effects from firing {/*dont-use-refs-to-prevent-effects-from-firing*/}
+#### Effect가 두 번 실행되는 것을 막기위해 ref를 사용하지 마세요 {/*dont-use-refs-to-prevent-effects-from-firing*/}
 
-A common pitfall for preventing Effects firing twice in development is to use a `ref` to prevent the Effect from running more than once. For example, you could "fix" the above bug with a `useRef`:
+Effect가 개발 모드에서 두 번 실행되는 것을 막으려다 흔히 빠지는 함정은 `ref`를 사용해 Effect가 한 번만 실행되도록 하는 것입니다. 예를 들어 위의 버그를 `useRef`를 사용하여 "수정"하려고 할 수도 있습니다:
 
 ```js {1,3-4}
   const connectionRef = useRef(null);
   useEffect(() => {
-    // 🚩 This wont fix the bug!!!
+    // 🚩 버그를 수정하지 않습니다!!!
     if (!connectionRef.current) {
       connectionRef.current = createConnection();
       connectionRef.current.connect();
@@ -615,13 +615,13 @@ A common pitfall for preventing Effects firing twice in development is to use a 
   }, []);
 ```
 
-This makes it so you only see `"✅ Connecting..."` once in development, but it doesn't fix the bug.
+이렇게 하면 개발 모드에서 `"✅ 연결 중..."`이 한 번만 보이지만 버그가 수정된 건 아닙니다.
 
-When the user navigates away, the connection still isn't closed and when they navigate back, a new connection is created. As the user navigates across the app, the connections would keep piling up, the same as it would before the "fix". 
+사용자가 다른 곳에 가더라도 연결이 끊어지지 않고 사용자가 다시 돌아왔을 때 새로운 연결이 생성됩니다. 사용자가 앱을 탐색하면 버그가 수정되기 전처럼 연결이 계속 쌓이게 됩니다.
 
-To fix the bug, it is not enough to just make the Effect run once. The effect needs to work after re-mounting, which means the connection needs to be cleaned up like in the solution above.
+버그를 수정하기 위해선 Effect를 단순히 한 번만 실행되도록 만드는 것으로는 부족합니다. Effect는 위에 있는 예시가 연결을 클린업 한것처럼 다시 마운트된 이후에도 제대로 동작해야 합니다.
 
-See the examples below for how to handle common patterns.
+아래에 있는 일반적인 패턴을 다루는 예시를 살펴보세요.
 
 </Pitfall>
 
@@ -727,7 +727,7 @@ Effect 안에서 `fetch` 호출을 작성하는 것은 [데이터를 가져오�
 
 - **Effect는 서버에서 실행되지 않습니다.** 따라서 초기 서버 렌더링된 HTML은 데이터가 없는 로딩 상태만 포함하게 됩니다. 클라이언트 컴퓨터는 모든 JavaScript를 다운로드하고 앱을 렌더링해야만 데이터를 로드해야 한다는 것을 알게 될 것입니다. 이는 효율적이지 않습니다.
 - **Effect 안에서 직접 가져오면 "네트워크 폭포"를 쉽게 만들 수 있습니다.** 부모 컴포넌트를 렌더링하면 일부 데이터를 가져오고 자식 컴포넌트를 렌더링한 다음 그들이 데이터를 가져오기 시작합니다. 네트워크가 빠르지 않으면 이는 모든 데이터를 병렬로 가져오는 것보다 훨씬 느립니다.
-- **Effect 안에서 직접 가져오는 것은 일반적으로 데이터를 미리 로드하거나 캐시하지 않음을 의미합니다.** 예를 들어 컴포넌트가 언마운트되고 다시 마운트되면 데이터를 다시 가져와야 합니다.
+- **Effect 안에서 직접 가져오는 것은 일반적으로 데이터를 미리 로드하거나 캐시하지 않음을 의미합니다.** 예를 들어 컴포넌트가 마운트 해제되고 다시 마운트되면 데이터를 다시 가져와야 합니다.
 - **그리 편리하지 않습니다.** `fetch` 호출을 작성할 때 [경쟁 상태](https://maxrozen.com/race-conditions-fetching-data-react-with-useeffect)와 같은 버그에 영향을 받지 않는 방식으로 작성하는 데 꽤 많은 보일러플레이트 코드가 필요합니다.
 
 이 단점 목록은 React에만 해당되는 것은 아닙니다. 어떤 라이브러리에서든 마운트 시에 데이터를 가져온다면 비슷한 단점이 존재합니다. 마운트 시에 데이터를 페칭하는 것도 라우팅과 마찬가지로 잘 수행하기 어려운 작업이므로 다음 접근 방식을 권장합니다.
@@ -749,7 +749,7 @@ useEffect(() => {
 }, [url]);
 ```
 
-개발 환경에서는 `logVisit`가 각 URL에 대해 두 번 호출될 것입니다. 그래서 이를 수정하고 싶을 수 있습니다. **우리는 이 코드를 그대로 유지하는 것을 권장합니다.** 이전 예제와 마찬가지로 한 번 실행하거나 두 번 실행하는 것 사이에서 *사용자가 볼 수 있는* 동작 차이가 없습니다. 실제로 개발 환경에서는 `logVisit`가 아무 작업도 수행하지 않아야 합니다. 왜냐하면 개발 환경의 로그가 제품 지표를 왜곡시키지 않도록 하기 위함입니다. 컴포넌트는 파일을 저장할 때마다 재마운트되므로 개발 환경에서는 추가적인 방문 기록을 로그에 남기게 됩니다.
+개발 환경에서는 `logVisit`가 각 URL에 대해 두 번 호출될 것입니다. 그래서 이를 수정하고 싶을 수 있습니다. **우리는 이 코드를 그대로 유지하는 것을 권장합니다.** 이전 예시와 마찬가지로 한 번 실행하거나 두 번 실행하는 것 사이에서 *사용자가 볼 수 있는* 동작 차이가 없습니다. 실제로 개발 환경에서는 `logVisit`가 아무 작업도 수행하지 않아야 합니다. 왜냐하면 개발 환경의 로그가 제품 지표를 왜곡시키지 않도록 하기 위함입니다. 컴포넌트는 파일을 저장할 때마다 재마운트되므로 개발 환경에서는 추가적인 방문 기록을 로그에 남기게 됩니다.
 
 **제품 환경에서는 중복된 방문 로그가 없을 것입니다.**
 
@@ -800,7 +800,7 @@ useEffect(() => {
 
 이 플레이그라운드를 살펴보면 실제로 Effect가 어떻게 작동하는지에 대한 "느낌을 얻을" 수 있습니다.
 
-이 예제는 [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)을 사용하여 Effect가 실행된 후 3초 후에 입력 텍스트와 함께 콘솔 로그가 표시되도록 합니다. 클린업 함수는 실행을 기다리는 타임아웃을 취소합니다. "컴포넌트 마운트" 버튼을 눌러 시작하세요.
+이 예시는 [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)을 사용하여 Effect가 실행된 후 3초 후에 입력 텍스트와 함께 콘솔 로그가 표시되도록 합니다. 클린업 함수는 실행을 기다리는 타임아웃을 취소합니다. "컴포넌트 마운트" 버튼을 눌러 시작하세요.
 
 <Sandpack>
 
@@ -843,7 +843,7 @@ export default function App() {
   return (
     <>
       <button onClick={() => setShow(!show)}>
-        컴포넌트 {show ? '언마운트' : '마운트'}
+        컴포넌트 {show ? '마운트 해제' : '마운트'}
       </button>
       {show && <hr />}
       {show && <Playground />}
@@ -858,7 +858,7 @@ export default function App() {
 
 이제 입력란을 `abc`로 수정해 보세요. 충분히 빠르게 입력하면 `Schedule "ab" log` 바로 뒤에 `Cancel "ab" log`와 `Schedule "abc" log`가 나타날 것입니다. **React는 항상 이전 렌더의 Effect를 다음 렌더의 Effect보다 먼저 정리합니다.** 따라서 빠르게 입력하더라도 한 번에 최대 하나의 타임아웃만 예약되는 것을 볼 수 있습니다. 입력을 몇 번 해보면서 Effect가 어떻게 정리되는지 느껴보세요.
 
-입력란에 무언가를 입력한 다음 "컴포넌트 언마운트"를 눌러보세요. 언마운트가 마지막 렌더의 Effect를 정리함을 주목하세요. 여기서는 타임아웃이 실행되기 전에 마지막 타임아웃이 취소됩니다.
+입력란에 무언가를 입력한 다음 "컴포넌트 마운트 해제"를 눌러보세요. 마운트 해제가 마지막 렌더의 Effect를 정리함을 주목하세요. 여기서는 타임아웃이 실행되기 전에 마지막 타임아웃이 취소됩니다.
 
 마지막으로 위 컴포넌트를 수정하고 정리 함수의 주석 처리를 해제하여 타임아웃이 취소되지 않도록 해보세요. `abcde`를 빠르게 입력해 보세요. 몇 초 후에 무엇이 기대되는지 생각해 보세요. 타임아웃 내부의 `console.log(text)`가 가장 최근의 `text`를 출력하고 다섯 번의 `abcde` 로그가 생성될까요? 직접 시도하여 확인해 보세요!
 
@@ -908,7 +908,7 @@ export default function ChatRoom({ roomId }) {
 
 React는 이 Effect를 실행하며, `'general'` 채팅방에 연결합니다.
 
-#### 같은 의존성 사이에서의 재랜더링 {/*re-render-with-same-dependencies*/}
+#### 같은 의존성 사이에서의 재렌더링 {/*re-render-with-same-dependencies*/}
 
 `<ChatRoom roomId="general" />`가 다시 렌더링된다고 가정해봅시다. JSX 결과물은 동일합니다.
 
@@ -964,9 +964,9 @@ React는 세 번째 렌더링에서의 `['travel']`와 두 번째 렌더링에�
 
 그 후에 React는 세 번째 렌더링의 Effect를 실행합니다. `'travel'` 채팅방에 연결합니다.
 
-#### 언마운트 {/*unmount*/}
+#### 마운트 해제 {/*unmount*/}
 
-마지막으로, 사용자가 다른 페이지로 이동하게 되어 `ChatRoom` 컴포넌트가 언마운트됩니다. React는 마지막 Effect의 클린업 함수를 실행합니다. 마지막 Effect는 세 번째 렌더링에서 온 것입니다. 세 번째 렌더링의 클린업은 `createConnection('travel')` 연결을 종료합니다. 그래서 앱은 `'travel'` 채팅방과의 연결을 해제하게 됩니다.
+마지막으로, 사용자가 다른 페이지로 이동하게 되어 `ChatRoom` 컴포넌트가 마운트 해제됩니다. React는 마지막 Effect의 클린업 함수를 실행합니다. 마지막 Effect는 세 번째 렌더링에서 온 것입니다. 세 번째 렌더링의 클린업은 `createConnection('travel')` 연결을 종료합니다. 그래서 앱은 `'travel'` 채팅방과의 연결을 해제하게 됩니다.
 
 #### 개발 환경에서만의 동작 {/*development-only-behaviors*/}
 
@@ -984,7 +984,7 @@ React는 세 번째 렌더링에서의 `['travel']`와 두 번째 렌더링에�
 - 빈 의존성 배열(`[]`)은 컴포넌트 "마운팅"(화면에 추가됨)을 의미합니다.
 - Strict Mode에서 React는 컴포넌트를 두 번 마운트합니다(개발 환경에서만!) 이는 Effect의 스트레스 테스트를 위한 것입니다.
 - Effect가 다시 마운트로 인해 중단된 경우 클린업 함수를 구현해야 합니다.
-- React는 Effect가 다음에 실행되기 전에 정리 함수를 호출하며, 언마운트 중에도 호출합니다.
+- React는 Effect가 다음에 실행되기 전에 정리 함수를 호출하며, 마운트 해제 중에도 호출합니다.
 
 </Recap>
 
@@ -992,7 +992,7 @@ React는 세 번째 렌더링에서의 `['travel']`와 두 번째 렌더링에�
 
 #### 마운트시 input 필드에 포커스하기 {/*focus-a-field-on-mount*/}
 
-이 예시에서는 form이 `<MyInput />` 컴포넌트를 렌더링합니다.
+이 예시에서는 폼이 `<MyInput />` 컴포넌트를 렌더링합니다.
 
 화면에 나타날 때 `MyInput`이 자동으로 포커스되도록 입력의 [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) 메서드를 사용하세요. 이미 주석 처리된 구현이 있지만 제대로 작동하지 않습니다. 왜 작동하지 않는지 확인하고 수정해 보세요. (`autoFocus` 속성은 존재하지 않는 것으로 가정하세요. 우리는 처음부터 동일한 기능을 다시 구현하고 있습니다.)
 
@@ -1005,7 +1005,7 @@ export default function MyInput({ value, onChange }) {
   const ref = useRef(null);
 
   // TODO: 작동하지 않는다. 고쳐야함
-  // ref.current.focus()    
+  // ref.current.focus()
 
   return (
     <input
@@ -1158,7 +1158,7 @@ body {
 
 #### 조건부로 input 필드에 포커스하기 {/*focus-a-field-conditionally*/}
 
-이 form은 두 개의 `<MyInput />` 컴포넌트를 렌더링합니다.
+이 폼은 두 개의 `<MyInput />` 컴포넌트를 렌더링합니다.
 
 "form 보기"를 누르면 두 번째 필드가 자동으로 포커스됩니다. 이는 두 `<MyInput />` 컴포넌트 모두 내부의 필드에 포커스를 주려고 하기 때문입니다. 두 개의 입력 필드에 연속해서 `focus()`를 호출하면 마지막 호출이 항상 "승리하게" 됩니다.
 
@@ -1242,7 +1242,7 @@ body {
 
 </Sandpack>
 
-해당 코드를 실행하고 주어진 검증 방법을 따라 진행해 봅시다. "form 보기" 버튼을 반복적으로 누르고 "form 숨기기" 버튼을 클릭하여 결과를 확인할 수 있습니다. form이 나타날 때, *첫 번째* 입력 필드에만 포커스가 설정됩니다. 부모 컴포넌트가 첫 번째 입력 필드를 `shouldFocus={true}`로 렌더링하고 두 번째 입력 필드를 `shouldFocus={false}`로 렌더링하기 때문입니다. 또한 두 입력 필드 모두 정상적으로 작동하며, 둘 다 텍스트를 입력할 수 있습니다.
+해당 코드를 실행하고 주어진 검증 방법을 따라 진행해 봅시다. "form 보기" 버튼을 반복적으로 누르고 "form 숨기기" 버튼을 클릭하여 결과를 확인할 수 있습니다. 폼이 나타날 때, *첫 번째* 입력 필드에만 포커스가 설정됩니다. 부모 컴포넌트가 첫 번째 입력 필드를 `shouldFocus={true}`로 렌더링하고 두 번째 입력 필드를 `shouldFocus={false}`로 렌더링하기 때문입니다. 또한 두 입력 필드 모두 정상적으로 작동하며, 둘 다 텍스트를 입력할 수 있습니다.
 
 <Hint>
 
@@ -1337,9 +1337,9 @@ body {
 
 #### 두 번 실행되는 interval 고치기 {/*fix-an-interval-that-fires-twice*/}
 
-아래 'Counter' 컴포넌트는 매 초마다 증가하는 카운터를 나타냅니다. 컴포넌트가 마운트될 때 [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)을 호출합니다. 이로 인해 'onTick' 함수가 매 초마다 실행됩니다. 'onTick' 함수는 카운터를 증가시킵니다.
+아래 `Counter` 컴포넌트는 매 초마다 증가하는 카운터를 나타냅니다. 컴포넌트가 마운트될 때 [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)을 호출합니다. 이로 인해 `onTick` 함수가 매 초마다 실행됩니다. `onTick` 함수는 카운터를 증가시킵니다.
 
-하지만 1초마다 한 번씩 증가하는 대신 두 번씩 증가합니다. 왜 그럴까요? 버그의 원인을 찾아 수정하세요
+하지만 1초마다 한 번씩 증가하는 대신 두 번씩 증가합니다. 왜 그럴까요? 버그의 원인을 찾아 수정하세요.
 
 <Hint>
 
@@ -1400,7 +1400,7 @@ body {
 
 <Solution>
 
-[Strict Mode](/reference/react/StrictMode)가 활성화된 경우 (이 사이트의 코드 예제 샌드박스처럼), React는 개발 중에 각 컴포넌트를 한 번씩 리마운트합니다. 이로 인해 간격이 두 번 설정되어 매 초마다 카운터가 두 번 증가합니다.
+[Strict Mode](/reference/react/StrictMode)가 활성화된 경우 (이 사이트의 코드 예시 샌드박스처럼), React는 개발 중에 각 컴포넌트를 한 번씩 리마운트합니다. 이로 인해 간격이 두 번 설정되어 매 초마다 카운터가 두 번 증가합니다.
 
 그러나 React의 동작이 버그의 *원인*은 아닙니다. 버그는 코드에 있습니다. React의 동작은 버그를 더 눈에 띄게 만듭니다. 실제 문제는 이 Effect가 프로세스를 시작한 후에 클린업할 수 있는 방법을 제공하지 않는 것입니다.
 

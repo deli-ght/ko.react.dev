@@ -35,13 +35,13 @@ const ref = useRef(0);
 
 ```js
 {
-  current: 0 // useRef에 전달한 값 
+  current: 0 // useRef에 전달한 값
 }
 ```
 
 <Illustration src="/images/docs/illustrations/i_ref.png" alt="An arrow with 'current' written on it stuffed into a pocket with 'ref' written on it." />
 
-`ref.current` 프로퍼티를 통해 해당 ref의 current 값에 접근할 수 있습니다. 이 값은 의도적으로 변경할 수 있으므로 읽고 쓸 수 있습니다. React가 추적하지 않는 구성 요소의 비밀 주머니라 할 수 있습니다. (이것이 바로 React의 단방향 데이터 흐름에서 "escape hatch"가 되는 것입니다--아래에서 자세히 설명하고 있습니다!)
+`ref.current` 프로퍼티를 통해 해당 ref의 current 값에 접근할 수 있습니다. 이 값은 의도적으로 변경할 수 있으므로 읽고 쓸 수 있습니다. React가 추적하지 않는 구성 요소의 비밀 주머니라 할 수 있습니다. (이것이 바로 React의 단방향 데이터 흐름에서 "탈출구"가 되는 것입니다--아래에서 자세히 설명하고 있습니다!)
 
 여기서 버튼은 클릭할 때마다 `ref.current`를 증가시킵니다.
 
@@ -98,7 +98,7 @@ export default function Stopwatch() {
     setNow(Date.now());
 
     setInterval(() => {
-      // 10ms 마다 현재 시간을 업데이트 합니다. 
+      // 10ms 마다 현재 시간을 업데이트 합니다.
       setNow(Date.now());
     }, 10);
   }
@@ -168,18 +168,18 @@ export default function Stopwatch() {
 
 </Sandpack>
 
-렌더링에 정보를 사용할 때 해당 정보를 state로 유지합니다. event handler에게만 필요한 정보이고 변경이 일어날 때 리렌더가 필요하지 않다면, ref를 사용하는 것이 더 효율적일 수 있습니다.
+렌더링에 정보를 사용할 때 해당 정보를 state로 유지합니다. 이벤트 핸들러에게만 필요한 정보이고 변경이 일어날 때 리렌더링이 필요하지 않다면, ref를 사용하는 것이 더 효율적일 수 있습니다.
 
 ## ref와 state의 차이 {/*differences-between-refs-and-state*/}
 
-ref가 state보다 덜 "엄격한" 것으로 생각될 수 있습니다-예를 들어, 항상 state 설정 함수를 사용하지 않고 변경할 수 있습니다. 하지만 대부분은 state를 사용하고 싶을 것입니다. ref는 자주 필요하지 않은 "escape hatch"입니다. state와 ref를 비교한 것은 다음과 같습니다.
+ref가 state보다 덜 "엄격한" 것으로 생각될 수 있습니다-예를 들어, 항상 state 설정 함수를 사용하지 않고 변경할 수 있습니다. 하지만 대부분은 state를 사용하고 싶을 것입니다. ref는 자주 필요하지 않은 "탈출구"입니다. state와 ref를 비교한 것은 다음과 같습니다.
 
 | refs                                                          | state                                                                                              |
 |---------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | `useRef(initialValue)` 는 `{ current: initialValue }` 을 반환합니다. | `useState(initialValue)` 은 state 변수의 현재 값과 setter 함수 `[value, setValue]` 를 반환합니다.                  |
 | state를 바꿔도 리렌더 되지 않습니다.                                       | state를 바꾸면 리렌더 됩니다.                                                                                |
 | Mutable-렌더링 프로세스 외부에서 `current` 값을 수정 및 업데이트할 수 있습니다.         | "Immutable"—state 를 수정하기 위해서는 state 설정 함수를 반드시 사용하여 리렌더 대기열에 넣어야 합니다.                              |
-| 렌더링 중에는 `current` 값을 읽거나 쓰면 안 됩니다.                            | 언제든지 state를 읽을 수 있습니다. 그러나 각 렌더마다 변경되지 않는 자체적인 state의 [snapshot](/learn/state-as-a-snapshot)이 있습니다. 
+| 렌더링 중에는 `current` 값을 읽거나 쓰면 안 됩니다.                            | 언제든지 state를 읽을 수 있습니다. 그러나 각 렌더마다 변경되지 않는 자체적인 state의 [snapshot](/learn/state-as-a-snapshot)이 있습니다.
 
 다음은 state와 함께 구현되는 카운터 버튼입니다.
 
@@ -232,11 +232,11 @@ export default function Counter() {
 
 </Sandpack>
 
-이것이 render 중에 `ref.current`를 출력하면 신뢰할 수 없는 코드가 나오는 이유입니다. 이 부분이 필요하면 state를 대신 사용해야 합니다..
+이것이 렌더링 중에 `ref.current`를 출력하면 신뢰할 수 없는 코드가 나오는 이유입니다. 이 부분이 필요하면 state를 대신 사용해야 합니다.
 
 <DeepDive>
 
-#### useRef는 내부적으로 어떻게 동작하나요? {/*how-does-useref-work-inside*/}
+#### `useRef`는 내부적으로 어떻게 동작하나요? {/*how-does-useref-work-inside*/}
 
 `useState`와 `useRef`가 모두 React에 의해 제공되지만, 원칙적으로 `useRef`는 `useState` 위에 구현될 수 있습니다. React 내부에서 `useRef`가 이렇게 구현되는 것을 상상할 수 있습니다.
 
@@ -268,10 +268,10 @@ React는 `useRef`가 실제로 충분히 일반적이기 때문에 built-in 버�
 
 다음 원칙을 따르면 컴포넌트를 보다 쉽게 예측할 수 있습니다.
 
-- **refs를 escape hatch로 간주합니다.** Refs는 외부 시스템이나 브라우저 API로 작업할 때 유용합니다. 애플리케이션 로직과 데이터 흐름의 상당 부분이 refs에 의존한다면 접근 방식을 재고해 보는 것이 좋습니다.
+- **refs를 탈출구로 간주합니다.** Refs는 외부 시스템이나 브라우저 API로 작업할 때 유용합니다. 애플리케이션 로직과 데이터 흐름의 상당 부분이 refs에 의존한다면 접근 방식을 재고해 보는 것이 좋습니다.
 - **렌더링 중에 `ref.current`를 읽거나 쓰지 마세요.** 렌더링 중에 일부 정보가 필요한 경우 [state](/learn/state-a-components-memory)를 대신 사용하세요. `ref.current`가 언제 변하는지 React는 모르기 때문에 렌더링할 때 읽어도 컴포넌트의 동작을 예측하기 어렵습니다. (`if (!ref.current) ref.current = new Thing()` 과 같은 코드는 첫 번째 렌더 중에 ref를 한 번만 설정하는 경우가 예외입니다.)
 
-React state의 제한은 refs에 적용되지 않습니다. 예를 들어 state는 [모든 render에 대한 snapshot](/learn/state-as-a-snapshot) 및 [동기적으로 업데이트되지 않는 것](/learn/queueing-a-series-of-state-updates)과 같이 작동합니다. 그러나 ref의 current 값을 변조하면 다음과 같이 즉시 변경됩니다.
+React state의 제한은 refs에 적용되지 않습니다. 예를 들어 state는 [모든 렌더링에 대한 snapshot](/learn/state-as-a-snapshot) 및 [동기적으로 업데이트되지 않는 것](/learn/queueing-a-series-of-state-updates)과 같이 작동합니다. 그러나 ref의 current 값을 변조하면 다음과 같이 즉시 변경됩니다.
 
 ```js
 ref.current = 5;
@@ -288,7 +288,7 @@ console.log(ref.current); // 5
 
 <Recap>
 
-- Refs는 렌더링에 사용되지 않는 값을 고정하기 위한 escape hatch이며, 자주 필요하지는 않습니다.
+- Refs는 렌더링에 사용되지 않는 값을 고정하기 위한 탈출구이며, 자주 필요하지는 않습니다.
 - ref는 읽거나 설정할 수 있는 `current`라는 프로퍼티를 호출할 수 있는 자바스크립트 순수객체입니다.
 - `useRef` Hook을 호출해 ref를 달라고 React에 요청할 수 있습니다.
 - state와 마찬가지로 ref는 컴포넌트의 렌더링 간에 정보를 유지할 수 있습니다.
@@ -581,7 +581,7 @@ button { display: block; margin: 10px; }
 
 이 예시에서는 "보내기"를 누른 후 메시지가 표시되기 전에 약간의 지연이 발생합니다. "hello"를 입력하고 보내기를 누른 다음 입력을 빠르게 다시 편집합니다. 편집한 내용에도 불구하고 경고창(alert)에는 여전히 "hello"([그 당시](/learn/state-as-a-snapshot#state-over-time) state 값 버튼이 클릭 됨)가 표시됩니다.
 
-보통 이런 행동은 앱에서 원하는 것입니다. 그러나 일부 비동기 코드가 일부 state의 *최신* 버전을 읽기를 원하는 경우가 있습니다. 클릭 당시가 아니라 *현제* 입력 텍스트를 경고창(alert)에 표시하도록 할 수 있는 방법이 있을까요?
+보통 이런 행동은 앱에서 원하는 것입니다. 그러나 일부 비동기 코드가 일부 state의 *최신* 버전을 읽기를 원하는 경우가 있습니다. 클릭 당시가 아니라 *현재* 입력 텍스트를 경고창(alert)에 표시하도록 할 수 있는 방법이 있을까요?
 
 <Sandpack>
 

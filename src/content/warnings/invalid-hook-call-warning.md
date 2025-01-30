@@ -103,7 +103,7 @@ class Bad extends React.Component {
 }
 ```
 
-이러한 실수를 잡기 위해 [eslint-plugin-react-hooks 플러그인](https://www.npmjs.com/package/eslint-plugin-react-hooks)을 사용할 수 있습니다.
+이러한 실수를 잡기 위해 [`eslint-plugin-react-hooks` 플러그인](https://www.npmjs.com/package/eslint-plugin-react-hooks)을 사용할 수 있습니다.
 
 <Note>
 
@@ -155,4 +155,4 @@ console.log(window.React1 === window.React2);
 
 ## 기타 원인 {/*other-causes*/}
 
-만약 이 모든 방법이 도움이 되지 않는다면, [이 이슈](https://github.com/facebook/react/issues/13991)에 의견을 남기고 도움을 요청하세요. 작은 재현 가능한 예제를 만들어보면 문제를 발견할 수 있을 수도 있습니다.
+만약 이 모든 방법이 도움이 되지 않는다면, [이 이슈](https://github.com/facebook/react/issues/13991)에 의견을 남기고 도움을 요청하세요. 작은 재현 가능한 예시를 만들어보면 문제를 발견할 수도 있습니다.
